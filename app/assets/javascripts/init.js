@@ -34,6 +34,7 @@ $(document).ready(function () {
     });
 
     // Chart.js
+    if ($('#homme').length > 0) {
     var R = 10;
 
     var data1 = [
@@ -133,4 +134,5 @@ $(document).ready(function () {
         }
     }
     draw(data2);
+  }
 });
