@@ -1,0 +1,837 @@
+
+/* Desktops and laptops ----------- */
+@media only screen and (min-width : 1025px) {
+    .cirle-chart svg.chart {
+        width: 250px;
+        height: 250px;
+    }
+
+    ul.tab-list.citytab li span {
+        width: auto;
+    }
+
+    span.leftvalue {
+        font-size: 20px;
+    }
+
+    ul.nav.nav-tabs.noborder-tab li {
+        font-size: 20px;
+    }
+
+    .cirle-chart h3 {
+        font-size: 25px;
+    }
+
+    .content-inner {
+        width: 80%;
+        margin: auto;
+    }
+
+    h2.subtitle {
+        font-size: 24px;
+    }
+
+    /*=====Page 2=====*/
+    ul.nav.nav-tabs.circle-tab li a {
+        width: 200px;
+    }
+
+    .border-tab.nav.nav-tabs li a {
+        padding: 12px;
+    }
+
+    ul.nav.nav-tabs.circle-tab li a {
+        padding: 12px;
+        font-size: 15px;
+    }
+
+    ul.nav.nav-tabs.noborder-tab li a {
+        font-size: 16px;
+    }
+
+    .svg-chart {
+        width: 200px;
+        height: 200px;
+    }
+
+    .bar-content h3 {
+        font-size: 25px;
+    }
+
+    .bar-content h3 span {
+        font-size: 15px;
+    }
+
+    .conversion-table p {
+        font-size: 16px !important;
+    }
+
+
+
+    /*=======Page 3=====*/
+
+    a.validate {
+        font-size: 20px;
+        padding: 15px 30px;
+    }
+
+    a.validate img {
+        max-width: 20px;
+    }
+
+    .right {
+        padding-right: 15px;
+    }
+
+
+    /*=======Page 5=====*/
+
+    .profile-img {
+        width: 200px;
+    }
+
+    .profile-box h3 {
+        font-size: 25px;
+    }
+
+    .profile-box h3 span {
+        font-size: 22px;
+    }
+
+    .profile-box h3 img {
+        width: 30px;
+    }
+
+    .profile-bag {
+        width: 80px;
+        height: 80px;
+        line-height: 80px;
+    }
+
+    .profile-bag img {
+        width: 40px;
+    }
+
+    h2.name {
+        font-size: 25px;
+    }
+
+    .profile-name p {
+        font-size: 25px;
+    }
+
+    .profile-name p img {
+        width: 25px;
+    }
+
+    .profile-links a {
+        font-size: 25px;
+    }
+
+    .profile-card h3 {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    a.rightarrow {
+        border-width: 0px 13px 13px 0px;
+    }
+
+    .profile-card p {
+        font-size: 20px;
+    }
+
+    .profile-card:after {
+        width: 30%;
+        right: -7%;
+    }
+
+
+    /*=======Page 6=====*/
+
+    .banner-area {
+        height: 400px;
+    }
+
+    .banner-area h1 {
+        bottom: -380px;
+    }
+
+    .pack-top p {
+        font-size: 20px;
+        line-height: 30px;
+    }
+
+    .farid-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .farid-box {
+        padding: 70px 60px 50px;
+    }
+
+    .farid-box p {
+        font-size: 25px;
+        line-height: 30px;
+    }
+
+    a.site-btn {
+        width: 500px;
+        margin: auto;
+        padding: 15px;
+        font-size: 18px;
+    }
+
+    .object-content h5 {
+        font-size: 20px;
+        line-height: 27px;
+    }
+
+    .object-content p {
+        font-size: 25px;
+    }
+
+    .object-content h3 {
+        font-size: 55px;
+        margin-top: 20px;
+    }
+
+    .prev-img {
+        height: auto;
+    }
+
+    .page10 a.validate {
+        width: 15%;
+    }
+
+
+
+
+
+
+    /*=======Page 13=====*/
+    a.circle-btn {
+        width: 70px;
+        height: 70px;
+        line-height: 65px;
+        font-size: 34px;
+    }
+
+    .add-item p {
+        font-size: 30px;
+    }
+
+    .page13 .profile-card .right h3 {
+        font-size: 18px;
+    }
+
+
+    /*=======Page 14=====*/
+    .content-inner.page14 {
+        overflow: hidden;
+    }
+
+    .about-box {
+        float: left;
+        width: calc(50% - 30px);
+        margin-left: 15px;
+        margin-right: 15px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #9F9C9C;
+        padding: 20px 0px !important;
+    }
+
+    h3.about-title {
+        font-size: 25px;
+        margin-bottom: 10px;
+    }
+
+    .about-content p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+
+    h3.about-title span {
+        font-size: 20px;
+    }
+
+    .page14 .about-box:after {
+        display: none;
+    }
+
+
+
+
+
+
+
+
+    /*=======Page 15=====*/
+
+    .profile-iline img {
+        max-width: 60px;
+    }
+
+    .profile-iline h2.name {
+        font-size: 20px;
+    }
+
+    .profile-iline h2.name img {
+        max-width: 20px;
+    }
+
+    .profile-radio label {
+        font-size: 23px;
+    }
+
+    .profile-radio {
+        margin-top: 40px;
+    }
+
+    span.left-angle {
+        padding: 9px;
+    }
+
+    [type="radio"]:checked + label:before,
+    [type="radio"]:not(:checked) + label:before {
+        width: 18px;
+        height: 18px;
+    }
+
+    [type="radio"]:checked + label:after,
+    [type="radio"]:not(:checked) + label:after {
+        width: 18px;
+        height: 18px;
+    }
+
+    [type="radio"]:checked + label,
+    [type="radio"]:not(:checked) + label {
+        padding-left: 22px;
+    }
+
+
+
+
+    /*=======Page 15=====*/
+    .aboslute-text p {
+        font-size: 16px;
+        color: #fff;
+    }
+
+
+    .aboslute-text img {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        padding: 4px;
+        margin-right: 10px;
+    }
+
+    a.border-btn {
+        font-size: 18px;
+        padding: 8px 30px;
+    }
+
+    a.border-btn img {
+        width: 22px;
+    }
+
+
+
+
+    /*=======Page 18=====*/
+    .font-sm {
+        font-size: 20px !important;
+    }
+
+    .bet-text a {
+        font-size: 25px;
+    }
+
+    .bet-text {
+        margin-bottom: 30px;
+    }
+
+    .input-box {
+        padding: 30px;
+    }
+
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .page18.header-area h1 {
+        font-size: 18px !important;
+    }
+
+
+
+    /*=======Page 19=====*/
+    .bet-text.page19 {
+        margin-top: 100px;
+    }
+
+    /*=======Page 21 and 22=====*/
+    .page21 h1 img {
+        max-width: 25px;
+    }
+
+
+    /*=======Page 23 ======*/
+    .page23 .profile-img {
+        width: 100px;
+        margin-right: 40px;
+    }
+
+    .page23 h2.name {
+        font-size: 25px;
+    }
+
+    .coching-area {
+        padding: 50px;
+    }
+
+    .coching-area h3 {
+        font-size: 30px;
+    }
+
+    .coaching-box {
+        padding: 30px 30px 30px 50px;
+    }
+
+    .co-img {
+        width: 80px;
+        height: 80px;
+        left: -40px;
+        top: 30px;
+    }
+
+    .single-box h4 {
+        font-size: 26px;
+    }
+
+    .single-box h4 span {
+        font-size: 20px;
+    }
+
+    p.fontlight {
+        font-size: 20px;
+    }
+
+    .single-icon {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+    }
+
+    .single-icon img {
+        width: 35px;
+    }
+
+    .page23 .subtitle {
+        font-size: 30px;
+    }
+
+    p.para-sub {
+        font-size: 20px;
+        margin-bottom: 25px;
+    }
+
+    .content-inner.page23 a.border-btn {
+        width: 30%;
+        font-size: 18px;
+        margin-top: 40px;
+    }
+
+    .bet-text.page19 h2 {
+        font-size: 18px;
+    }
+
+
+
+
+    /*=======Page 24 ======*/
+    .member-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .member-left {
+        padding-left: 90px;
+    }
+
+    .member-info h3 {
+        font-size: 20px;
+    }
+
+    .member-info p {
+        font-size: 16px;
+        margin-top: 6px;
+    }
+
+    .member-box {
+        padding: 30px 0px;
+    }
+
+
+    .member-right a {
+        font-size: 18px;
+    }
+
+    .header-seacrh {
+        width: 90%;
+        margin: auto;
+    }
+
+    header.header-area .d-flex a img {
+        width: 35px;
+    }
+
+    .coching-area .container {
+        width: 65%;
+        margin: auto;
+    }
+
+    .member-img {
+        top: -8px;
+    }
+
+    /*=======Page 30 ======*/
+    .planning-box h4 {
+        font-size: 20px;
+    }
+
+    .planning-box h4 span {
+        font-size: 15px;
+    }
+
+    .profile-name.page30 h2.name {
+        font-size: 25px;
+    }
+
+    .profile-name.page30 a {
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+
+    .page31 .planning-box a span {
+        padding: 6px;
+        border-width: 0px 2px 2px 0px;
+    }
+
+    .header-area.page30 h1 {
+        font-size: 25px;
+    }
+
+
+
+    /*=======Page 32 ======*/
+    .suivi-table h3 {
+        font-size: 18px;
+    }
+
+    .page32 .planning-box h4 img {
+        width: 20px;
+    }
+
+
+
+    .page33 .object-content p {
+        font-size: 18px;
+    }
+
+
+
+
+    /*=======Page 34 ======*/
+    .header-seacrh .form-group input {
+        height: 44px;
+        font-size: 14px;
+        padding: 10px 20px 10px 40px;
+    }
+
+    .header-seacrh .form-group img {
+        top: 14px;
+        width: 16px;
+    }
+
+    img.trading-icon {
+        top: 16px !important;
+        width: 19px !important;
+    }
+
+    .page25 span.left-angle {
+        padding: 8px;
+    }
+
+    .page34 .header-seacrh {
+        width: 100%;
+    }
+
+    .content-area.page34 {
+        padding: 25px 0px 30px;
+    }
+
+    .page34 .border-tab.nav.nav-tabs li a {
+        padding: 10px 0px;
+    }
+
+    #groupes .member-right a span,
+    #page39 .member-right a span {
+        top: 0px;
+    }
+
+
+
+
+
+    /*=======Page 35 ======*/
+    .filter-text a {
+        font-size: 16px;
+        padding: 6px 20px;
+    }
+
+    .filter-text {
+        width: 75%;
+        margin: 20px auto 0px;
+    }
+
+
+
+
+
+    /*=======Page 36 ======*/
+    .page36 .menu-area.profile {
+        top: 60px;
+    }
+
+    .member-img.no-rad-border {
+        top: 0px;
+        width: 30px;
+    }
+
+    .member-right a span {
+        border-width: 0px 2px 2px 0px;
+    }
+
+    #groupes .member-left {
+        padding-left: 40px;
+    }
+
+
+
+
+
+    /*=======Page 38 ======*/
+    .member-box.checkbox-item {
+        margin-left: 50px;
+    }
+
+
+
+    .member-check {
+        left: -50px;
+    }
+
+    .member-check [type="radio"]:checked + label:before,
+    .member-check [type="radio"]:not(:checked) + label:before {
+        width: 28px;
+        height: 28px;
+    }
+
+    .member-check [type="radio"]:checked + label:after,
+    .member-check [type="radio"]:not(:checked) + label:after {
+        width: 28px;
+        height: 28px;
+    }
+
+    a.circle-btn img {
+        width: 30px;
+    }
+
+    .page39 .member-box .member-left {
+        padding-left: 40px;
+    }
+
+    .page39 span.left-angle {
+        top: 0px;
+    }
+
+
+
+    /*=======Page 45=====*/
+    .page45 .member-left {
+        padding-left: 40px;
+    }
+
+    .page45 .member-box {
+        padding: 35px 0px;
+    }
+
+
+
+    /*=======Page 46=====*/
+    .page46 .form-group,
+    .page46 .form-group input {
+        font-size: 20px;
+    }
+
+
+
+
+    .switch {
+        height: 25px;
+        width: 45px;
+    }
+
+    .switch-circle {
+        height: 35px;
+        width: 35px;
+    }
+
+    .checkbox:checked ~ .switch .switch-circle {
+        right: calc(100% - 30px);
+        left: auto;
+    }
+
+    .page39 .member-check {
+        left: -55px;
+    }
+
+    .page39 .member-box {
+        margin-left: 55px;
+    }
+
+
+
+    .checkbox:not(:checked) ~ .switch .switch-circle {
+        left: calc(100% - 30px);
+        right: auto;
+    }
+
+    /*    Popup*/
+    p.pop-title {
+        font-size: 24px;
+    }
+
+    .popup-area h1 {
+        font-size: 25px;
+    }
+
+    .age.mb-60.mt-20 {
+        margin-bottom: 85px !important;
+    }
+
+    .ville .header-seacrh {
+        width: 100%;
+    }
+
+    a.popup-btn {
+        width: 150px;
+        font-size: 20px;
+        padding: 15px;
+    }
+
+
+
+    .popup-area {
+        overflow-y: hidden;
+    }
+
+
+
+}
+
+
+
+
+@media only screen and (max-width : 330px) {
+    .single-box h4 {
+        font-size: 12px;
+    }
+
+    .single-box h4 span {
+        font-size: 12px;
+    }
+
+    .single-box p {
+        font-size: 11px;
+    }
+
+    .table-body p {
+        font-size: 13px;
+    }
+
+    .table-box p.heading {
+        font-size: 13px;
+    }
+
+    .header-seacrh .form-group {
+        width: 80%;
+    }
+
+    .profile-inner {
+        padding: 0px;
+    }
+
+    .filter-text a {
+        font-size: 8px;
+    }
+
+
+    .member-box.checkbox-item {
+        margin-left: 30px;
+    }
+
+
+    .member-check {
+        left: -30px;
+    }
+
+    .member-box.checkbox-item a {
+        padding-right: 10px;
+    }
+
+    .member-check [type="radio"]:checked + label:before,
+    .member-check [type="radio"]:not(:checked) + label:before {
+        width: 18px;
+        height: 18px;
+    }
+
+    .member-check [type="radio"]:checked + label:after,
+    .member-check [type="radio"]:not(:checked) + label:after {
+        width: 18px;
+        height: 18px;
+    }
+
+    .profile-card h3 {
+        font-size: 13px;
+    }
+
+    .profile-card p {
+        font-size: 13px;
+    }
+
+    .page6 a.site-btn {
+        font-size: 11px;
+    }
+
+    .bet-text.page19 h2 {
+        font-size: 13px;
+    }
+
+    .content-inner.page23 a.border-btn {
+        font-size: 10px !important;
+    }
+
+    .font-sm {
+        font-size: 14px !important;
+    }
+
+
+
+}
