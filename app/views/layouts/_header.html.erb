@@ -8,11 +8,15 @@
                         <span class="left-angle d-none"></span>
                     </a>
                     <h1><span class="iblue">EVOLU</span>COACH</h1>
-                    <a id="menubar" href="#">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </a>
+
+                      <a id="menubar" href="#">
+                          <% if user_signed_in? %>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                          <% end %>
+                      </a>
+
                 </div>
                 <% if profile_box %>
                   <div class="profile-inner page23">
