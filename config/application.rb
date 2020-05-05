@@ -12,6 +12,7 @@ module Appevolucoach
     config.load_defaults 5.1
     config.assets.paths << Rails.root.join("app","assets","fonts")
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
+    config.i18n.default_locale = :fr
 
 
     # Settings in config/environments/* take precedence over those specified here.
