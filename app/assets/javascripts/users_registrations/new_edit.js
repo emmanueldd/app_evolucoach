@@ -19,7 +19,7 @@ App.users_registrations.new_edit = {
 	  }).done( function(data) {
       console.log(data);
       var availability = data.available ? '<b class="iblue">est disponible.</b>' : '<b class="red">n\'est pas disponible.</b>'
-      $('.user_nickname small.text-muted').html('Sera l\'url du profil : evolucoach.com/' + slug + ' ' + availability);
+      $('.user_nickname small.text-muted').html('Sera l\'url du profil : https://evolucoach.com/' + slug + ' ' + availability);
     });
 
 
