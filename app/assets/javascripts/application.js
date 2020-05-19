@@ -12,6 +12,7 @@
 //
 //= require rails-ujs
 //= require jquery3
+//= require jquery-ui
 //= require jquery.validate
 //= require jquery.validate.localization/messages_fr
 //= require popper

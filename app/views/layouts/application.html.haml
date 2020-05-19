@@ -7,6 +7,13 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-  %body
-    = render 'layouts/header', profile_box: @profile_box
+  %body{"data-prod-env": (Rails.env.production?).to_s, "data-namespace": content_for(:namespace) || namespace, "data-action": content_for(:action_name) || action_name, "data-controller": content_for(:controller_name) || controller_name}
+    - if notice || alert
+      .aboslute-text.blue-bg#flash-message
+        - if params[:pause].present?
+          = image_tag 'pause.png', class: 'no-border'
+        - else
+          %i.fa.fa-check.white &nbsp;
+        -# %img.no-border{:alt => "Tik", :src => "images/pause.png"}/
+        %p= notice || alert
     = yield

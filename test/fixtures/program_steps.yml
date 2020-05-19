@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  program: one
+  name: MyString
+  step_type: 1
+  published: false
+  round: MyString
+  repetition: MyString
+  charge: MyString
+  cadence: MyString
+
+two:
+  user: two
+  program: two
+  name: MyString
+  step_type: 1
+  published: false
+  round: MyString
+  repetition: MyString
+  charge: MyString
+  cadence: MyString

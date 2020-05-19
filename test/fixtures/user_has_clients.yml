@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  client: one
+  lead: one
+  is_client: false
+
+two:
+  user: two
+  client: two
+  lead: two
+  is_client: false

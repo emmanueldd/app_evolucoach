@@ -1,0 +1,76 @@
+<%= render 'layouts/header' %>
+<div class="content-area bg-light-blue full-vh">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="content-inner page24">
+
+                    <div class="panel panel-default">
+
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="envoyés">
+
+                                    <div class="member-box">
+                                        <div class="member-left">
+                                            <div class="member-img">
+                                                <%= image_tag "member-1.png", alt:"" %>
+                                            </div>
+                                            <div class="member-info">
+                                                <h3>Nicolas Desloges</h3>
+                                                <p>Perte de poids - 15j</p>
+                                            </div>
+                                        </div>
+                                        <div class="member-right">
+                                            <p>25/10/2020 <span class="left-angle right"></span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="member-box">
+                                        <div class="member-left">
+                                            <div class="member-img">
+                                                <%= image_tag "member-2.png", alt:"" %>
+                                            </div>
+                                            <div class="member-info">
+                                                <h3>Sabrina Derozin</h3>
+                                                <p>Sèche - 30j</p>
+                                            </div>
+                                        </div>
+                                        <div class="member-right">
+                                            <p>19/12/2020 <span class="left-angle right"></span></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="member-box">
+                                        <div class="member-left">
+                                            <div class="member-img">
+                                                <%= image_tag "member-3.png", alt:"" %>
+                                            </div>
+                                            <div class="member-info">
+                                                <h3>Marion Maréchal</h3>
+                                                <p>Cuisses - 30j</p>
+                                            </div>
+                                        </div>
+                                        <div class="member-right">
+                                            <p>19/12/2020 <span class="left-angle right"></span></p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="tab-pane" id="en attente">
+                                    <h3>Notice the gap between the content and tab after applying a background color</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="add-item fixed">
+                        <p class="fontlight">Créer un nouveau programme</p>
+                        <a href="<%= new_dashboard_program_path %>" class="circle-btn">+</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

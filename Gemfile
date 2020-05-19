@@ -43,8 +43,11 @@ gem 'simple_form'
 gem 'jquery-validation-rails'
 gem 'stripe'
 gem "haml-rails", "~> 2.0"
-
-
+gem 'carrierwave', '~> 1.0'
+gem 'cloudinary'
+gem 'activeadmin-searchable_select'
+gem 'jquery-ui-rails'
+gem 'friendly_id', '~> 5.2.4'
 
 
 

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  course: false
+  start_time: 2020-05-08 15:29:15
+  available: false
+  taken: false
+
+two:
+  user: two
+  course: false
+  start_time: 2020-05-08 15:29:15
+  available: false
+  taken: false

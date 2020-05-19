@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  user_has_client: one
+  client: one
+  comment: MyText
+  published: false
+
+two:
+  user: two
+  user_has_client: two
+  client: two
+  comment: MyText
+  published: false

@@ -1,0 +1,44 @@
+<%= render 'layouts/header' %>
+<!--Content Area-->
+<div class="content-area bg-light-blue page13 full-vh">
+  <div class="bg-top"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="content-inner">
+          <% @programs.each do |program| %>
+            <div class="profile-card card1" style='background-image: url("<%= program.cover_url %>")'>
+              <div class="left">
+                <h3 class="fontlight"><%= program.name %></h3>
+                <p class="fontlight iblue"><%= program.duration %> séances</p>
+                <p class="fontlight white"><%= program.frequency %> séances/semaine </p>
+              </div>
+              <div class="right">
+                <h3 class="fontlight"><%= number_to_currency(program.price) %></h3>
+                <a href="<%= edit_dashboard_program_path(program) %>" class="rightarrow white"></a>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- <div class="profile-card card2">
+            <div class="left">
+              <h3 class="fontlight">Abdos d’acier</h3>
+              <p class="fontlight iblue">8 séances</p>
+              <p class="fontlight white">3 séances/semaine </p>
+            </div>
+            <div class="right">
+              <h3 class="fontlight">€30,00</h3>
+              <a href="#" class="rightarrow white"></a>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="add-item">
+  <p class="fontlight">Créer un nouveau programme</p>
+  <a href="<%= new_dashboard_program_path %>" class="circle-btn">+</a>
+</div>
+<!--Content Area-->

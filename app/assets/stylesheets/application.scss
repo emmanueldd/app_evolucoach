@@ -10,11 +10,13 @@
 * files in this directory. Styles in this file should be added after the last require_* statement.
 * It is generally better to create a new file per style scope.
 *
-*= require_tree .
+*= require jquery-ui
 *= require_self
+*= require_tree .
+
 */
 @import "bootstrap";
-// @import "font-awesome";
+@import "font-awesome";
 
 @font-face {
   font-family: "SF Pro Text Regular";
@@ -57,6 +59,9 @@ body {
 input {
   box-shadow: 0px 0px 1px #666666;
   padding: 8px 5px 8px 8px;
+}
+b, strong {
+  font-family: "SF Pro Text Bold" !important;
 }
 
 .fontlight {
@@ -129,7 +134,7 @@ a:hover {
   color: #03B3BB !important;
 }
 
-.white {
+.white, .white * {
   color: #fff !important;
 }
 
@@ -160,6 +165,9 @@ a:hover {
 
 .blue-dark-bg {
   background: #1A626A !important;
+}
+.blue-bg {
+  background-color: #168B95 !important;
 }
 
 .white-bg {
@@ -420,6 +428,7 @@ ul.menu li a:hover {
 .content-area {
   padding: 30px 0px 30px;
   position: relative;
+  min-height: 100vh;
 }
 
 .border-tab.nav.nav-tabs {
@@ -821,12 +830,12 @@ u.table-box .table-body p {
   color: #767C91;
 }
 
-.object-content h3 {
+h3 sub, h3 input, .object-content h3 {
   font-size: 45px;
 }
 
 
-a.validate {
+.validate {
   background: #9F9C9C;
   color: #fff !important;
   font-size: 16px;
@@ -839,7 +848,7 @@ a.validate {
   margin: 120px auto 0px;
 }
 
-a.validate img {
+.validate img {
   max-width: 14px;
   margin-top: -2px;
 }
@@ -1084,7 +1093,7 @@ a.rightarrow {
 /*=========Page 6=======*/
 
 .banner-area {
-  background-image: url(../images/banner1.png);
+  background-image: image-url('banner1.png');
 }
 
 .banner-area {
@@ -1131,7 +1140,7 @@ header.header-area.page6 img {
   width: 35px;
 }
 
-.farid-box {
+.pack-profile-box {
   background: #03B3BB;
   border-radius: 30px;
   position: relative;
@@ -1141,17 +1150,17 @@ header.header-area.page6 img {
   margin-right: 15px;
 }
 
-.farid-box p {
+.pack-profile-box p {
   font-size: 16px;
   line-height: 23px;
 }
 
-.farid-img {
+.pack-profile-img {
   position: absolute;
   left: -20px;
   top: -20px;
-  width: 70px;
-  height: 70px;
+  width: 70px !important;
+  height: 70px !important;
   border: 2px solid #03B3BB;
   border-radius: 50%;
 }
@@ -1252,7 +1261,7 @@ input:focus {
   font-size: 16px;
 }
 
-.page10 a.validate {
+.page10 .validate {
   position: inherit;
   ;
   margin: auto;
@@ -1281,18 +1290,18 @@ a.site-btn img {
   margin-left: 3px;
 }
 
-.page12 .farid-box p {
+.page12 .pack-profile-box p {
   color: #fff;
 }
 
 
 /*=========Page 13=======*/
 .page13 .profile-card.card1 {
-  background-image: url(../images/banner1.png);
+  background-image: image-url('banner1.png');
 }
 
 .page13 .profile-card.card2 {
-  background-image: url(../images/banner2.png);
+  background-image: image-url('banner2.png');
 }
 
 .page13 .profile-card:after {
@@ -1542,6 +1551,7 @@ header.header-area.page15 {
 .profile-iline img {
   max-width: 40px;
   margin-right: 10px;
+  border-radius: 50%;
 }
 
 a.profile-box {
@@ -1576,7 +1586,7 @@ a.profile-box {
 }
 
 
-a.month-name {
+.month-name {
   color: #fff;
   display: flex;
   flex-direction: row;
@@ -1593,13 +1603,13 @@ span.left-angle.right {
   transform: rotate(-45deg);
 }
 
-a.month-name p {
+.month-name p {
   font-size: 18px;
   color: #fff;
   padding: 0px 19px;
 }
 
-ul.day-headline {
+tr.day-headline {
   display: flex;
   color: #fff;
   flex-direction: row;
@@ -1608,27 +1618,27 @@ ul.day-headline {
   padding-left: 50px;
 }
 
-ul.day-headline li {
+tr.day-headline td {
   font-size: 14px;
   text-align: center;
   padding-left: 2px;
 }
 
-ul.hour-list {
+tr.hour-list {
   color: #fff;
   font-size: 14px;
 }
 
-ul.hour-list p.hour {
+tr.hour-list p.hour {
   position: absolute;
   left: 0px;
   top: 50%;
   transform: translateY(-50%);
 }
 
-ul.hour-list li {
+tr.hour-list td {
   position: relative;
-  padding-left: 50px;
+  padding: 0vw 4vw;
 }
 
 .hour-check {
@@ -1658,7 +1668,7 @@ ul.hour-list li {
   margin-bottom: 30px;
 }
 
-a.month-name span.left-angle {
+.month-name span.left-angle {
   border-width: 0px 1px 1px 0px;
 }
 
@@ -1685,7 +1695,7 @@ a.border-btn img {
 }
 
 .aboslute-text {
-  position: absolute;
+  position: fixed;
   left: 0px;
   bottom: 0px;
   width: 100%;
@@ -1727,7 +1737,7 @@ a.border-btn img {
   font-family: "SF Pro Text Light";
 }
 
-.pacto-content a {
+.pacto-content a, .pacto-content div, .pacto-content button {
   display: block;
   width: 100%;
   border-radius: 8px;
@@ -1739,7 +1749,7 @@ a.border-btn img {
   font-family: "SF Pro Text Light";
 }
 
-.pacto-content a span {
+.pacto-content button span, .pacto-content a span {
   float: right;
 }
 
@@ -1802,19 +1812,19 @@ span.input-absolute {
 
 .form-group ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: #fff !important;
+  color: #999 !important;
   opacity: 1;
   /* Firefox */
 }
 
 .form-group :-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: #fff !important;
+  color: #999 !important;
 }
 
 .form-group ::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: #fff !important;
+  color: #999 !important;
 }
 
 
@@ -1833,7 +1843,7 @@ span.input-absolute {
 
 /*=========Page 19=======*/
 .header-bg {
-  background-image: url(../images/banner1.png);
+  background-image: image-url('banner1.png');
   position: relative;
   z-index: 1;
   background-size: cover;
@@ -1929,12 +1939,12 @@ a.abolute-play-btn img {
 
 /*=======Page 20=====*/
 
-.pacto-content.page20 a {
+.pacto-content.page20 a, .pacto-content.page20 button {
   background-color: #168B95;
   color: #fff;
 }
 
-.pacto-content.page20 a img {
+.pacto-content.page20 a img, .pacto-content.page20 button img  {
   width: 20px;
   margin-right: 10px;
 }
@@ -2262,7 +2272,7 @@ header.header-area.page26 a img {
 
 /*=======Page 27=====*/
 
-.object-content h3 sub {
+h3 sub, h3 input, .object-content h3 sub {
   font-size: 18px;
   color: #767C91 !important;
   font-weight: 700;
@@ -2454,7 +2464,7 @@ img.color-tik {
   margin-right: 8px;
 }
 
-.page32 a.validate {
+.page32 .validate {
   width: 215px;
   font-weight: 700;
   font-size: 15px;
@@ -2636,16 +2646,16 @@ img.search-icon {
 }
 
 .page38 .member-check [type="radio"]:checked + label:before,
-.page38 .member-check [type="radio"]:not(:checked) + label:before {
-  width: 22px;
-  height: 22px;
+.page38 .member-check [type="radio"]:not(:checked) + label:before, .page38 .member-check  label.checkbox-radio-style:before {
+  width: 22px !important;
+  height: 22px !important;
   border: 1px solid #6E7489;
 }
 
 .page38 .member-check [type="radio"]:checked + label:after,
-.page38 .member-check [type="radio"]:not(:checked) + label:after {
-  width: 22px;
-  height: 22px;
+.page38 .member-check [type="radio"]:not(:checked) + label:after, .page38 .member-check  label.checkbox-radio-style:before, .page38 input[type="checkbox"]:checked + label.checkbox-radio-style:after {
+  width: 22px !important;
+  height: 22px !important;
 }
 
 .page38 .member-check label {
@@ -3369,12 +3379,12 @@ a.popup-btn {
 
   /*=======Page 3=====*/
 
-  a.validate {
+  .validate {
     font-size: 20px;
     padding: 15px 30px;
   }
 
-  a.validate img {
+  .validate img {
     max-width: 20px;
   }
 
@@ -3461,16 +3471,17 @@ a.popup-btn {
     line-height: 30px;
   }
 
-  .farid-img {
-    width: 100px;
-    height: 100px;
+  .pack-profile-img, .pack-profile-img img {
+    width: 100px !important;
+    height: 100px !important;
+    overflow: hidden;
   }
 
-  .farid-box {
+  .pack-profile-box {
     padding: 70px 60px 50px;
   }
 
-  .farid-box p {
+  .pack-profile-box p {
     font-size: 25px;
     line-height: 30px;
   }
@@ -3491,8 +3502,8 @@ a.popup-btn {
     font-size: 25px;
   }
 
-  .object-content h3 {
-    font-size: 55px;
+  h3 sub, h3 input, .object-content h3 {
+    font-size: 55px !important;
     margin-top: 20px;
   }
 
@@ -3500,7 +3511,7 @@ a.popup-btn {
     height: auto;
   }
 
-  .page10 a.validate {
+  .page10 .validate {
     width: 15%;
   }
 
@@ -3533,7 +3544,7 @@ a.popup-btn {
 
   .about-box {
     float: left;
-    width: calc(50% - 30px);
+    width: 100%;
     margin-left: 15px;
     margin-right: 15px;
     margin-top: 15px;
@@ -4133,4 +4144,18 @@ a.popup-btn {
 
 
 
+}
+
+// Packs
+
+#packs.content-inner {
+  margin-bottom: 120px;
+}
+
+.add-item {
+    bottom: 50px;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    z-index: 99999;
 }

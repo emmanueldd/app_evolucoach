@@ -1,0 +1,188 @@
+<% if params[:step].blank? %>
+<%= render 'layouts/header' %>
+<div class="content-area bg-dark-blue2 page27">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="object-content">
+                    <%= simple_form_for [:dashboard, @pack] do |f| %>
+                      <%= f.hidden_field :next_step, value: 'price' %>
+                      <p class="fontlight">Nombre de séances</p>
+                      <h3 class="fontlight">
+                        <%= f.input :nb_of_courses, label: false, class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '0' %></h3>
+
+                      <button type="submit" value="Suivant →" ref="#" class="validate g-blue-bg fontbold">Suivant →</button>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% elsif params[:step] == 'rest_note' %>
+<!--Header-->
+    <header class="header-area blue-light-bg page21">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="#">
+                            <span class="left-angle"></span>
+                        </a>
+                        <h1 class="font-sm"><img src="images/i.png" alt="">Note de repos</h1>
+                        <a href="#" id="submit-form">
+                            OK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!--Header-->
+<!--Content Area-->
+    <div class="content-area bg-dark-blue page21">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="object-content">
+                        <%= simple_form_for [:dashboard, @pack] do |f| %>
+                          <%= f.hidden_field :next_step, value: 'back' %>
+                          <%= f.input_field :rest_note, class: 'fontlight big-transparent-textarea', autofocus: true, placeholder: 'Commence à écrire ta note' %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content Area-->
+<% elsif params[:step] == 'info_note' %>
+<!--Header-->
+    <header class="header-area blue-dark-bg page21">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a href="#">
+                            <span class="left-angle"></span>
+                        </a>
+                        <h1 class="font-sm"><img src="images/i.png" alt="">Note d’information</h1>
+                        <a href="#" id="submit-form">
+                            OK
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!--Header-->
+<!--Content Area-->
+    <div class="content-area bg-dark-blue page21">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                  <div class="object-content">
+                      <%= simple_form_for [:dashboard, @pack] do |f| %>
+                        <%= f.hidden_field :next_step, value: 'back' %>
+                        <%= f.input_field :info_note, autofocus: true, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
+                      <% end %>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content Area-->
+<% elsif params[:step] == 'price' %>
+<%= render 'layouts/header' %>
+
+<div class="content-area bg-dark-blue2 full-vh">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="object-content">
+                    <p class="fontlight">Prix à la séance</p>
+                    <%= simple_form_for [:dashboard, @pack] do |f| %>
+                      <%= f.hidden_field :next_step, value: 'description' %>
+                        <h3 class="white fontlight"><span>€</span>
+                          <%= f.hidden_field :nb_of_courses %>
+                          <%= f.input_field :unit_price,  class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '50' %></h3>
+                        <h5 class="fontlight">
+                          Détermine le prix à la séance en fonction<br>
+                          du nombre de séance de ton pack.<br>
+                          Attention, ce n’est pas le prix total du pack.
+                        </h5>
+                        <button type="submit" value="Suivant →" ref="#" class="validate g-blue-bg fontbold">Suivant →</button>
+                    <% end %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% elsif params[:step] == 'description' %>
+<%= render 'layouts/header' %>
+
+<!--Content Area-->
+    <div class="content-area bg-dark-blue2 full-vh">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="object-content">
+                        <p class="fontlight">Description</p>
+                        <%= simple_form_for [:dashboard, @pack] do |f| %>
+                          <%= f.hidden_field :next_step, value: 'summary' %>
+                              <div class="fontlight blue-bg radius-and-padding"><%= f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , autofocus: true, required: true, placeholder: 'Rédige la déscription de ton pack' %></div>
+                            <button type="submit" value="Suivant →" ref="#" class="validate g-blue-bg fontbold">Suivant →</button>
+                        <% end %>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content Area-->
+<% elsif params[:step] == 'summary' %>
+<%= render 'layouts/header' %>
+
+<!--Banner-->
+    <div class="banner-area">
+        <div class="container">
+            <div class="row">
+                <h1 class="fontlight">PACK <br><%= @pack.name.upcase %></h1>
+            </div>
+        </div>
+    </div>
+    <!--Banner-->
+
+
+    <!--Content Area-->
+    <div class="content-area bg-dark-blue mvh-70 page12">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-inner">
+
+                        <div class="pack-top mb-30 fontlight">
+                            <p class="iblue"><%= number_to_currency(@pack.total_price) %><br><%= @pack.nb_of_courses %> séances</p>
+                            <p class="text-right"><b><%= number_to_currency(@pack.unit_price) %></b><span class="white"><br>LA SÉANCE</span></p>
+                        </div>
+
+                        <div class="pack-profile-box mb-30">
+                            <div class="profile-img pack-profile-img">
+                                <%= image_tag current_user.avatar_url, alt:"avatar" %>
+                            </div>
+                            <p><%= @pack.description %></p>
+                        </div>
+
+                        <%= simple_form_for [:dashboard, @pack] do |f| %>
+                            <%= f.hidden_field :published, value: 'true' %>
+                            <button type="submit" ref="#" class="margin-auto validate site-btn fontbold blue-bg">Valider <%= image_tag "tik.png", alt:"" %></button>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content Area-->
+<% end %>
