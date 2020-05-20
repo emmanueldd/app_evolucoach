@@ -17,9 +17,14 @@ App.users_registrations.new_edit = {
 	    dataType: "json",
 	    contentType: 'application/json',
 	  }).done( function(data) {
-      console.log(data);
       var availability = data.available ? '<b class="iblue">est disponible.</b>' : '<b class="red">n\'est pas disponible.</b>'
-      $('.user_nickname small.text-muted').html('Sera l\'url du profil : https://evolucoach.com/' + slug + ' ' + availability);
+      if (data.available) {
+        $('.user_nickname small.text-muted').html('Sera l\'url du profil : https://evolucoach.com/' + slug + ' ' + availability);
+        $('#user_slug').val( $('#user_nickname').val() );
+      } else {
+        $('#user_slug').val('');
+        $('.user_nickname small.text-muted').html('Sera l\'url du profil : https://evolucoach.com/' + slug + ' ' + availability);
+      }
     });
 
 

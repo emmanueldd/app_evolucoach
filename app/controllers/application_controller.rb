@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     if resource_class == User
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname, :slug])
       devise_parameter_sanitizer.permit(:account_update, keys: [:slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
     # elsif resource_class == Pro
     #   devise_parameter_sanitizer.permit(:sign_up, keys: [:expo_token_id, :dpt, :first_name, :last_name, :nickname, :avatar, :phone])

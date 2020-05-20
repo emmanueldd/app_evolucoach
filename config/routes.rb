@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'users/check_slug_availability/:slug', to: 'users#check_slug_availability', as: 'check_slug_availability'
 
+  resources :users, only: :index
+
   devise_for :users, controllers: {
     # confirmations: 'users/confirmations',
     sessions: 'users/sessions',
@@ -25,4 +27,5 @@ Rails.application.routes.draw do
     resources :availabilities
     resources :users
   end
+  get ':id', to: 'users#show', as: 'user'
 end

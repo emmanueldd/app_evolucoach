@@ -48,6 +48,10 @@ gem 'cloudinary'
 gem 'activeadmin-searchable_select'
 gem 'jquery-ui-rails'
 gem 'friendly_id', '~> 5.2.4'
+gem 'mailgun_rails'
+gem 'exception_notification'
+gem 'slack-notifier'
+
 
 
 

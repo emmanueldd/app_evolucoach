@@ -14,4 +14,8 @@ class User < ApplicationRecord
   has_many :program_steps
   has_many :user_has_clients
 
+  def self.validated
+    all
+  end
+
 end

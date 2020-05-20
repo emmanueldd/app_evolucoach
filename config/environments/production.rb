@@ -88,4 +88,23 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  config.action_mailer.asset_host
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => "smtp.mailgun.org", :port => 587 }
+  config.action_mailer.default_url_options = { :host => 'evolucorp.fr' }
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: '1b7ec7f3fe2b32ac06f33fa247cc26e0-3939b93a-09338395',
+    domain: 'mg.evolucorp.com'
+  }
 end
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+:slack => {
+  :webhook_url => "https://hooks.slack.com/services/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",
+  :channel => "#erreurs",
+  :app_name => "APP-EVOLUCOACH",
+  :username => "APP-EVOLUCOACH",
+  :additional_parameters => {
+    :mrkdwn => true
+  }
+}
