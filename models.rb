@@ -5,7 +5,8 @@ rails g model Pro first_name last_name description
 rails g model User first_name last_name
 rails g model Stas user:references stat_type stat_value:integer
 rails g model Rating user:references client:references score:integer comment:text published:boolean
-rails g model Course user:references client:references start_time:datetime
+rails g model Course user:references client:references start_time:datetime status:integer
+
 rails g model Availability user:references course:boolean start_time:datetime available:boolean taken:boolean
 
 rails g model Pacs user:references name description:text price:integer number_of_courses:integer
@@ -39,7 +40,10 @@ t.string "name"
     t.integer "position", default: 0
 rails g model Exercise
 rails g model Course
-rails g model Order client:references user:references status:integer total_price:integer STRIPE
-rails g model OrderHasItem order:references item(program ou pack) quantity:integer price:integer
+rails g model Order client:references user:references status:integer total_price:integer
+rails g model OrderHasItem order:references item:references{polymorphic} quantity:integer total_price:integer
+# Ca nous permet d'anticiper le système de panier, mais pour l'instant, on créer un order qui créer un order_has_item, et qui redirige vers order_edit pour le paiement.
+
+
 rails g model Notification
 rails g model Crm (ProHasUsers user:references client:references user_type(%w lead client)

@@ -1,0 +1,39 @@
+<%= render 'layouts/header_client' %>
+<!--Banner-->
+    <div class="banner-area">
+        <div class="container">
+            <div class="row">
+                <h1 class="fontlight">PROGRAMME <br>FESSES BÉTONS</h1>
+            </div>
+        </div>
+    </div>
+    <!--Banner-->
+
+
+    <!--Content Area-->
+    <div class="content-area bg-dark-blue mvh-70 page12">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="content-inner">
+
+                        <div class="pack-top mb-30 fontlight">
+                            <p class="iblue">8 semaines<span class="white"><br>3 séances/semaine</span></p>
+                            <p class="text-right"><b>€60,00</b></p>
+                        </div>
+
+                        <div class="pack-profile-box mb-30">
+                            <div class="pack-profile-img">
+                                <%= image_tag "farid.png", alt:"Farid" %>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p>
+                        </div>
+                        <%= simple_form_for [:interface, @order] do |f| %>
+                            <button type="submit" ref="#" class="margin-auto validate site-btn fontbold blue-bg" style="width: inherit;">Commander <%= image_tag "tik.png", alt:"" %></button>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content Area-->

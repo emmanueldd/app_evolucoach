@@ -1332,12 +1332,12 @@ a.site-btn img {
   top: 64px;
 }
 
-.add-item {
+.fixed-element {
   margin-top: 150px;
   text-align: center;
 }
 
-.add-item p {
+.fixed-element p {
   font-size: 16px;
   color: #767C91;
 }
@@ -2601,7 +2601,7 @@ img.search-icon {
   padding-left: 30px;
 }
 
-.add-item.fixed {
+.fixed-element.fixed {
   position: fixed;
   left: 50%;
   margin: 0px;
@@ -3528,7 +3528,7 @@ a.popup-btn {
     font-size: 34px;
   }
 
-  .add-item p {
+  .fixed-element p {
     font-size: 30px;
   }
 
@@ -4152,7 +4152,7 @@ a.popup-btn {
   margin-bottom: 120px;
 }
 
-.add-item {
+.fixed-element {
     bottom: 50px;
     text-align: center;
     width: 100%;

@@ -48,7 +48,7 @@ label.error {
   background: transparent;
   color: #fff;
 }
-.add-item-margin {
+.fixed-element-margin {
   height: 150px;
 }
 
@@ -71,7 +71,7 @@ label.error {
   border: none;
   min-height: 200px;
 }
-.add-item {
+.fixed-element {
   .dropdown-menu {
     background: inherit;
     border: inherit;
@@ -97,7 +97,7 @@ label.error {
 
 @media only screen and (max-width : 1024px) {
 
-  .add-item .dropdown-menu a {
+  .fixed-element .dropdown-menu a {
     margin-left: -15%;
   }
   .profile-img img {

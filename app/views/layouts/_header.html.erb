@@ -40,7 +40,8 @@
             <small>
               La version définitive te sera communiquée prochainement.
               <br>
-              Ton url est : https://evolucoach.com/<%= current_user.slug %>
+              Ton url est : https://evolucoach.com/<%= current_user.slug %> | <a id="copy" href="#" class="iblue"><b>Copier</b></a>
+              <input type="hidden" id="to_copy" name="" value="https://evolucoach.com/<%= current_user.slug %>">
             </small>
           </div>
           <% elsif @profile_box %>

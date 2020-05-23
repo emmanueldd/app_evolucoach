@@ -6,13 +6,16 @@ class UsersController < ApplicationController
   end
 
   def show
-    return redirect_to dashboard_root_path, notice: 'Votre profil sera prochainement disponible'
-    @user = User.friendly.find(params[:id])
-    redirect_to users_path if @user.blank?
+    # return redirect_to dashboard_root_path, notice: 'Votre profil sera prochainement disponible'
+    begin
+      @user = User.friendly.find(params[:id])
+    rescue
+      return redirect_to users_path if @user.blank?
+    end
   end
 
   def index
-    return redirect_to dashboard_root_path, notice: 'Votre profil sera prochainement disponible'
+    # return redirect_to dashboard_root_path, notice: 'Votre profil sera prochainement disponible'
     @users = User.validated
   end
 

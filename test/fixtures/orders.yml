@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  client: one
+  user: one
+  status: 1
+  total_price: 1
+
+two:
+  client: two
+  user: two
+  status: 1
+  total_price: 1

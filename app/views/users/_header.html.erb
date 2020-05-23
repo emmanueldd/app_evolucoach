@@ -1,0 +1,45 @@
+<header class="header-area profile no-radius py-4">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <a href="#">
+            <span class="left-angle d-none"></span>
+          </a>
+          <h1><a href="<%= root_path %>"><span class="iblue">EVOLU</span>COACH</a></h1>
+
+          <a id="menubar" href="#">
+            <%# <% if user_signed_in? %>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <%# <% end %>
+          </a>
+
+        </div>
+
+        <div class="profile-inner">
+          <div class="profile-box mt-30">
+            <div class="profile-img">
+              <%= image_tag @user.avatar_url, alt:"Farid" %>
+            </div>
+            <h3><%= @user.coaching_count %><span class="fontlight">Coachings</span></h3>
+            <h3>⭐️<span class="fontlight"><%= @user.score.round %></span></h3>
+            <div class="profile-bag">
+              <%= image_tag "bag.png", alt:"Bag" %>
+            </div>
+          </div>
+          <div class="profile-name mt-10">
+            <h2 class="name"><%= @user.first_name %></h2>
+            <p class="iblue"><%= image_tag "bgtik.png", alt:"" %>profil certifié</p>
+          </div>
+          <div class="profile-links mt-30">
+            <a href="<%= url_for %>" class="<%= 'active' if params[:section].blank? %> fontlight">coaching</a>
+            <a href="<%= url_for(section: 'programs') %>" class="<%= 'active' if params[:section] == 'programs' %> fontbold">programmes</a>
+            <a href="<%= url_for(section: 'ratings') %>" class="<%= 'active' if params[:section] == 'ratings' %> fontlight">avis</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
