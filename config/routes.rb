@@ -5,8 +5,11 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'users/check_slug_availability/:slug', to: 'users#check_slug_availability', as: 'check_slug_availability'
   get 'inscription' , to: redirect('/users/sign_up')
+  get ':user_id/orders/:id/availabilities' , to: 'interface/orders#availabilities', as: :order_availabilities
 
-  resources :users, only: :index
+  resources :users, only: :index do
+    resources :availabilities, only: :index, shallow: true
+  end
   resources :programs, only: :show
 
   devise_for :clients, controllers: {

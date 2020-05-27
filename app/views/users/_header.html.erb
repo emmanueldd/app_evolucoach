@@ -26,7 +26,9 @@
             <h3><%= @user.coaching_count %><span class="fontlight">Coachings</span></h3>
             <h3>⭐️<span class="fontlight"><%= @user.score.round %></span></h3>
             <div class="profile-bag">
-              <%= image_tag "bag.png", alt:"Bag" %>
+              <%= link_to user_availabilities_path(@user) do %>
+                <%= image_tag "bag.png", alt:"Bag" %>
+              <% end %>
             </div>
           </div>
           <div class="profile-name mt-10">

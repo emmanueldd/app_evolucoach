@@ -1203,12 +1203,14 @@ input:focus {
   box-shadow: none !important;
   border-bottom: 1px solid #fff !important;
 }
-#new_user input:focus {
-  outline: none !important;
-  background: #fff !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-bottom: 1px solid #fff !important;
+#new_user, #new_client {
+  input:focus {
+    outline: none !important;
+    background: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #fff !important;
+  }
 }
 
 
@@ -1484,7 +1486,7 @@ h3.about-title span img {
   line-height: 15px;
   display: inline-block;
   color: #fff;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
 }
 
 .page15 input[type="radio"]:checked + label,

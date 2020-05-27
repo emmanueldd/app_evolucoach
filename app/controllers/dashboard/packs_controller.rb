@@ -37,7 +37,7 @@ module Dashboard
 
     private
       def pack_params
-        params.require(:pack).permit(:name, :unit_price, :nb_of_courses, :description, :published)
+        params.require(:pack).permit(:pack_type, :name, :unit_price, :nb_of_courses, :description, :published)
       end
 
       def set_pack

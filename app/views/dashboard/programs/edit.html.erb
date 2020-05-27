@@ -9,11 +9,11 @@
                       <%= f.hidden_field :next_step, value: 'price' %>
                       <p class="fontlight">Durée</p>
                       <h3 class="fontlight">
-                        <%= f.input_field :duration,  class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '0' %>
+                        <%= f.input_field :duration,  class: 'fontlight big-transparent-input', required: true, placeholder: '0' %>
                         <sub>Semaines</sub></h3>
                       <p class="fontlight mt-25">Fréquence</p>
                       <h3 class="fontlight">
-                        <%= f.input_field :frequency,  class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '0' %>
+                        <%= f.input_field :frequency,  class: 'fontlight big-transparent-input', required: true, placeholder: '0' %>
                         <sub>Séances/semaine</sub>
                       </h3>
                       <h5 class="fontlight">
@@ -57,7 +57,7 @@
                     <div class="object-content">
                         <%= simple_form_for [:dashboard, @program] do |f| %>
                           <%= f.hidden_field :next_step, value: 'back' %>
-                          <%= f.input_field :rest_note, class: 'fontlight big-transparent-textarea', autofocus: true, placeholder: 'Commence à écrire ta note' %>
+                          <%= f.input_field :rest_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
                         <% end %>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                   <div class="object-content">
                       <%= simple_form_for [:dashboard, @program] do |f| %>
                         <%= f.hidden_field :next_step, value: 'back' %>
-                        <%= f.input_field :info_note, autofocus: true, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
+                        <%= f.input_field :info_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
                       <% end %>
                   </div>
                 </div>
@@ -113,7 +113,7 @@
                     <p class="fontlight">Prix du programme</p>
                     <%= simple_form_for [:dashboard, @program] do |f| %>
                       <%= f.hidden_field :next_step, value: 'cover' %>
-                        <h3 class="white fontlight"><span>€</span><%= f.input_field :price,  class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '50' %></h3>
+                        <h3 class="white fontlight"><span>€</span><%= f.input_field :price,  class: 'fontlight big-transparent-input', required: true, placeholder: '50' %></h3>
                         <button type="submit" value="Suivant →" ref="#" class="validate g-blue-bg fontbold">Suivant →</button>
                     <% end %>
 

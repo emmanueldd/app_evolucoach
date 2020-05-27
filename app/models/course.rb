@@ -2,6 +2,7 @@ class Course < ApplicationRecord
   belongs_to :user
   belongs_to :client
   belongs_to :availability
+  belongs_to :order
   after_save :set_availability, if: -> { saved_change_to_status? }
   enum status: { confirmed: 0, refused: 1, canceled: 2 }
 
@@ -11,5 +12,9 @@ class Course < ApplicationRecord
 
   def confirmed_or_done?
     return confirmed? || done?
+  end
+
+  def self.not_removed
+    all
   end
 end

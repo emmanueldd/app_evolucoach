@@ -6,6 +6,9 @@ class Pack < ApplicationRecord
   scope :published, -> { where(published: true) }
   scope :solo, -> { where(pack_type: 'solo') }
   scope :duo, -> { where(pack_type: 'duo') }
+  enum pack_type: { solo: 0, duo: 1 }
+
+
 
   def set_total_price
     if unit_price.present? && nb_of_courses.present?

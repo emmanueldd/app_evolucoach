@@ -9,15 +9,18 @@
           .form-inputs
             .row
               .col-md-6
-                = f.input :first_name, required: true, autofocus: true, input_html: { autocomplete: "first_name" }
+                = f.input_field :user_id, as: :hidden, value: session[:last_user_visited_id]
+                = f.input :first_name, required: true, input_html: { autocomplete: "first_name" }
               .col-md-6
-                = f.input :last_name, required: true, autofocus: true, input_html: { autocomplete: "last_name" }
+                = f.input :last_name, required: true, input_html: { autocomplete: "last_name" }
             %br
-            = f.input :nickname, required: true, autofocus: true, input_html: { autocomplete: "nickname" }, hint: 'Sera l\'url du profil :  https://evolucoach.com/pseudo'
-            = f.input :slug, required: true, label: false, input_html: { style: 'visibility: hidden; height: 0px; margin-top: -30px;'}
-            = f.input :email, required: true, autofocus: true, input_html: { autocomplete: "email" }
-            = f.input :password, required: true, hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }                                          |
-            = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+            = f.input :email, required: true, input_html: { autocomplete: "email" }
+            .row
+              .col-md-6
+                = f.input :password, required: true, hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }
+              .col-md-6
+                = f.input :password_confirmation, required: true, input_html: { autocomplete: "new-password" }
+
           .form-actions
             %br
             = f.button :submit, "Créer mon compte", class: 'custom-btn blue-bg'

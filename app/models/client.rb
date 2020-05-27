@@ -2,9 +2,10 @@ class Client < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :trackable
   mount_uploader :avatar, AvatarUploader
-  belongs_to :user
+  belongs_to :user, optional: true
+  has_many :orders
 
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }

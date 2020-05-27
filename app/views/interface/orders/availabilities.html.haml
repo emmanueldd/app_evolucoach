@@ -1,0 +1,139 @@
+-# = render 'layouts/header'
+/ Header
+%header.header-area.border-btm.page15
+  .container
+    .row
+      .col-12
+        .d-flex.justify-content-between.align-items-center
+          = link_to @program do
+            %span.left-angle
+          %a.profile-box{:href => "#"}
+            .profile-iline
+              = image_tag @user.avatar_url
+              %h2.name
+                #{@user.first_name} #{@user.last_name}
+                = image_tag ("bgtik.png")
+          %a#menubar{:href => "#"}
+            %span.bar.d-none
+            %span.bar.d-none
+            %span.bar.d-none
+        .profile-radio
+          %form{:action => "#"}
+            %p
+              %input#libre{:checked => "checked", :name => "radio-group", :type => "radio", disabled: true}/
+              %label{:for => "libre"} libre
+            %p
+              %input{:id => "réservé", :name => "radio-group", :type => "radio", disabled: true}/
+              %label{:for => "réservé"} réservé
+  .menu-area.profile
+    %ul.menu
+      %li
+        %a{:href => "#"} Analyses trafic
+      %li
+        %a{:href => "#"} Statistiques
+      %li
+        %a{:href => "#"} Programmes
+      %li
+        %a{:href => "#"} Mes athlètes
+      %li
+        %a{:href => "#"} Newsletter
+      %li
+        %a{:href => "#"} Paramètres
+
+/ Content Area
+.content-area.bg-dark-blue.page13.page15
+  .container
+    .row
+      .col-12
+        .content-inner
+          .calendar-content
+
+            / Content Area
+            .month-name.fontlight
+              = link_to url_for(date: @date.beginning_of_week - 1.week) do
+                %span.left-angle
+              %p= I18n.l(@date, format: "%B").upcase
+              = link_to url_for(date: @date.beginning_of_week + 1.week) do
+                %span.left-angle.right
+            %table.day-list
+              %thead
+                %tr
+                  %th.day-headline
+                  - (0..6).each do |i|
+                    - date = @date + i.day
+                    %th.text-center
+                      %span.day= date.strftime("%d")
+                      %br
+                      %span.short= I18n.l(date, format: '%A')[0..2]
+
+              %tbody
+                - (6..22).each do |h|
+                  %tr.hour-list
+                    %td.hour{:rowspan => "1"}
+                      %span #{h}h
+                    - (0..6).each do |d|
+                      %td{'data-date': "#{date = @date.change({ hour: h }) + d.day}"}
+                        .hour-check
+                          %p
+                            - @availability = @user.availabilities.find_or_initialize_by(start_time: date)
+                            - unless @availability.taken(@order)
+                              = simple_form_for(@order, url: interface_order_path(@order), namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/interface/pro/#{@user.id}/order/#{@order.id}" }) do |f|
+
+                                = f.error_notification
+                                .form-inputs
+                                  -# = f.input_field :pack_id, as: :hidden, value: @pack.id
+                                  #courses
+                                    -# - new_course = @order.courses.build(start_time: date)
+                                    = f.simple_fields_for :courses, @order.courses.find_or_initialize_by(start_time: date) do |course|
+                                      -# = course.input_field :start_time, as: :hidden, value: date
+                                      -# = course.input_field :availability_id, as: :hidden, value: @availability.id
+                                      -# = course.input_field :order_id, as: :hidden, value: @order.id
+                                      - is_it = @order.courses.not_removed.find_by(start_time: date)
+
+                                      = course.input :status, as: :boolean, checked: (is_it.present?), checked_value: 'pending', unchecked_value: 'removed'
+
+                  - 0.times do
+                    %tr
+                      - (0..6).each do |d|
+                        %td{'data-date': "#{date = @date.change({ hour: h }) + d.day}"}
+  %br
+  %br
+  %br
+  = link_to edit_interface_order_path(@order), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
+    Confirmer >
+  // :javascript
+  //   $(function() {
+  //     // limits the number of categories
+  //     $('#order-edit input[type=checkbox]').on('change', function() {
+  //       check_to_hide_or_show_add_link();
+  //     });
+  //     if ($('input[type=checkbox]:checked').length > 0) {
+  //       var credits_used_on_this_page = parseInt($('input[type=checkbox]:checked').length);
+  //     } else {
+  //       var credits_used_on_this_page = 0;
+  //     }
+  //     //
+  //     // $('#order-edit input[type=checkbox]').on('cocoon:after-remove', function() {
+  //     //   check_to_hide_or_show_add_link();
+  //     // });
+  //
+  //     check_to_hide_or_show_add_link();
+  //
+  //     function check_to_hide_or_show_add_link() {
+  //       if ($('input[type=checkbox]:checked').length > 0) {
+  //         var input_checked_count = parseInt($('input[type=checkbox]:checked').length);
+  //       } else {
+  //         var input_checked_count = 0;
+  //       }
+  //       var course_left = parseInt($('#credits').text()) + credits_used_on_this_page;
+  //       course_left = course_left - (input_checked_count || 0);
+  //       $('#course_left').text(course_left);
+  //
+  //       if (course_left >= 1) {
+  //         $('input[type=checkbox]:not(:checked)').removeAttr('disabled');
+  //       } else {
+  //         $('a.add_fields').show();
+  //         $('input[type=checkbox]:not(:checked)').attr('disabled', 'false');
+  //       }
+  //     }
+  //   })

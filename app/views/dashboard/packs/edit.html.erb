@@ -9,7 +9,7 @@
                       <%= f.hidden_field :next_step, value: 'price' %>
                       <p class="fontlight">Nombre de séances</p>
                       <h3 class="fontlight">
-                        <%= f.input :nb_of_courses, label: false, class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '0' %></h3>
+                        <%= f.input :nb_of_courses, label: false, class: 'fontlight big-transparent-input', required: true, placeholder: '0' %></h3>
 
                       <button type="submit" value="Suivant →" ref="#" class="validate g-blue-bg fontbold">Suivant →</button>
                     <% end %>
@@ -47,7 +47,7 @@
                     <div class="object-content">
                         <%= simple_form_for [:dashboard, @pack] do |f| %>
                           <%= f.hidden_field :next_step, value: 'back' %>
-                          <%= f.input_field :rest_note, class: 'fontlight big-transparent-textarea', autofocus: true, placeholder: 'Commence à écrire ta note' %>
+                          <%= f.input_field :rest_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
                         <% end %>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                   <div class="object-content">
                       <%= simple_form_for [:dashboard, @pack] do |f| %>
                         <%= f.hidden_field :next_step, value: 'back' %>
-                        <%= f.input_field :info_note, autofocus: true, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
+                        <%= f.input_field :info_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note' %>
                       <% end %>
                   </div>
                 </div>
@@ -105,7 +105,7 @@
                       <%= f.hidden_field :next_step, value: 'description' %>
                         <h3 class="white fontlight"><span>€</span>
                           <%= f.hidden_field :nb_of_courses %>
-                          <%= f.input_field :unit_price,  class: 'fontlight big-transparent-input', autofocus: true, required: true, placeholder: '50' %></h3>
+                          <%= f.input_field :unit_price,  class: 'fontlight big-transparent-input', required: true, placeholder: '50' %></h3>
                         <h5 class="fontlight">
                           Détermine le prix à la séance en fonction<br>
                           du nombre de séance de ton pack.<br>
@@ -131,7 +131,7 @@
                         <p class="fontlight">Description</p>
                         <%= simple_form_for [:dashboard, @pack] do |f| %>
                           <%= f.hidden_field :next_step, value: 'summary' %>
-                              <div class="fontlight blue-bg radius-and-padding"><%= f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , autofocus: true, required: true, placeholder: 'Rédige la déscription de ton pack' %></div>
+                              <div class="fontlight blue-bg radius-and-padding"><%= f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , required: true, placeholder: 'Rédige la déscription de ton pack' %></div>
                             <button type="submit" value="Suivant →" ref="#" class="validate g-blue-bg fontbold">Suivant →</button>
                         <% end %>
 

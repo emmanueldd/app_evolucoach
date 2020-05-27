@@ -24,6 +24,17 @@ fr:
         supplement_long_hair: '10,0'
         supplement_half_long_hair: '5,0'
         title: 'ex: Nattes collées tête entière'
+      client:
+        email: 'Votre email'
+        zipcode: 'Votre code postal'
+        phone: 'Votre n° de téléphone'
+        password: 'Mot de passe'
+        current_password: 'Mot de passe actuel'
+        password_confirmation: 'Retapez votre mot de passe'
+        username: 'Pseudo'
+        first_name: 'Votre prénom'
+        last_name: 'Votre nom'
+        birthday: 'Date de naissance'
       defaults:
         instagram_url: '@bineta_doucoure'
         email: 'Ton email'

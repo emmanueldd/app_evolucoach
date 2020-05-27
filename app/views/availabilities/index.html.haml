@@ -5,13 +5,13 @@
     .row
       .col-12
         .d-flex.justify-content-between.align-items-center
-          %a{:href => dashboard_root_path}
+          = link_to @user do
             %span.left-angle
           %a.profile-box{:href => "#"}
             .profile-iline
-              = image_tag current_user.avatar_url
+              = image_tag @user.avatar_url
               %h2.name
-                #{current_user.first_name} #{current_user.last_name}
+                #{@user.first_name} #{@user.last_name}
                 = image_tag ("bgtik.png")
           %a#menubar{:href => "#"}
             %span.bar.d-none
@@ -75,38 +75,13 @@
                       %td{'data-date': "#{date = @date.change({ hour: h }) + d.day}"}
                         .hour-check
                           %p
-                            - @availability = current_user.availabilities.find_or_initialize_by(start_time: date)
+                            - @availability = @user.availabilities.find_or_initialize_by(start_time: date)
                             = simple_form_for([:dashboard, @availability], namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/dashboard/availabilities/" }) do |f|
-                              - if @availability.course.present? && @availability.course.confirmed_or_done?
-                                = @availability.course.client.avatar_url
-                              - else
-                                = f.input :available, id: "checkbox#{d}#{h}", disabled: @availability.is_taken_for_coach?
-                                = f.input_field :start_time, as: :hidden, value: date
+                              = f.input :available, id: "checkbox#{d}#{h}", disabled: true
+                              = f.input_field :start_time, as: :hidden, value: date
 
 
                   - 0.times do
                     %tr
                       - (0..6).each do |d|
                         %td{'data-date': "#{date = @date.change({ hour: h }) + d.day}"}
-
-
-              -# - (6..22).each do |h|
-              -#   %tr.hour-list
-              -#     %td.hour-td{:rowspan => "1"}
-              -#       %p.hour #{h}h
-              -#     - (0..6).each do |d|
-              -#       .hour-check
-              -#         %p
-              -#           %input#one{:checked => "checked", :type => "checkbox"}/
-              -#           %label{:for => "one"}
-              -#       %td{'data-date': "#{date = @date.change({ hour: h }) + d.day}"}
-              -#         - course = @courses.find_by(start_time: date..(date + 35.minutes))
-              -#         - if course.present?
-              -#           = link_to [:dashboard,  course] do
-              -#             = image_tag course.client.avatar_url, width: 20, id: 'first'
-              -#         - else
-              -#           - @availability = current_user.availabilities.find_or_initialize_by(start_time: date)
-              -#           = simple_form_for([:dashboard, @availability], namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/dashboard/availabilities/" }) do |f|
-              -#             %div{id: (@availability.now ? 'now' : '')}
-              -#               = f.input_field :available, disabled: @availability.is_taken_for_coach?
-              -#               = f.input_field :start_time, as: :hidden, value: date

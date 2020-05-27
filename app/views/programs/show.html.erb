@@ -29,7 +29,12 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non</p>
                         </div>
                         <%= simple_form_for [:interface, @order] do |f| %>
-                            <button type="submit" ref="#" class="margin-auto validate site-btn fontbold blue-bg" style="width: inherit;">Commander <%= image_tag "tik.png", alt:"" %></button>
+                          <%= simple_fields_for :order_has_item do |ff| %>
+                            <%= ff.input_field :item_id, as: :hidden, value: @program.id %>
+                            <%= ff.input_field :item_type, as: :hidden, value: @program.class.name %>
+                          <% end %>
+                          <%= f.input_field :user_id, as: :hidden, value: @program.user_id %>
+                          <button type="submit" ref="#" class="margin-auto validate site-btn fontbold blue-bg" style="width: inherit;">Commander <%= image_tag "tik.png", alt:"" %></button>
                         <% end %>
                     </div>
                 </div>

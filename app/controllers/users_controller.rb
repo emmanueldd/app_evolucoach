@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     rescue
       return redirect_to users_path if @user.blank?
     end
+    session[:last_user_visited_id] = @user.id
   end
 
   def index

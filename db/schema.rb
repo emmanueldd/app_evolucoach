@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200522132102) do
+ActiveRecord::Schema.define(version: 20200527125749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,11 @@ ActiveRecord::Schema.define(version: 20200522132102) do
     t.date "birth_date"
     t.boolean "male"
     t.integer "age"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.index ["email"], name: "index_clients_on_email", unique: true
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_clients_on_slug", unique: true
@@ -89,8 +94,10 @@ ActiveRecord::Schema.define(version: 20200522132102) do
     t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "order_id"
     t.index ["availability_id"], name: "index_courses_on_availability_id"
     t.index ["client_id"], name: "index_courses_on_client_id"
+    t.index ["order_id"], name: "index_courses_on_order_id"
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
@@ -278,6 +285,11 @@ ActiveRecord::Schema.define(version: 20200522132102) do
     t.string "avatar"
     t.integer "coaching_count", default: 0
     t.float "score", default: 5.0
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.inet "current_sign_in_ip"
+    t.inet "last_sign_in_ip"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
@@ -287,6 +299,7 @@ ActiveRecord::Schema.define(version: 20200522132102) do
   add_foreign_key "clients", "users"
   add_foreign_key "courses", "availabilities"
   add_foreign_key "courses", "clients"
+  add_foreign_key "courses", "orders"
   add_foreign_key "courses", "users"
   add_foreign_key "crm_comments", "clients"
   add_foreign_key "crm_comments", "user_has_clients"

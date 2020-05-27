@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :forbid_multiple_connexion, unless: :format_js?
 
   def forbid_multiple_connexion
-    if current_user && current_client
+    if current_user && current_user.current_sign_in_at.present? && current_client && current_client.current_sign_in_at.present?
       if current_user.current_sign_in_at > current_client.current_sign_in_at
         sign_out current_client
       else
@@ -17,6 +17,9 @@ class ApplicationController < ActionController::Base
     if resource_class == User
       devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname, :slug])
       devise_parameter_sanitizer.permit(:account_update, keys: [:slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
+    elsif resource_class == Client
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:user_id, :slug, :first_name, :last_name])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:user_id, :slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
     # elsif resource_class == Pro
     #   devise_parameter_sanitizer.permit(:sign_up, keys: [:expo_token_id, :dpt, :first_name, :last_name, :nickname, :avatar, :phone])
     #   devise_parameter_sanitizer.permit(:account_update, keys: [:app_version, :expo_token_id, :dpt, :siret, :first_name, :last_name, :nickname, :instagram_url, :avatar, :phone, :address, :city, :moves, :at_home, moves_to: [], payment_information_attributes: [:rib, :passport, :social_security_number, :pro_id]])
@@ -30,5 +33,5 @@ class ApplicationController < ActionController::Base
   def format_json?
     request.format.json?
   end
-  
+
 end
