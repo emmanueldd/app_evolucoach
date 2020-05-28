@@ -1,0 +1,56 @@
+= render 'layouts/header_coach'
+/ Content Area
+.content-area.bg-light-blue
+  .bg-top
+  .container
+    .row
+      .col-12
+        #packs.content-inner
+          .panel.panel-default
+            %ul.nav.nav-tabs.circle-tab.profile.mb-30
+              %li
+                %a.active{"data-toggle" => "tab", :href => "#solo"} solo
+              %li
+                %a{"data-toggle" => "tab", :href => "#duo"} duo
+            .panel-body
+              .tab-content
+                #solo.tab-pane.active
+                  - current_user.packs.solo.each_with_index do |pack, index|
+                    - card_index = index == 0 ? '1' : '2'
+                    %div{:class => "profile-card card#{card_index}"}
+                      .left
+                        %h3.fontlight
+                          PACK
+                          %br/
+                          = pack.name
+                        %p.fontlight
+                          = pack.nb_of_courses
+                          séances
+                      .right
+                        %h3.fontlight
+                          = number_to_currency(pack.unit_price)
+                          = succeed "La" do
+                            %br/
+                        %a.rightarrow{:href => "#"}
+                #duo.tab-pane
+                  - current_user.packs.duo.each_with_index do |pack, index|
+                    - card_index = index == 0 ? '2' : '1'
+                    %div{:class => "profile-card card#{card_index}"}
+                      .left
+                        %h3.fontlight
+                          PACK
+                          %br/
+                          = pack.name
+                        %p.fontlight
+                          = pack.nb_of_courses
+                          séances
+                      .right
+                        %h3.fontlight
+                          = number_to_currency(pack.unit_price)
+                          = succeed "La" do
+                            %br/
+                        %a.rightarrow{:href => "#"}
+.fixed-element
+  %p.fontlight Créer un nouveau pack
+  %a.circle-btn{:href => new_dashboard_pack_path} +
+/ Content Area

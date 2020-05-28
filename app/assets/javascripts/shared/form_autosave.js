@@ -14,13 +14,17 @@ App.form_autosave = {
     // $('#form-spinner').show();
     // setTimeout("$('#form-spinner').hide();", 1000);
     // alert('SAVE FORM');
+    console.log($(thisObj).attr('method'))
+    console.log($(thisObj).attr('action'))
+    console.log($(thisObj).serialize())
     $.ajax({
       type: $(thisObj).attr('method'),
       url: $(thisObj).attr('action'),
       data: $(thisObj).serialize(),
       dataType: "JSON",
       success: function(data) {
-        if ($(thisObj).attr("method").toLowerCase() == "post" ) {
+        console.log('data =>', data);
+        if (data != undefined && $(thisObj).attr("method").toLowerCase() == "post" ) {
           $(thisObj).data('object-id', String(data.id));
           $(thisObj).prop( "action", $(thisObj).data('update-url') + $(thisObj).data('object-id') );
           $(thisObj).prop( "method", "PUT" );

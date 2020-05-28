@@ -13,6 +13,8 @@ module Appevolucoach
     config.assets.paths << Rails.root.join("app","assets","fonts")
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.i18n.default_locale = :fr
+    config.time_zone = 'Europe/Paris'
+    config.active_record.default_timezone = :local
 
 
     # Settings in config/environments/* take precedence over those specified here.

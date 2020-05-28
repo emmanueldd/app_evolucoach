@@ -1,0 +1,36 @@
+= render 'layouts/header_client'
+/ Banner
+.banner-area
+  .container
+    .row
+      %h1.fontlight
+        PROGRAMME
+        = succeed "FESSES" do
+          %br/
+/ Banner
+/ Content Area
+.content-area.bg-dark-blue.mvh-70.page12
+  .container
+    .row
+      .col-12
+        .content-inner
+          .pack-top.mb-30.fontlight
+            %p.iblue
+              8 semaines
+              %span.white
+                %br>/
+                3 séances/semaine
+            %p.text-right
+              %b €60,00
+          .pack-profile-box.mb-30
+            .pack-profile-img
+              = image_tag "farid.png", alt:"Farid"
+            %p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+          = simple_form_for [:interface, @order] do |f|
+            = simple_fields_for :order_has_item do |ff|
+              = ff.input_field :item_id, as: :hidden, value: @program.id
+              = ff.input_field :item_type, as: :hidden, value: @program.class.name
+            = f.input_field :user_id, as: :hidden, value: @program.user_id
+            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :style => "width: inherit;", :type => "submit"}
+              Commander #{image_tag "tik.png", alt:""}
+/ Content Area

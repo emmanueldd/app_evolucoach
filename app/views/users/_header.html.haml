@@ -1,0 +1,38 @@
+%body
+  %header.header-area.profile.no-radius.py-4
+    .container
+      .row
+        .col-12
+          .d-flex.justify-content-between.align-items-center
+            %a{:href => "#"}
+              %span.left-angle.d-none
+            %h1
+              %a{:href => root_path}
+                %span.iblue> EVOLU
+                COACH
+            %a#menubar{:href => "#"}
+              %span.bar
+              %span.bar
+              %span.bar
+          .profile-inner
+            .profile-box.mt-30
+              .profile-img
+                = image_tag @user.avatar_url, alt:"Farid"
+              %h3
+                = @user.coaching_count
+                %span.fontlight Coachings
+              %h3
+                ⭐️
+                %span.fontlight= @user.score.round
+              .profile-bag
+                = link_to user_availabilities_path(@user) do
+                  = image_tag "bag.png", alt:"Bag"
+            .profile-name.mt-10
+              %h2.name= @user.first_name
+              %p.iblue
+                = image_tag "bgtik.png", alt:""
+                profil certifié
+            .profile-links.mt-30
+              %a{:class => "#{'active' if params[:section].blank?} fontlight", :href => url_for} coaching
+              %a{:class => "#{'active' if params[:section] == 'programs'} fontbold", :href => "#{url_for(section: 'programs')}"} programmes
+              %a{:class => "#{'active' if params[:section] == 'ratings'} fontlight", :href => "#{url_for(section: 'ratings')}"} avis

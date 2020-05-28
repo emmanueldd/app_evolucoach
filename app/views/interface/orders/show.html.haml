@@ -1,0 +1,27 @@
+%header.header-area.border-btm.page15
+
+  .container
+    .row
+      .col-6
+        .d-flex.justify-content-between.align-items-center
+          = link_to :back do
+            %span.left-angle
+
+/ Content Area
+.content-area.bg-dark-blue.page13.page15#order-pay
+  .container
+    .row
+      .col-lg-6.offset-lg-3
+        .content-inner.text-center
+          = image_tag 'check-in-circle.png'
+          %br
+          %br
+          %p
+            %span.green Félicitations !
+            %br
+            Nous te confirmons ton paiement.
+          %br
+
+
+          %a.margin-auto.blue-btn.fontbold.blue-bg{href: interface_root_path}
+            Retour à l'accueil

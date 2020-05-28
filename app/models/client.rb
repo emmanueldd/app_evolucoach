@@ -6,9 +6,24 @@ class Client < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   belongs_to :user, optional: true
   has_many :orders
+  has_many :order_has_items, through: :orders
 
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }
+
+  def display_name
+    "#{first_name} #{last_name} - #{email}"
+  end
+
+  def find_stripe_customer_id
+    if stripe_customer_id.blank?
+      customer = Stripe::Customer.create(
+        email: email
+      )
+      update_columns(stripe_customer_id: customer.id)
+    end
+    return stripe_customer_id
+  end
 
 
   def set_nickname

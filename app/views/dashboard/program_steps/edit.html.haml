@@ -1,0 +1,25 @@
+= render 'layouts/header_coach'
+/ Content Area
+.content-area.bg-dark-blue.full-vh
+  .container
+    .row
+      .col-12
+        .content-inner
+          .bet-text.flexbox
+            %a.active{:href => "#"} Pectoraux
+            %a{:href => "#"} Exercice 1
+          = simple_form_for @program_step, url: dashboard_step_path do |f|
+            .input-box.grey-bg.white
+              .form-group
+                = f.input :round, placeholder: '5', required: true, label: 'Séries'
+              .form-group
+                = f.input :repetition, placeholder: '10', required: true, label: 'Reps'
+              .form-group
+                = f.input :charge, placeholder: '10', required: true, label: 'Charge'
+                %span.input-absolute Kg
+              .form-group
+                = f.input :cadence, placeholder: '0-0-0-0', required: true, label: 'Cadence'
+            %br/
+            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :type => "submit"}
+              Valider #{image_tag "tik.png", alt:""}
+/ Content Area

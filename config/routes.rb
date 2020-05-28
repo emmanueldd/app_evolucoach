@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :availabilities, only: :index, shallow: true
   end
   resources :programs, only: :show
+  resources :packs, only: :show
 
   devise_for :clients, controllers: {
     # confirmations: 'clients/confirmations',

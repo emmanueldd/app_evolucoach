@@ -9,10 +9,10 @@ module ApplicationHelper
     # end
   end
 
-  # def price_to_currency(number)
-  #   number ||= 0
-  #   "#{number / 100}€"
-  # end
+  def price_to_currency(number)
+    number ||= 0
+    "#{number / 100}€"
+  end
   #
   # def price_to_sequence(number, sequence)
   #   number ||= 0

@@ -1,0 +1,37 @@
+= render 'layouts/header_coach'
+/ Content Area
+.content-area.bg-light-blue.page13.full-vh
+  .bg-top
+  .container
+    .row
+      .col-12
+        .content-inner
+          - @programs.each do |program|
+            .profile-card.card1{:style => 'background-image: url("#{program.cover_url}")'}
+              .left
+                %h3.fontlight= program.name
+                %p.fontlight.iblue
+                  = program.duration
+                  séances
+                %p.fontlight.white
+                  = program.frequency
+                  séances/semaine
+              .right
+                %h3.fontlight= number_to_currency(program.price)
+                %a.rightarrow.white{:href => "#{edit_dashboard_program_path(program)}"}
+          /
+            <div class="profile-card card2">
+            <div class="left">
+            <h3 class="fontlight">Abdos d’acier</h3>
+            <p class="fontlight iblue">8 séances</p>
+            <p class="fontlight white">3 séances/semaine </p>
+            </div>
+            <div class="right">
+            <h3 class="fontlight">€30,00</h3>
+            <a href="#" class="rightarrow white"></a>
+            </div>
+            </div>
+.fixed-element
+  %p.fontlight Créer un nouveau programme
+  %a.circle-btn{:href => new_dashboard_program_path} +
+/ Content Area

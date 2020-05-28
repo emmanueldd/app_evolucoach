@@ -1,0 +1,19 @@
+= render 'layouts/header_coach'
+/ Content Area
+.content-area.bg-light-blue.page13
+  .bg-top
+  .container
+    .row
+      .col-12
+        .content-inner.page14
+          - @ratings.each do |rating|
+            .about-box
+              .about-img
+                = image_tag rating.client.avatar_url, alt: "about"
+              .about-content
+                %h3.about-title
+                  = rating.client.nickname
+                  %span
+                    ⭐️#{rating.score}
+                %p= rating.comment
+/ Content Area

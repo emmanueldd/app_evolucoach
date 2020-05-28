@@ -1,0 +1,59 @@
+= render 'layouts/header_coach'
+/ Content Area
+.content-area.no-pdt.bg-dark-blue
+  .container
+    .row
+      .col-12
+        .content-inner
+          .panel.panel-default
+            .panel-heading
+              .panel-title
+                %ul.nav.nav-tabs.border-tab
+                  %li
+                    %a.active{"data-toggle" => "tab", :href => "#exercices"} exercices
+                  %li
+                    %a{"data-toggle" => "tab", :href => "#notes"} notes
+            .panel-body
+              .tab-content
+                #exercices.tab-pane.active
+                  .pacto-content
+                    - @exercise_categories.each do |category|
+                      %h2.subtitle.pl-15.fontlight= category.name
+                      - category.exercises.published.each do |exercise|
+                        = simple_form_for [:dashboard, @program_step], url: dashboard_program_step_index_path do |f|
+                          = f.hidden_field :exercise_id, value: exercise.id
+                          = f.hidden_field :exercise_category_id, value: exercise.exercise_category_id
+                          %button.full-width.text-left{:type => "submit"}
+                            %b= exercise.name
+                            - if @program_steps.exists?(exercise_id: exercise.id)
+                              = image_tag 'tik.png', alt: 'déjà présent dans le programme'
+                              / <small>déjà présent dans le programme</small>
+                            %span +
+                #notes.tab-pane
+                  .pacto-content.page20
+                    %a{:href => "#{edit_dashboard_program_path(@program, step: 'rest_note')}"}
+                      = image_tag "i.png", alt:""
+                      Ajouter une note de repos
+                      %span +
+                    %a.blue-dark-bg{:href => "#{edit_dashboard_program_path(@program, step: 'info_note')}"}
+                      = image_tag "i.png", alt:""
+                      Ajouter une note d'information
+                      %span +
+            .btn-group.dropup
+              .fixed-element-margin
+              .fixed-element.fixed
+                / <p class="fontlight">Ajouter un exercice</p>
+                %a.circle-btn{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#"} +
+                / <a href="" class="circle-btn  dropdown-toggle">+</a>
+                .dropdown-menu
+                  / Dropdown menu links
+                  %a{:href => "#{new_dashboard_program_path(step_type: 'info')}"} Information
+                  %br/
+                  %br/
+                  %a{:href => "#{new_dashboard_program_path(step_type: 'rest')}"} Repos
+                  %br/
+                  %br/
+                  %a{:href => "#{new_dashboard_program_path(step_type: 'exercise')}"} Exercice
+                  %br/
+                  %br/
+/ Content Area

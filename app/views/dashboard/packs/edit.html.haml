@@ -1,0 +1,136 @@
+%body
+  - if params[:step].blank?
+    = render 'layouts/header_coach'
+    .content-area.bg-dark-blue2.page27
+      .container
+        .row
+          .col-12
+            .object-content
+              = simple_form_for [:dashboard, @pack] do |f|
+                = f.hidden_field :next_step, value: 'price'
+                %p.fontlight Nombre de séances
+                %h3.fontlight
+                  = f.input :nb_of_courses, label: false, class: 'fontlight big-transparent-input', required: true, placeholder: '0'
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  - elsif params[:step] == 'rest_note'
+    / Header
+    %header.header-area.blue-light-bg.page21
+      .container
+        .row
+          .col-12
+            .d-flex.justify-content-between.align-items-center
+              %a{:href => "#"}
+                %span.left-angle
+              %h1.font-sm
+                %img{:alt => "", :src => "images/i.png"}>/
+                Note de repos
+              %a#submit-form{:href => "#"}
+                OK
+    / Header
+    / Content Area
+    .content-area.bg-dark-blue.page21
+      .container
+        .row
+          .col-12
+            .object-content
+              = simple_form_for [:dashboard, @pack] do |f|
+                = f.hidden_field :next_step, value: 'back'
+                = f.input_field :rest_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
+    / Content Area
+  - elsif params[:step] == 'info_note'
+    / Header
+    %header.header-area.blue-dark-bg.page21
+      .container
+        .row
+          .col-12
+            .d-flex.justify-content-between.align-items-center
+              %a{:href => "#"}
+                %span.left-angle
+              %h1.font-sm
+                %img{:alt => "", :src => "images/i.png"}>/
+                Note d’information
+              %a#submit-form{:href => "#"}
+                OK
+    / Header
+    / Content Area
+    .content-area.bg-dark-blue.page21
+      .container
+        .row
+          .col-12
+            .object-content
+              = simple_form_for [:dashboard, @pack] do |f|
+                = f.hidden_field :next_step, value: 'back'
+                = f.input_field :info_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
+    / Content Area
+  - elsif params[:step] == 'price'
+    = render 'layouts/header_coach'
+    .content-area.bg-dark-blue2.full-vh
+      .container
+        .row
+          .col-12
+            .object-content
+              %p.fontlight Prix à la séance
+              = simple_form_for [:dashboard, @pack] do |f|
+                = f.hidden_field :next_step, value: 'description'
+                %h3.white.fontlight
+                  %span €
+                  = f.hidden_field :nb_of_courses
+                  = f.input_field :unit_price,  class: 'fontlight big-transparent-input', required: true, placeholder: '50'
+                %h5.fontlight
+                  Détermine le prix à la séance en fonction
+                  %br/
+                  du nombre de séance de ton pack.
+                  %br/
+                  Attention, ce n’est pas le prix total du pack.
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  - elsif params[:step] == 'description'
+    = render 'layouts/header_coach'
+    / Content Area
+    .content-area.bg-dark-blue2.full-vh
+      .container
+        .row
+          .col-12
+            .object-content
+              %p.fontlight Description
+              = simple_form_for [:dashboard, @pack] do |f|
+                = f.hidden_field :next_step, value: 'summary'
+                .fontlight.blue-bg.radius-and-padding= f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , required: true, placeholder: 'Rédige la déscription de ton pack'
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+    / Content Area
+  - elsif params[:step] == 'summary'
+    = render 'layouts/header_coach'
+    / Banner
+    .banner-area
+      .container
+        .row
+          %h1.fontlight
+            PACK
+            %br/
+            = @pack.name.upcase
+    / Banner
+    / Content Area
+    .content-area.bg-dark-blue.mvh-70.page12
+      .container
+        .row
+          .col-12
+            .content-inner
+              .pack-top.mb-30.fontlight
+                %p.iblue
+                  = number_to_currency(@pack.price)
+                  %br/
+                  = @pack.nb_of_courses
+                  séances
+                %p.text-right
+                  %b= number_to_currency(@pack.unit_price)
+                  %span.white
+                    %br>/
+                    LA SÉANCE
+              .pack-profile-box.mb-30
+                .profile-img.pack-profile-img
+                  = image_tag current_user.avatar_url, alt:"avatar"
+                %p= @pack.description
+              = simple_form_for [:dashboard, @pack] do |f|
+                = f.hidden_field :published, value: 'true'
+                %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :type => "submit"}
+                  Valider #{image_tag "tik.png", alt:""}
+    / Content Area

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200527125749) do
+ActiveRecord::Schema.define(version: 20200528142658) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20200527125749) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_clients_on_email", unique: true
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_clients_on_slug", unique: true
@@ -163,12 +164,21 @@ ActiveRecord::Schema.define(version: 20200527125749) do
     t.index ["user_id"], name: "index_leads_on_user_id"
   end
 
+  create_table "order_has_courses", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "course_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_order_has_courses_on_course_id"
+    t.index ["order_id"], name: "index_order_has_courses_on_order_id"
+  end
+
   create_table "order_has_items", force: :cascade do |t|
     t.bigint "order_id"
     t.string "item_type"
     t.bigint "item_id"
-    t.integer "quantity"
-    t.integer "total_price"
+    t.integer "quantity", default: 1
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_type", "item_id"], name: "index_order_has_items_on_item_type_and_item_id"
@@ -178,10 +188,12 @@ ActiveRecord::Schema.define(version: 20200527125749) do
   create_table "orders", force: :cascade do |t|
     t.bigint "client_id"
     t.bigint "user_id"
-    t.integer "status"
+    t.integer "status", default: 0
     t.integer "total_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "credit", default: 0
+    t.integer "credit_left", default: 0
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -195,7 +207,7 @@ ActiveRecord::Schema.define(version: 20200527125749) do
     t.string "color"
     t.string "pack_type"
     t.integer "unit_price"
-    t.integer "total_price"
+    t.integer "price"
     t.integer "nb_of_courses"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -290,6 +302,7 @@ ActiveRecord::Schema.define(version: 20200527125749) do
     t.datetime "last_sign_in_at"
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
@@ -306,6 +319,8 @@ ActiveRecord::Schema.define(version: 20200527125749) do
   add_foreign_key "crm_comments", "users"
   add_foreign_key "exercises", "exercise_categories"
   add_foreign_key "leads", "users"
+  add_foreign_key "order_has_courses", "courses"
+  add_foreign_key "order_has_courses", "orders"
   add_foreign_key "order_has_items", "orders"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "users"

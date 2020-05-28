@@ -1,0 +1,39 @@
+= render 'layouts/header_coach'
+/ Banner
+.banner-area
+  .container
+    .row
+      %h1.fontlight
+        PACK
+        %br/
+        = @pack.name.upcase
+/ Banner
+/ Content Area
+.content-area.bg-dark-blue.mvh-70.page12
+  .container
+    .row
+      .col-12
+        .content-inner
+          .pack-top.mb-30.fontlight
+            %p.iblue
+              = number_to_currency(@pack.price)
+              %br/
+              = @pack.nb_of_courses
+              séances
+            %p.text-right
+              %b= number_to_currency(@pack.unit_price)
+              %span.white
+                %br>/
+                LA SÉANCE
+          .pack-profile-box.mb-30
+            .profile-img.pack-profile-img
+              = image_tag @pack.user.avatar_url, alt:"avatar"
+            %p= @pack.description
+          = simple_form_for [:interface, @order] do |f|
+            = simple_fields_for :order_has_item do |ff|
+              = ff.input_field :item_id, as: :hidden, value: @pack.id
+              = ff.input_field :item_type, as: :hidden, value: @pack.class.name
+            = f.input_field :user_id, as: :hidden, value: @pack.user_id
+            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :style => "width: inherit;", :type => "submit"}
+              Commander #{image_tag "tik.png", alt:""}
+/ Content Area

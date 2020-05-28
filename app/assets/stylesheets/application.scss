@@ -155,6 +155,10 @@ a:hover {
   background: linear-gradient(90deg, #07ABB1 10%, #0AC8CF 80%, #60F8FD 100%) !important;
 }
 
+.green {
+  color: #43BB03 !important;
+}
+
 .blue-bg {
   background: #03B3BB !important;
 }
@@ -189,6 +193,9 @@ a:hover {
 .grey-bg {
   background: #6B727E !important;
   border-radius: 8px;
+}
+.drak-grey-bg {
+  background: #28313a !important;
 }
 
 .btn-bg {
@@ -1177,6 +1184,14 @@ a.site-btn {
   font-size: 14px;
   color: #ffff;
 }
+a.blue-btn {
+  text-align: center;
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 30px;
+  font-size: 14px;
+  color: #ffff;
+}
 
 
 
@@ -2014,12 +2029,12 @@ header.header-area.page23 {
   padding: 20px 0px;
 }
 
-.coching-area {
+.coaching-area {
   padding: 20px;
 }
 
 
-.coching-area h3 {
+.coaching-area h3 {
   color: #fff;
   font-size: 16px;
   margin-bottom: 20px;
@@ -2037,6 +2052,7 @@ header.header-area.page23 {
 }
 
 .co-img {
+  background-color: #101D26;
   position: absolute;
   width: 60px;
   height: 60px;
@@ -3703,11 +3719,11 @@ a.popup-btn {
     font-size: 25px;
   }
 
-  .coching-area {
+  .coaching-area {
     padding: 50px;
   }
 
-  .coching-area h3 {
+  .coaching-area h3 {
     font-size: 30px;
   }
 
@@ -3803,7 +3819,7 @@ a.popup-btn {
     width: 35px;
   }
 
-  .coching-area .container {
+  .coaching-area .container {
     width: 65%;
     margin: auto;
   }

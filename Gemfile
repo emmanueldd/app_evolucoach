@@ -42,6 +42,7 @@ gem 'devise'
 gem 'simple_form'
 gem 'jquery-validation-rails'
 gem 'stripe'
+gem 'figaro'
 gem "haml-rails", "~> 2.0"
 gem 'carrierwave', '~> 1.0'
 gem 'cloudinary'

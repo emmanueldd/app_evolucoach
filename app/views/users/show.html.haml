@@ -1,0 +1,91 @@
+= render 'header'
+/ Content Area
+- if params[:section].blank?
+  .content-area.bg-light-blue
+    .bg-top
+    .container
+      .row
+        .col-12
+          #packs.content-inner
+            .panel.panel-default
+              %ul.nav.nav-tabs.circle-tab.profile.mb-30
+                %li
+                  %a.active{"data-toggle" => "tab", :href => "#solo"} solo
+                %li
+                  %a{"data-toggle" => "tab", :href => "#duo"} duo
+              .panel-body
+                .tab-content
+                  #solo.tab-pane.active
+                    - @user.packs.solo.each_with_index do |pack, index|
+                      - card_index = index == 0 ? '1' : '2'
+                      %div{:class => "profile-card card#{card_index}"}
+                        .left
+                          %h3.fontlight
+                            PACK
+                            %br/
+                            = pack.name
+                          %p.fontlight
+                            = pack.nb_of_courses
+                            séances
+                        .right
+                          %h3.fontlight
+                            = number_to_currency(pack.unit_price)
+                            = succeed "La séance" do
+                              %br/
+                          = link_to '', pack, class: 'rightarrow'
+                  #duo.tab-pane
+                    - @user.packs.duo.each_with_index do |pack, index|
+                      - card_index = index == 0 ? '2' : '1'
+                      %div{:class => "profile-card card#{card_index}"}
+                        .left
+                          %h3.fontlight
+                            PACK
+                            %br/
+                            = pack.name
+                          %p.fontlight
+                            = pack.nb_of_courses
+                            séances
+                        .right
+                          %h3.fontlight
+                            = number_to_currency(pack.unit_price)
+                            = succeed "La" do
+                              %br/
+                          %a.rightarrow{:href => "#lienverslapagedepresentationdupack"}
+  / Content Area
+- elsif params[:section] == 'programs'
+  .content-area.bg-light-blue.page13.full-vh
+    .bg-top
+    .container
+      .row
+        .col-12
+          .content-inner
+            - @user.programs.published.each do |program|
+              .profile-card.card1{:style => 'background-image: url("#{program.cover_url}")'}
+                .left
+                  %h3.fontlight= program.name
+                  %p.fontlight.iblue
+                    = program.duration
+                    séances
+                  %p.fontlight.white
+                    = program.frequency
+                    séances/semaine
+                .right
+                  %h3.fontlight= number_to_currency(program.price)
+                  %a.rightarrow.white{:href => "#{program_path(program)}"}
+- elsif params[:section] == 'ratings'
+  .content-area.bg-light-blue.page13
+    .bg-top
+    .container
+      .row
+        .col-12
+          .content-inner.page14
+            - @user.ratings.published.each do |rating|
+              .about-box
+                .about-img
+                  = image_tag rating.client.avatar_url, alt: "about"
+                .about-content
+                  %h3.about-title
+                    = rating.client.nickname
+                    %span
+                      ⭐️#{rating.score}
+                  %p= rating.comment

@@ -1,0 +1,28 @@
+= render 'layouts/header_coach'
+- if params[:pack_type].blank?
+  / Content Area
+  .content-area.bg-dark-blue2.full-vh
+    .container
+      .row
+        .col-12
+          .object-content.text-center
+            %p.fontlight Type de pack
+            %br/
+            %br/
+            = link_to 'Pack solo', url_for(pack_type: 'solo'), class: "border-btn"
+            %br/
+            = link_to 'Pack duo', url_for(pack_type: 'duo'), class: "border-btn"
+  / Content Area
+- else
+  / Content Area
+  .content-area.bg-dark-blue2.full-vh
+    .container
+      .row
+        .col-12
+          .object-content
+            %p.fontlight Nom du pack
+            = simple_form_for [:dashboard, @pack] do |f|
+              = f.input_field :pack_type, as: :hidden, value: params[:pack_type]
+              %input.form-control{:name => "pack[name]", :placeholder => "Exemple : découverte", :type => "text"}/
+              %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  / Content Area

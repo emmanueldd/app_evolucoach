@@ -1,0 +1,137 @@
+%body
+  .popup-area.bg-dark-blue.full-vh.white
+    .container
+      .row
+        .col-12
+          .d-flex.justify-content-between.align-items-center.pop-header
+            %a{:href => "#"}
+              %span.left-angle.d-none
+            %h1.font-light FILTRER
+            %a#close-popup{:href => "#"}
+              = image_tag "cross.png", alt:""
+          .statut.mb-60
+            %p.pop-title Statut
+            .profile-radio.popup
+              %form{:action => "#"}
+                %p
+                  %input#client{:name => "radio-group", :type => "radio"}/
+                  %label{:for => "client"} client
+                %p
+                  %input#prospect{:checked => "checked", :name => "radio-group", :type => "radio"}/
+                  %label{:for => "prospect"} prospect
+          .sexe.mb-60
+            %p.pop-title Sexe
+            .profile-radio.popup
+              %form{:action => "#"}
+                %p
+                  %input#male{:checked => "checked", :name => "radio-group", :type => "radio"}/
+                  %label{:for => "male"}
+                    = image_tag "male.png", alt:""
+                %p
+                  %input#female{:name => "radio-group", :type => "radio"}/
+                  %label{:for => "female"}= image_tag "female.png", alt:""
+          .age.mb-10.mt-20
+            .age-title
+              %p.pop-title
+                Age
+              %p
+                %span#min-price.slider-price 0
+                %span.seperator -
+                %span#max-price.slider-price{"data-max" => "90"} 90 ans
+            .selector
+              .price-slider
+                #slider-range.ui-slider.ui-corner-all.ui-slider-horizontal.ui-widget.ui-widget-content
+                  .ui-slider-range.ui-corner-all.ui-widget-header
+                  %span.ui-slider-handle.ui-corner-all.ui-state-default{:tabindex => "0"}
+                  %span.ui-slider-handle.ui-corner-all.ui-state-default{:tabindex => "0"}
+            .age-label
+              %span 0
+              %span 90
+          .ville.mb-60
+            %p.pop-title Ville
+            .header-seacrh
+              .form-group
+                %input.form-control{:placeholder => "Sélectionner une ville", :type => "seacrh"}/
+                = image_tag "search.png", alt:"Seaech", class:"search-icon"
+          %a.popup-btn.g-blue-bg{:href => "#"}
+            OK
+  / Popup
+  / Header
+  %header.header-area.border-btm.page25.page34.py-4
+    .container
+      .row
+        .col-12
+          .d-flex.justify-content-between.align-items-center
+            %a{:href => "#"}
+              %span.left-angle
+            %h1 Mes athlètes
+            %a#menubar{:href => "#"}
+              %span.bar
+              %span.bar
+              %span.bar
+          .panel-heading.mt-30
+            .panel-title
+              %ul.nav.nav-tabs.border-tab
+                %li
+                  %a.active{"data-toggle" => "tab", :href => "#tous"} tous
+                %li
+                  %a{"data-toggle" => "tab", :href => "#groupes"} groupes
+          .header-seacrh
+            %a#site-popup{:href => "#"}
+              .form-group
+                %input.form-control{:placeholder => "Rechercher un athlète", :type => "seacrh"}/
+                = image_tag "search.png", alt:"Seaech", class:"search-icon"
+                = image_tag "trading.png", alt:"Seaech", class:"trading-icon"
+          .filter-text.flexbox
+            %a{:href => "#"} Hommes-Femmes
+            %a{:href => "#"} 30-40 ans
+            %a{:href => "#"} Paris
+            %a{:href => "#"} Prospect
+            %a{:href => "#"}= image_tag "cross.png", alt:""
+    .menu-area.profile
+      %ul.menu
+        %li
+          %a{:href => "#"} Analyses trafic
+        %li
+          %a{:href => "#"} Statistiques
+        %li
+          %a{:href => "#"} Programmes
+        %li
+          %a{:href => "#"} Mes athlètes
+        %li
+          %a{:href => "#"} Newsletter
+        %li
+          %a{:href => "#"} Paramètres
+  / Header
+  / Content Area
+  .content-area.bg-light-blue.full-vh.page34.page15.page38
+    .container
+      .row
+        .col-12
+          .content-inner.page24
+            - @clients.each do |client|
+              .member-box.checkbox-item
+                .member-left
+                  .member-check
+                    %form{:action => "#"}
+                      %p
+                        %input{:id => "user#{client.id}", :name => "radio-group", :type => "checkbox"}/
+                        %label.checkbox-radio-style{:for => "user#{client.id}"}
+                  .member-img
+                    = image_tag client.infos.avatar_url , alt:""
+                  .member-info
+                    %h3
+                      = client.infos.first_name
+                      = client.infos.last_name
+                    %p= client.infos.email
+                .member-right
+                  %a{:href => "#{dashboard_user_has_client_path(client)}"}
+                    - if client.is_client
+                      client
+                    - else
+                      prospect
+                    %span.left-angle.right
+            .fixed-element.fixed
+              %a.circle-btn.grey-tik{:href => "#"}
+                = image_tag "grey-tik.png", alt:""
+  / Content Area

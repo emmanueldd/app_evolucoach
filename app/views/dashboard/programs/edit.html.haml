@@ -1,0 +1,147 @@
+%body
+  - if params[:step].blank?
+    = render 'layouts/header_coach'
+    .content-area.bg-dark-blue2.page27
+      .container
+        .row
+          .col-12
+            .object-content
+              = simple_form_for [:dashboard, @program] do |f|
+                = f.hidden_field :next_step, value: 'price'
+                %p.fontlight Durée
+                %h3.fontlight
+                  = f.input_field :duration,  class: 'fontlight big-transparent-input', required: true, placeholder: '0'
+                  %sub Semaines
+                %p.fontlight.mt-25 Fréquence
+                %h3.fontlight
+                  = f.input_field :frequency,  class: 'fontlight big-transparent-input', required: true, placeholder: '0'
+                  %sub Séances/semaine
+                %h5.fontlight
+                  Tu pourras modifier et adapter ton
+                  programme pendant sa durée en fonction
+                  de l’évolution de ton athlète.
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  - elsif params[:step] == 'rest_note'
+    / Header
+    %header.header-area.blue-light-bg.page21
+      .container
+        .row
+          .col-12
+            .d-flex.justify-content-between.align-items-center
+              %a{:href => "#"}
+                %span.left-angle
+              %h1.font-sm
+                %img{:alt => "", :src => "images/i.png"}>/
+                Note de repos
+              %a#submit-form{:href => "#"}
+                OK
+    / Header
+    / Content Area
+    .content-area.bg-dark-blue.page21
+      .container
+        .row
+          .col-12
+            .object-content
+              = simple_form_for [:dashboard, @program] do |f|
+                = f.hidden_field :next_step, value: 'back'
+                = f.input_field :rest_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
+    / Content Area
+  - elsif params[:step] == 'info_note'
+    / Header
+    %header.header-area.blue-dark-bg.page21
+      .container
+        .row
+          .col-12
+            .d-flex.justify-content-between.align-items-center
+              %a{:href => "#"}
+                %span.left-angle
+              %h1.font-sm
+                %img{:alt => "", :src => "images/i.png"}>/
+                Note d’information
+              %a#submit-form{:href => "#"}
+                OK
+    / Header
+    / Content Area
+    .content-area.bg-dark-blue.page21
+      .container
+        .row
+          .col-12
+            .object-content
+              = simple_form_for [:dashboard, @program] do |f|
+                = f.hidden_field :next_step, value: 'back'
+                = f.input_field :info_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
+    / Content Area
+  - elsif params[:step] == 'price'
+    = render 'layouts/header_coach'
+    .content-area.bg-dark-blue2.full-vh
+      .container
+        .row
+          .col-12
+            .object-content
+              %p.fontlight Prix du programme
+              = simple_form_for [:dashboard, @program] do |f|
+                = f.hidden_field :next_step, value: 'cover'
+                %h3.white.fontlight
+                  %span €
+                  = f.input_field :price,  class: 'fontlight big-transparent-input', required: true, placeholder: '50'
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  - elsif params[:step] == 'cover'
+    = render 'layouts/header_coach'
+    / Content Area
+    .content-area.bg-dark-blue2.full-vh.page10
+      = simple_form_for [:dashboard, @program] do |f|
+        = f.hidden_field :next_step, value: 'summary'
+        .container
+          .row
+            .col-12
+              .object-content
+                %p.fontlight Choisis une bannière
+        .object-content
+          .prev-img
+            %label.display-block
+              = image_tag @program.cover_url, id: 'preview', alt:"", class: 'banner-upload'
+              = f.input_field :cover, style: 'opacity: 0', onchange: "readURL(this);"
+        .container
+          .row
+            .col-12
+              .object-content
+                .touch
+                  = image_tag "touch.png", alt:""
+                  %p.fontlight Touche pour importer une image
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+    / Content Area
+  - elsif params[:step] == 'summary'
+    = render 'layouts/header_coach'
+    / Banner
+    .banner-area
+      .container
+        .row
+          %h1.fontlight
+            PROGRAMME
+            = succeed "FESSES" do
+              %br/
+    / Banner
+    / Content Area
+    .content-area.bg-dark-blue.mvh-70.page12
+      .container
+        .row
+          .col-12
+            .content-inner
+              .pack-top.mb-30.fontlight
+                %p.iblue
+                  8 semaines
+                  %span.white
+                    %br>/
+                    3 séances/semaine
+                %p.text-right
+                  %b €60,00
+              .pack-profile-box.mb-30
+                .pack-profile-img
+                  = image_tag "farid.png", alt:"Farid"
+                %p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+              = simple_form_for [:dashboard, @program] do |f|
+                = f.hidden_field :published, value: 'true'
+                %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :type => "submit"}
+                  Valider #{image_tag "tik.png", alt:""}
+              Prochaine étape = pouvoir lui ajouter des exercices
+    / Content Area

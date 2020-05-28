@@ -1,0 +1,12 @@
+= render 'layouts/header_coach'
+/ Content Area
+.content-area.bg-dark-blue2.full-vh
+  .container
+    .row
+      .col-12
+        .object-content
+          %p.fontlight Nom du programme
+          = simple_form_for [:dashboard, @program] do |f|
+            %input.form-control{:name => "program[name]", :placeholder => "Exemple : découverte", :type => "text"}/
+            %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+/ Content Area

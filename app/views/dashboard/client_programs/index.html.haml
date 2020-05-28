@@ -1,0 +1,48 @@
+= render 'layouts/header_coach'
+.content-area.bg-light-blue.full-vh
+  .container
+    .row
+      .col-12
+        .content-inner.page24
+          .panel.panel-default
+            .panel-body
+              .tab-content
+                .tab-pane.active{:id => "envoyés"}
+                  .member-box
+                    .member-left
+                      .member-img
+                        = image_tag "member-1.png", alt:""
+                      .member-info
+                        %h3 Nicolas Desloges
+                        %p Perte de poids - 15j
+                    .member-right
+                      %p
+                        25/10/2020
+                        %span.left-angle.right
+                  .member-box
+                    .member-left
+                      .member-img
+                        = image_tag "member-2.png", alt:""
+                      .member-info
+                        %h3 Sabrina Derozin
+                        %p Sèche - 30j
+                    .member-right
+                      %p
+                        19/12/2020
+                        %span.left-angle.right
+                  .member-box
+                    .member-left
+                      .member-img
+                        = image_tag "member-3.png", alt:""
+                      .member-info
+                        %h3 Marion Maréchal
+                        %p Cuisses - 30j
+                    .member-right
+                      %p
+                        19/12/2020
+                        %span.left-angle.right
+                .tab-pane{:id => "en attente"}
+                  %h3 Notice the gap between the content and tab after applying a background color
+          .fixed-element.fixed
+            %p.fontlight Créer un nouveau programme
+            %a.circle-btn{:href => new_dashboard_program_path} +
