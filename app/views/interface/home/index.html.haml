@@ -12,18 +12,21 @@
               %h3 Réserver un coaching
         - else
           %h3 Ton prochain coaching
-          - coming_coaching = @courses.first
+          - next_course = @courses.first
           .coaching-box
             .co-img
-              = image_tag coming_coaching.user.avatar_url, alt:""
+              = image_tag next_course.user.avatar_url, alt:""
             .single-box
               %h4
-                = I18n.l(coming_coaching.start_time, format: :long)
+                = I18n.l(next_course.start_time, format: :long)
                 %span
-                  = coming_coaching.user.first_name
-              %p.fontlight 1/10 pack transformation
+                  = next_course.user.first_name
+              %p.fontlight
+                = link_to order_availabilities_path(user_id: next_course.user_id, id: next_course.order), class: 'iblue' do
+                  = next_course.course_infos
             .single-icon
-              = image_tag "boxbtm.png", alt:""
+              =link_to "sms:#{next_course.user.phone}" do
+                = image_tag "boxbtm.png", alt:""
 / Content Area
 .content-area.no-margin.no-padding{style: 'background-color: #101D26;'}
   .container
@@ -49,9 +52,12 @@
                         #{I18n.l(course.start_time, format: :long)}
                         %span
                           = course.user.first_name
-                      %p.fontlight 1/10 pack transformation
+                      %p.fontlight
+                        = link_to order_availabilities_path(user_id: course.user_id, id: course.order), class: 'iblue' do
+                          = course.course_infos
                     .single-icon
-                      = image_tag "boxbtm.png", alt:""
+                      =link_to "sms:#{course.user.phone}" do
+                        = image_tag "boxbtm.png", alt:""
                   %br
                   %br
       #programmes.tab-pane.coaching-area
@@ -62,7 +68,7 @@
                 - @programs.each do |program|
                   .profile-card.card1{:style => "background-image: url(#{program.cover_url})"}
                     .left
-                      %h3.fontlight= program.name
+                      %h3.iblue= program.name
                       %p.fontlight.iblue
                         = program.duration
                         séances
@@ -71,7 +77,7 @@
                         séances/semaine
                     .right
                       %h3.fontlight= number_to_currency(program.price)
-                      %a.rightarrow.white{:href => "#{edit_dashboard_program_path(program)}"}
+                      %a.rightarrow.white{:href => "#{interface_program_path(program)}"}
                   %br
               - else
                 Vous n'avez pas encore acheté de programmes

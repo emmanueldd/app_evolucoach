@@ -1,6 +1,6 @@
 module Interface
   class OrdersController < InterfaceController
-    before_action :set_order, only: [:show, :edit, :update, :availabilities]
+    before_action :set_order, only: [:show, :edit, :update, :availabilities, :pay]
 
     def show
     end
@@ -29,7 +29,7 @@ module Interface
 
     def availabilities # choix des créneaux horaires
       @user = @order.user
-      @date = DateTime.now
+      @date = params[:date].present? ? params[:date].to_datetime : DateTime.now
       @program = @order.programs.last # toujours retourner vers le dernier program ajouté
     end
 
@@ -54,6 +54,11 @@ module Interface
     end
 
     def update
+      @order.update(order_params)
+      head :no_content
+    end
+
+    def pay
       @order.assign_attributes(order_params)
       @order.status = 'paid'
       if @order.save!

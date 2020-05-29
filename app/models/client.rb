@@ -15,6 +15,15 @@ class Client < ApplicationRecord
     "#{first_name} #{last_name} - #{email}"
   end
 
+  def programs
+    # TODO : A SIMPLIFIER
+    Program.where(id: order_has_items.joins(:order).where(item_type: 'Program', orders: {status: 'paid'}).pluck(:item_id))
+  end
+
+  def packs
+    Program.where(id: order_has_items.joins(:order).where(item_type: 'Program', orders: {status: 'paid'}).pluck(:item_id))
+  end
+
   def find_stripe_customer_id
     if stripe_customer_id.blank?
       customer = Stripe::Customer.create(

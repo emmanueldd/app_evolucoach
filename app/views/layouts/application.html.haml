@@ -14,7 +14,7 @@
         stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}');
 
   %body{"data-prod-env": (Rails.env.production?).to_s, "data-namespace": content_for(:namespace) || namespace, "data-action": content_for(:action_name) || action_name, "data-controller": content_for(:controller_name) || controller_name}
-    - if notice || alert
+    - if notice || alert || params[:success].present?
       .aboslute-text.blue-bg#flash-message
         - if params[:pause].present?
           = image_tag 'pause.png', class: 'no-border'

@@ -11,6 +11,21 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :courses, reject_if: :all_blank, allow_destroy: true
   enum status: { waiting: 0, paid: 1, failed: 2, refunded: 3 }
   after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
+  after_save :set_course_infos
+  after_save :set_course_status, if: -> { saved_change_to_status? && paid? }
+
+  def set_course_status
+    # BUG
+    courses.where(status: 'pending').update(status: 'confirmed')
+  end
+
+  def set_course_infos
+    # A optimiser
+    courses.where(status: ['pending', 'confirmed']).order(start_time: :asc).each_with_index do |course, index|
+      i = index + 1
+      course.update_columns(course_infos: "#{i}/#{credit} pack #{packs.last.name}")
+    end
+  end
 
   def set_total_price
     self.total_price = order_has_items.sum('quantity * price')

@@ -30,7 +30,9 @@ Rails.application.routes.draw do
 
   namespace :interface do
     root 'home#index'
+    resources :programs, except: [:index]
     resources :orders, except: [:destroy]
+    patch 'orders/:id/pay', to: 'orders#pay', as: 'pay_order'
   end
 
   namespace :dashboard do

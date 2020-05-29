@@ -5,10 +5,12 @@ class Course < ApplicationRecord
   belongs_to :order
   before_save :set_fields
   after_save :set_availability, if: -> { saved_change_to_status? }
-  enum status: { pending: 0, confirmed: 1, refused: 2, canceled: 3, removed: 4 }
+  enum status: { pending: 0, confirmed: 1, refused: 2, canceled: 3, removed: 4, done: 5 }
   scope :coming, -> { where('start_time > ?', DateTime.now ).order(start_time: :asc) }
+
   def set_fields
     # TODO : Dégueulasse, autant faire un delegate avec order. Mais reste interessant pour activeadmin
+    # self.status = 'confirmed' if order.paid?
     self.user = order.user if order.present?
     self.client = order.client if order.present?
   end

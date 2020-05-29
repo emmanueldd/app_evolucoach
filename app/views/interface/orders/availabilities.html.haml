@@ -79,7 +79,10 @@
                         .hour-check
                           %p
                             - @availability = @user.availabilities.find_or_initialize_by(start_time: date)
-                            - unless @availability.taken(@order)
+                            - if @availability.taken(@order)
+                              %br
+                              x
+                            - else
                               = simple_form_for(@order, url: interface_order_path(@order), namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/interface/orders/#{@order.id}" }) do |f|
 
                                 = f.error_notification
@@ -93,7 +96,7 @@
                                       = course.input_field :order_id, as: :hidden, value: @order.id
                                       - is_it = @order.courses.not_removed.find_by(start_time: date)
 
-                                      = course.input :status, as: :boolean, input_html: { checked: is_it.present?}, checked_value: 'pending', unchecked_value: 'removed'
+                                      = course.input :status, as: :boolean, input_html: { checked: is_it.present? }, checked_value: (@order.paid? ? 'confirmed' : 'pending'), unchecked_value: 'removed'
 
                   - 0.times do
                     %tr
@@ -102,7 +105,7 @@
   %br
   %br
   %br
-  = link_to edit_interface_order_path(@order), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
+  = link_to @order.paid? ? interface_root_path(success: true) : edit_interface_order_path(@order), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
     Confirmer >
 :javascript
   $(function() {

@@ -20,7 +20,7 @@
             Payez en toute tranquilité grâceà notre sytème
             %br
             de sécurité certifié.
-          = simple_form_for [:interface, @order], html: {id: 'payment-form'} do |f|
+          = simple_form_for @order, url: interface_pay_order_path(@order), html: {id: 'payment-form'} do |f|
             %div
               %h2{style: 'margin-bottom:5px;'}
                 Paiement sécurisé

@@ -1,0 +1,44 @@
+= render 'layouts/header_client'
+/ Content Area
+.content-area.bg-light-blue.page19.full-vh
+  .bg-top
+  .container
+    .row
+      .col-12
+        .content-inner
+          - prev_exercise_category_id = ''
+          - @program_steps.each do |step|
+            - if step.exercise_category_id != prev_exercise_category_id
+              %h2.subtitle.pl-15.font-sm.fontlight= step.exercise_category.name
+            - prev_exercise_category_id = step.exercise_category_id
+            .input-box.grey-bg.white
+              %h2.subtitle.font-sm.fontbold.mb-15
+                %strong= step.exercise.name
+              .list
+                .list-item
+                  %p
+                    Series
+                    %span.text-right= step.round
+                  %p
+                    Reps
+                    %span.text-right= step.repetition
+                  %p
+                    Charge
+                    %span.text-right= step.charge
+                  %p
+                    Cadence
+                    %span.text-right= step.cadence
+                %a.abolute-play-btn{:href => "#"}
+                  = image_tag "play.png", alt:""
+            %br/
+          .pacto-content
+            .blue-bg
+              = image_tag "clock.png", alt:""
+              = @program.rest_note
+            .blue-dark-bg
+              = image_tag "info.png", alt:""
+              = @program.info_note
+          .fixed-element-margin
+          .fixed-element.fixed
+            %a.circle-btn{:href => "#{dashboard_program_step_index_path(@program)}"} +
+/ Content Area
