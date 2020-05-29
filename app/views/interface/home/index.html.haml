@@ -1,4 +1,4 @@
-= render 'layouts/header_client'
+= render 'layouts/header'
 .coaching-area.g-blue-bg
   .container
     .row
@@ -6,10 +6,10 @@
         - if @courses.blank?
           - if current_client.user.present?
             = link_to current_client.user do
-              %h3 Réserver un coaching
+              %h3 Réserver un coaching >
           - else
             = link_to users_path do
-              %h3 Réserver un coaching
+              %h3 Réserver un coaching >
         - else
           %h3 Ton prochain coaching
           - next_course = @courses.first
@@ -60,6 +60,8 @@
                         = image_tag "boxbtm.png", alt:""
                   %br
                   %br
+              - else
+                Vous n'avez pas encore acheté de coachings.
       #programmes.tab-pane.coaching-area
         .container
           .row
@@ -80,4 +82,4 @@
                       %a.rightarrow.white{:href => "#{interface_program_path(program)}"}
                   %br
               - else
-                Vous n'avez pas encore acheté de programmes
+                Vous n'avez pas encore acheté de programmes.

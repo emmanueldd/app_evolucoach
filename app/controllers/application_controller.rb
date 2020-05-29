@@ -2,6 +2,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :forbid_multiple_connexion, unless: :format_js?
+  before_action :complete_signup, unless: :format_js?
+
+  def complete_signup
+    if current_client && !current_client.signup_completed?
+      if controller_path != "interface/clients"
+        redirect_to edit_interface_client_path(current_client)
+      end
+    end
+  end
 
   def forbid_multiple_connexion
     if current_user && current_user.current_sign_in_at.present? && current_client && current_client.current_sign_in_at.present?
@@ -15,11 +24,11 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     if resource_class == User
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname, :slug])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname, :phone])
       devise_parameter_sanitizer.permit(:account_update, keys: [:slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
     elsif resource_class == Client
       devise_parameter_sanitizer.permit(:sign_up, keys: [:user_id, :slug, :first_name, :last_name])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:user_id, :slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:user_id, :slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode, :birth_date])
     # elsif resource_class == Pro
     #   devise_parameter_sanitizer.permit(:sign_up, keys: [:expo_token_id, :dpt, :first_name, :last_name, :nickname, :avatar, :phone])
     #   devise_parameter_sanitizer.permit(:account_update, keys: [:app_version, :expo_token_id, :dpt, :siret, :first_name, :last_name, :nickname, :instagram_url, :avatar, :phone, :address, :city, :moves, :at_home, moves_to: [], payment_information_attributes: [:rib, :passport, :social_security_number, :pro_id]])

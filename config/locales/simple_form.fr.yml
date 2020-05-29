@@ -37,6 +37,7 @@ fr:
         birthday: 'Date de naissance'
       defaults:
         instagram_url: '@bineta_doucoure'
+        birth_date: 'Date de naissance'
         email: 'Ton email'
         zipcode: 'Ton code postal'
         phone: 'Ton n° de téléphone'
@@ -54,6 +55,7 @@ fr:
         content: 'Ta réponse'
         name: 'Ta question'
       defaults:
+        birth_date: 'Date de naissance'
         instagram_url: 'Ton instagram'
         gift: 'Ton cadeau'
         remember_me: "Se souvenir de moi ?"

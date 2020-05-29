@@ -1,3 +1,10 @@
+# bigint "user_id"
+# bigint "client_id"
+# bigint "lead_id"
+# boolean "is_client", default: false
+# datetime "created_at", null: false
+# datetime "updated_at", null: false
+
 class UserHasClient < ApplicationRecord
   belongs_to :user
   belongs_to :client, optional: true

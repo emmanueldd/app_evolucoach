@@ -1,6 +1,6 @@
 %body
   - if params[:step].blank?
-    = render 'layouts/header_coach'
+    = render 'layouts/header'
     .content-area.bg-dark-blue2.page27
       .container
         .row
@@ -72,7 +72,7 @@
                 = f.input_field :info_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
     / Content Area
   - elsif params[:step] == 'price'
-    = render 'layouts/header_coach'
+    = render 'layouts/header'
     .content-area.bg-dark-blue2.full-vh
       .container
         .row
@@ -86,7 +86,7 @@
                   = f.input_field :price,  class: 'fontlight big-transparent-input', required: true, placeholder: '50'
                 %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
   - elsif params[:step] == 'cover'
-    = render 'layouts/header_coach'
+    = render 'layouts/header'
     / Content Area
     .content-area.bg-dark-blue2.full-vh.page10
       = simple_form_for [:dashboard, @program] do |f|
@@ -111,7 +111,7 @@
                 %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
     / Content Area
   - elsif params[:step] == 'summary'
-    = render 'layouts/header_coach'
+    = render 'layouts/header'
     / Banner
     .banner-area
       .container

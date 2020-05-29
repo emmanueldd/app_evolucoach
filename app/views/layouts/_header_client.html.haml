@@ -26,7 +26,7 @@
                   = image_tag current_client.avatar_url, alt:"Farid"
                 %h2.name
                   Bonjour #{current_client.first_name} !
-              
+
           - elsif @profile_box
             .profile-inner
               .profile-box.mt-30
@@ -54,16 +54,12 @@
         %li
           %a{:href => interface_root_path} Mon profil
         %li
-          %a{:href => "#"} Analyses trafic
+          %a{:href => edit_interface_client_path(current_client)} Modifier mes infos
         %li
-          %a{:href => "#"} Statistiques
+          - if current_client.user.present?
+            = link_to 'Mon coach', current_client.user
+          - else
+            = link_to 'Trouver un coach', users_path
         %li
-          %a{:href => "#"} Programmes
-        %li
-          %a{:href => "#"} Mes athlètes
-        %li
-          %a{:href => "#"} Newsletter
-        %li
-          %a{:href => "#"} Paramètres
-        %li= link_to 'Déconnexion', destroy_user_session_path, method: :delete
+          = link_to 'Déconnexion', destroy_client_session_path, method: :delete
   / Header

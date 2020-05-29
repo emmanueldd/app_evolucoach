@@ -2,14 +2,14 @@
   .container
     .row
       .col-12.col-md-6.offset-md-3.col-lg-6.offset-lg-3
-        = render 'layouts/header_coach'
+        = render 'layouts/header'
         %h3 Créer mon compte
         = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
           = f.error_notification
           .form-inputs
             .row
               .col-md-6
-                = f.input_field :user_id, as: :hidden, value: session[:last_user_visited_id]
+                = f.input_field :user_id, as: :hidden, value: cookies[:last_user_visited_id]
                 = f.input :first_name, required: true, input_html: { autocomplete: "first_name" }
               .col-md-6
                 = f.input :last_name, required: true, input_html: { autocomplete: "last_name" }

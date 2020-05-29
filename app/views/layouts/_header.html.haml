@@ -1,0 +1,25 @@
+- if client_signed_in?
+  = render 'layouts/header_client'
+- elsif user_signed_in?
+  = render 'layouts/header_coach'
+- else
+  - if devise_controller?
+    .text-center
+      = image_tag 'logo_big.png', class: 'logo_big'
+  - else
+    %header.header-area.profile.no-radius.py-4
+      .container
+        .row
+          .col-12
+            .d-flex.justify-content-between.align-items-center
+              %a{:href => "#"}
+                %span.left-angle.d-none
+              %h1
+                %a{:href => root_path}
+                  %span.iblue> EVOLU
+                  COACH
+              %a#menubar{:href => "#"}
+                %span.bar
+                %span.bar
+                %span.bar
+            

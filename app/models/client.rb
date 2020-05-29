@@ -7,12 +7,22 @@ class Client < ApplicationRecord
   belongs_to :user, optional: true
   has_many :orders
   has_many :order_has_items, through: :orders
+  has_many :user_has_clients
 
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }
+  after_save :add_to_crm, if: -> { saved_change_to_user_id? }
+
+  def add_to_crm
+    user_has_clients.create!(user: user) if user.present?
+  end
 
   def display_name
     "#{first_name} #{last_name} - #{email}"
+  end
+
+  def signup_completed?
+    birth_date.present? && male.present? && phone.present? && city.present?
   end
 
   def programs

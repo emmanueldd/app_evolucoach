@@ -1,0 +1,61 @@
+.bg-dark-blue.full-height
+  .container
+    .row
+      .col-12.col-md-4.offset-md-4.col-lg-4.offset-lg-4
+        = render 'layouts/header'
+        %h3 Infos du compte #{@step}/3
+        %br
+        = simple_form_for([:interface, @client]) do |f|
+          = f.error_notification
+          - if params[:step].to_i == 1 || params[:step].blank?
+            -# Prénom, nom
+            .form-inputs
+              = f.input :first_name, required: true, input_html: { autocomplete: "first_name" }
+              = f.input :last_name, required: true, input_html: { autocomplete: "last_name" }
+              = f.input :phone, required: true, input_html: { autocomplete: "phone_number" }
+              %input{type: 'hidden', name: 'next_step', value: '2'}
+          - elsif params[:step].to_i == 2
+            .form-inputs
+              %fieldset.form-group.radio_buttons.optional.client_male.text-center
+                .row
+                  %input{:name => "client[male]", :type => "hidden", :value => ""}/
+                  .col-6
+                    .form-check
+
+                    %label{:for => "client_male_true"}
+                      = image_tag 'man-icon.png', style: 'margin-left: 4px;'
+                    %br
+                    %input#client_male_true{:name => "client[male]", :type => "radio", :value => "true", checked: @client.male}/
+                  .col-6
+                    .form-check
+                    %label{:for => "client_male_false"}
+                      = image_tag 'woman-icon.png', style: 'margin-left: 4px;'
+                    %br
+                    %input#client_male_false{:name => "client[male]", :type => "radio", :value => "false", checked: !@client.male}/
+
+
+              .form-group.string.required.client_city
+                %label.string.required{:for => "client_birth_date"}
+                  Date de naissance
+                  %abbr{:title => "requis"} *
+                %input#client_birth_date.form-control.required{type: 'date', "aria-required" => "true", :name => "client[birth_date]", :required => "required", value: @client.birth_date, min:'1940-01-01', max:'2010-01-01'}/
+              = f.input :city, required: true
+
+            %input{type: 'hidden', name: 'next_step', value: '3'}
+          - elsif params[:step].to_i == 3
+            %p
+              Photo de profil
+              %br
+              %br
+
+            .text-center
+              = f.label :avatar do
+
+                = image_tag 'upload-avatar.png'
+              = f.input_field :avatar, style: 'opacity: 0;'
+              = link_to 'Passer cette étape >', (@client.user.present? ? @client.user : interface_root_path), class: 'iblue'
+              %input{type: 'hidden', name: 'next_step', value: 'completed'}
+
+          .form-actions
+            %br
+            = f.button :submit, "Valider", class: 'custom-btn blue-bg white full-width'

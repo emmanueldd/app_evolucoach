@@ -12,11 +12,13 @@ class Order < ApplicationRecord
   enum status: { waiting: 0, paid: 1, failed: 2, refunded: 3 }
   after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
   after_save :set_course_infos
-  after_save :set_course_status, if: -> { saved_change_to_status? && paid? }
+  after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
 
-  def set_course_status
+  def set_paid_actions
     # BUG
     courses.where(status: 'pending').update(status: 'confirmed')
+    @crm = client.user_has_clients.find_by(user: user)
+    @crm.update(is_client: true) if @crm.present?
   end
 
   def set_course_infos
