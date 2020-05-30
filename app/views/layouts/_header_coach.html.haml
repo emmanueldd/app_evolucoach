@@ -46,7 +46,8 @@
                   ⭐️
                   %span.fontlight= current_user.score.round
                 .profile-bag
-                  = image_tag "bag.png", alt:"Bag"
+                  = link_to dashboard_availabilities_path do
+                    = image_tag "bag.png", alt:"Bag"
               .profile-name.mt-10
                 %h2.name= current_user.first_name
                 %p.iblue

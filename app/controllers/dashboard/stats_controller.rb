@@ -5,6 +5,10 @@ module Dashboard
       # @stats = current_user.stats
     end
 
+    def traffic
+
+    end
+
     # def index
     #   @stat = Stat.new(params[:start_date], params[:end_date], params[:place_id])
     #   if params[:stat_slug].present?
