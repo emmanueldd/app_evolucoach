@@ -113,7 +113,7 @@
                       = client.infos.last_name
                     %p= client.infos.email
                 .member-right
-                  %a{:href => "#{dashboard_user_has_client_path(client)}"}
+                  %a{:href => "#{dashboard_crm_path(client)}"}
                     - if client.is_client
                       client
                     - else

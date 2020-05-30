@@ -40,11 +40,12 @@ Rails.application.routes.draw do
   namespace :dashboard do
     root 'home#index'
     resources :stats, only: [:index]
+    resources :crm, only: [:index, :show]
     get 'stats/traffic', to: 'stats#traffic', as: 'stats_traffic'
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step
     end
-    resources :user_has_clients, path: :crm
+    # resources :user_has_clients, path: :crm, as: :crm
     resources :packs
     resources :ratings
     resources :availabilities
