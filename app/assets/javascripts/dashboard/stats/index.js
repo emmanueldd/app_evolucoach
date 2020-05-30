@@ -3,109 +3,101 @@ App.dashboard_stats = App.dashboard_stats || {};
 App.dashboard_stats.index = {
   init: function() {
     var self = this;
-    // Chart.js
-    if ($('#homme').length > 0) {
-      var R = 10;
+    const labels = ['0', "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec", "Jan", "Fév", ''];
+    const data = [40, 38, 36, 38, 37, 44, 48, 75, null];
+    const data2 = [50, 50, 48, 38, 32, 35, 42, 65, null];
+    let selIndex = 3;
 
-      var data1 = [
-        {
-          label: 'homme',
-          value: 40,
-          // Récupérer l'info dans la vue
-        },
-        {
-          label: 'femme',
-          value: 60
-          // Récupérer l'info dans la vue
-        },
-      ]
+    const lineChart = new Chart(document.getElementById('myChart'), {
+      type: 'line',
+      plugins: [{
+        afterDraw: chart => {
+          var ctx = chart.chart.ctx;
+          var xAxis = chart.scales['x-axis-0'];
+          var yAxis = chart.scales['y-axis-0'];
+          xAxis.ticks.forEach((value, index) => {
+            var x = xAxis.getPixelForTick(index);
+            var yTop = yAxis.getPixelForValue(data[index]);
+            ctx.save();
+            ctx.strokeStyle = "rgba(255,255,255,0.8)";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x, yAxis.bottom);
+            ctx.lineTo(x, yTop);
+            ctx.stroke();
 
-      function pol2cart(r, a) {
-        return {
-          x: r * Math.cos(a),
-          y: r * Math.sin(a)
-        };
-      }
+            if (index == selIndex) {
 
-      function path(p_s, p_e) {
+              // draw circle
+              ctx.beginPath();
+              ctx.lineWidth = 4;
+              ctx.strokeStyle = "#03B3BB";
+              ctx.arc(x, yTop, 2, 2, 4 * Math.PI);
+              ctx.stroke();
 
-        var a_s = 2 * Math.PI * p_s;
-        var a_e = 2 * Math.PI * p_e;
-        // if the angle is bigger than 180°, set the large-arc-flag to 1
-        var isLarge = a_e > Math.PI ? '1' : '0';
-        var c_s = pol2cart(R, a_s);
-        var c_e = pol2cart(R, a_s + a_e)
-
-        var s_path = 'M 0 0';
-        s_path += ' L ' + c_s.x + ' ' + c_s.y;
-        s_path += ' A ' + R + ' ' + R + ' 0 ' + isLarge + ' 1 ' + c_e.x + ' ' + c_e.y;
-        s_path += ' L 0 0';
-
-        return s_path;
-      }
-
-      function draw(data) {
-        var total = data.reduce((a, c) => a + c.value, 0);
-        var current = 0;
-
-        for (d of data) {
-          e = document.querySelector('#' + d.label);
-          p = d.value / total;
-          e.setAttribute('d', path(current, p));
-          current += p;
+              // draw text for value and label
+              ctx.textAlign = 'center';
+              ctx.fillStyle = "#fff";
+              ctx.font = "16px Arial";
+              ctx.fillText(data[index] + 'k', x, yTop - 30);
+              ctx.fillText(labels[index], x, yAxis.bottom + 22);
+            }
+            ctx.restore();
+          });
         }
-      }
+      }],
+      data: {
+        labels: labels.map((l, i) => i == selIndex ? '' : l),
+        datasets: [{
+          backgroundColor: "rgba(7,171,177,0.4)",
+          borderWidth: 6,
+          pointBackgroundColor: "rgba(255,255,255,0.8)",
+          pointBorderColor: "rgba(255,255,255,0.8)",
+          pointBorderWidth: 12,
+          borderColor: '#03B3BB',
+          pointHoverBackgroundColor: "rgba(255,255,255,0.8)",
+          pointHoverBorderColor: "rgba(255,255,255,0.8)",
+          pointHoverBorderWidth: 14,
 
-      draw(data1);
-
-
-      var data2 = [
-        {
-          label: 'homme1',
-          value: 20,
+          data: data,
+        }, {
+          backgroundColor: "#28343C",
+          borderWidth: 3,
+          borderColor: '#6E7489',
+          data: data2,
+          pointRadius: 0,
+        }]
+      },
+      options: {
+        legend: {
+          display: false
         },
-        {
-          label: 'femme1',
-          value: 80
+
+        tooltips: {
+          enabled: false
         },
-      ]
-
-      function pol2cart(r, a) {
-        return {
-          x: r * Math.cos(a),
-          y: r * Math.sin(a)
-        };
-      }
-
-      function path(p_s, p_e) {
-
-        var a_s = 2 * Math.PI * p_s;
-        var a_e = 2 * Math.PI * p_e;
-        // if the angle is bigger than 180°, set the large-arc-flag to 1
-        var isLarge = a_e > Math.PI ? '1' : '0';
-        var c_s = pol2cart(R, a_s);
-        var c_e = pol2cart(R, a_s + a_e)
-
-        var s_path = 'M 0 0';
-        s_path += ' L ' + c_s.x + ' ' + c_s.y;
-        s_path += ' A ' + R + ' ' + R + ' 0 ' + isLarge + ' 1 ' + c_e.x + ' ' + c_e.y;
-        s_path += ' L 0 0';
-
-        return s_path;
-      }
-
-      function draw(data) {
-        var total = data.reduce((a, c) => a + c.value, 0);
-        var current = 0;
-
-        for (d of data) {
-          e = document.querySelector('#' + d.label);
-          p = d.value / total;
-          e.setAttribute('d', path(current, p));
-          current += p;
+        scales: {
+          yAxes: [{
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              beginAtZero: true
+            }
+          }],
+          xAxes: [{
+            gridLines: {
+              display: false
+            },
+            ticks: {
+              fontSize: 16,
+              fontColor: '#6E7489',
+            }
+          }]
         }
-      }
-      draw(data2);
-    }
+      },
+
+    });
+
   }
 }
