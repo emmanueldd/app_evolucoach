@@ -3,7 +3,7 @@ app evolucoach
 
 rails g model Pro first_name last_name description
 rails g model User first_name last_name
-rails g model Stas user:references stat_type stat_value:integer
+rails g model Stat user:references name stat_value:float
 rails g model Rating user:references client:references score:integer comment:text published:boolean
 rails g model Course user:references client:references start_time:datetime status:integer
 

@@ -26,19 +26,7 @@
               %input{:id => "réservé", :name => "radio-group", :type => "radio", disabled: true}/
               %label{:for => "réservé"} réservé
   .menu-area.profile
-    %ul.menu
-      %li
-        %a{:href => "#"} Analyses trafic
-      %li
-        %a{:href => "#"} Statistiques
-      %li
-        %a{:href => "#"} Programmes
-      %li
-        %a{:href => "#"} Mes athlètes
-      %li
-        %a{:href => "#"} Newsletter
-      %li
-        %a{:href => "#"} Paramètres
+    = render 'layouts/navigation'
 
 / Content Area
 .content-area.bg-dark-blue.page13.page15

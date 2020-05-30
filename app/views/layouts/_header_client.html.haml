@@ -50,16 +50,5 @@
                 %a{:class => "#{'active' if controller_name == 'programs'} fontbold", :href => interface_programs_path} programmes
                 %a{:class => "#{'active' if controller_name == 'ratings'} fontlight", :href => interface_ratings_path} avis
     .menu-area.profile.page23
-      %ul.menu
-        %li
-          %a{:href => interface_root_path} Mon profil
-        %li
-          %a{:href => edit_interface_client_path(current_client)} Modifier mes infos
-        %li
-          - if current_client.user.present?
-            = link_to 'Mon coach', current_client.user
-          - else
-            = link_to 'Trouver un coach', users_path
-        %li
-          = link_to 'Déconnexion', destroy_client_session_path, method: :delete
+      = render 'layouts/navigation'
   / Header

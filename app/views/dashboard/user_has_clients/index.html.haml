@@ -89,19 +89,7 @@
             %a{:href => "#"} Prospect
             %a{:href => "#"}= image_tag "cross.png", alt:""
     .menu-area.profile
-      %ul.menu
-        %li
-          %a{:href => "#"} Analyses trafic
-        %li
-          %a{:href => "#"} Statistiques
-        %li
-          %a{:href => "#"} Programmes
-        %li
-          %a{:href => "#"} Mes athlètes
-        %li
-          %a{:href => "#"} Newsletter
-        %li
-          %a{:href => "#"} Paramètres
+      = render 'layouts/navigation'
   / Header
   / Content Area
   .content-area.bg-light-blue.full-vh.page34.page15.page38

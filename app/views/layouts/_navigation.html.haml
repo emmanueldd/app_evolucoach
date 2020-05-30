@@ -1,0 +1,32 @@
+- if client_signed_in?
+  %ul.menu
+    %li
+      %a{:href => interface_root_path} Mon profil
+    %li
+      %a{:href => edit_interface_client_path(current_client)} Modifier mes infos
+    %li
+      - if current_client.user.present?
+        = link_to 'Mon coach', current_client.user
+      - else
+        = link_to 'Trouver un coach', users_path
+    %li
+      = link_to 'Déconnexion', destroy_client_session_path, method: :delete
+- if user_signed_in?
+  %ul.menu
+    %li
+      %a{:href => dashboard_user_path(current_user)} Mon profil
+    %li
+      %a{:href => dashboard_stats_path} Analyses trafic
+    %li
+      %a{:href => dashboard_stats_path} Statistiques
+    %li
+      %a{:href => dashboard_programs_path} Programmes
+    %li
+      %a{:href => dashboard_user_path(current_user)} Packs coaching
+    %li
+      %a{:href => "#crm"} Mes athlètes
+    -# %li
+    -#   %a{:href => "#"} Newsletter
+    %li
+      %a{:href => "#"} Informations bancaires
+    %li= link_to 'Déconnexion', destroy_user_session_path, method: :delete

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root 'home#index'
   get 'users/check_slug_availability/:slug', to: 'users#check_slug_availability', as: 'check_slug_availability'
   get 'inscription' , to: redirect('/users/sign_up')
+  get 'app' , to: redirect('/dashboard')
   get ':user_id/orders/:id/availabilities' , to: 'interface/orders#availabilities', as: :order_availabilities
 
   resources :users, only: :index do
@@ -38,6 +39,7 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     root 'home#index'
+    resources :stats, only: :index
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step
     end

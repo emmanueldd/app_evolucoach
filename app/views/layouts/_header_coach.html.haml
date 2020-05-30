@@ -57,20 +57,5 @@
                 %a{:class => "#{'active' if controller_name == 'programs'} fontbold", :href => dashboard_programs_path} programmes
                 %a{:class => "#{'active' if controller_name == 'ratings'} fontlight", :href => dashboard_ratings_path} avis
     .menu-area.profile.page23
-      %ul.menu
-        %li
-          %a{:href => "#{dashboard_user_path(current_user)}"} Mon profil
-        %li
-          %a{:href => "#"} Analyses trafic
-        %li
-          %a{:href => "#"} Statistiques
-        %li
-          %a{:href => "#"} Programmes
-        %li
-          %a{:href => "#"} Mes athlètes
-        %li
-          %a{:href => "#"} Newsletter
-        %li
-          %a{:href => "#"} Paramètres
-        %li= link_to 'Déconnexion', destroy_user_session_path, method: :delete
+      = render 'layouts/navigation'
   / Header
