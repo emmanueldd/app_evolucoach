@@ -3,10 +3,14 @@ App.dashboard_stats = App.dashboard_stats || {};
 App.dashboard_stats.index = {
   init: function() {
     var self = this;
-    const labels = ['0', "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec", "Jan", "Fév", ''];
-    const data = [40, 38, 36, 38, 37, 44, 48, 75, null];
-    const data2 = [50, 50, 48, 38, 32, 35, 42, 65, null];
-    let selIndex = 3;
+    // Récupérer les mois dans des div avec la class .months
+    const labels = ['', "Juil", "Aoû", "Sep", "Oct", "Nov", "Dec", "Jan", "Fév", 'Mar', ''];
+    // Récupérer les values dans des div avec la class data1
+    const data = [40, 38, 36, 38, 37, 44, 48, 75, 37, 44, null];
+    // Récupérer les values dans des div avec la class data2
+    // OU ALORS => Faire des calls api et mettre le linechart dans un .then
+    const data2 = [50, 50, 48, 38, 32, 35, 42, 65, 37, 44, null];
+    let selIndex = 3; // Defines the key of the value from data2 to show
 
     const lineChart = new Chart(document.getElementById('myChart'), {
       type: 'line',
@@ -26,7 +30,7 @@ App.dashboard_stats.index = {
             ctx.lineTo(x, yTop);
             ctx.stroke();
 
-            if (index == selIndex) {
+            // if (index == selIndex) {
 
               // draw circle
               ctx.beginPath();
@@ -41,7 +45,7 @@ App.dashboard_stats.index = {
               ctx.font = "16px Arial";
               ctx.fillText(data[index] + 'k', x, yTop - 30);
               ctx.fillText(labels[index], x, yAxis.bottom + 22);
-            }
+            // }
             ctx.restore();
           });
         }

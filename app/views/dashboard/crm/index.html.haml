@@ -114,7 +114,7 @@
                     %p= client.infos.email
                 .member-right
                   %a{:href => "#{dashboard_crm_path(client)}"}
-                    - if client.is_client
+                    - if client.has_buy
                       client
                     - else
                       prospect

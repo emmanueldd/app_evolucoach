@@ -52,6 +52,7 @@ gem 'friendly_id', '~> 5.2.4'
 gem 'mailgun_rails'
 gem 'exception_notification'
 gem 'slack-notifier'
+gem 'groupdate'
 
 
 

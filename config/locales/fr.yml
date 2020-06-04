@@ -175,6 +175,7 @@ fr:
       default: "%d/%m/%Y"
       short: "%d/%m"
       long: "%d %B %Y"
+      month: "%B"
     month_names:
     -
     - janvier
@@ -353,6 +354,7 @@ fr:
       day_and_time: "%A à %H:%M"
       time_on_calendar: "%H h %M"
       short: "%e  %b %Hh%M"
+      month: "%B"
     pm: pm
   will_paginate:
     next_label: '>'

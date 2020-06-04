@@ -17,7 +17,7 @@
   .panel-body.bg-dark-blue
     .tab-content
       #revenus.tab-pane.active
-        .container
+        -# .container
           .row
             .col-12
               .top-links
@@ -37,7 +37,7 @@
                         %a{"data-toggle" => "tab", :href => "#année"} année
         / Graph Area
         .graph-area.bg-dark-blue
-          %canvas#myChart{:height => "100"}
+          %canvas#myChart{:height => "120"}
         / Graph Area
         / Content Area
         .content-area.bg-light-blue
@@ -46,8 +46,12 @@
               .col-12
                 .content-inner
                   / Tab start
-                  #september
-                    %h2.subtitle Septembre
+                  #september.text-center
+
+                    %h2.subtitle
+                      %span <
+                      Septembre
+                      %span >
                     .table-box.align-items-center.row.text-center
                       .col-4.table-body
                         %p.heading Total
@@ -128,7 +132,7 @@
                 .content-inner
                   .pricing-box
                     %p Mes revenus mensuels moyens
-                    %h3 €4.200,00/mois
+                    %h3 #{price_to_currency(current_user.avg_monthly_income)}/mois
                   .table-box.align-items-center.table2.text-center.row.mt-20
                     .col-4.table-body
                       %p.heading Produit

@@ -4,10 +4,10 @@ one:
   user: one
   client: one
   lead: one
-  is_client: false
+  has_buy: false
 
 two:
   user: two
   client: two
   lead: two
-  is_client: false
+  has_buy: false

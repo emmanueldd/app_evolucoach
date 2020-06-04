@@ -391,7 +391,7 @@ ul.menu li a {
   font-size: 18px;
   padding: 15px 20px;
   display: block;
-  border-bottom: 2px solid #fff;
+  border-bottom: 1px solid #333;
   color: #fff;
   transition: all .3s;
 }
@@ -955,6 +955,9 @@ header.header-area.profile {
 
 .profile-img {
   width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: solid 2px #03B3BB;
 }
 
 .profile-box h3 span {
@@ -2013,6 +2016,7 @@ header.header-area.page21 {
 
 .page23 .profile-img {
   width: 50px;
+  height: 50px;
   margin-right: 10px;
 }
 
@@ -3415,6 +3419,7 @@ a.popup-btn {
 
   .profile-img {
     width: 200px;
+    height: 200px;
   }
 
   .profile-box h3 {
@@ -3712,6 +3717,7 @@ a.popup-btn {
   /*=======Page 23 ======*/
   .page23 .profile-img {
     width: 100px;
+    height: 100px;
     margin-right: 40px;
   }
 

@@ -3,6 +3,25 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :forbid_multiple_connexion, unless: :format_js?
   before_action :complete_signup, unless: :format_js?
+  before_action :set_lead_and_history
+
+  def set_lead_and_history
+    cookies[:uuid] ||= SecureRandom.uuid
+    cookies[:first_visit_at] ||= DateTime.now
+    cookies[:last_visit_at] = DateTime.now
+    # History.create(cookies[:uuid], request.env['PATH_INFO']) if request.env['PATH_INFO'].present? && current_admin_user.blank?
+  end
+
+  def current_lead
+    if params[:email].present?
+      lead = Lead.find_or_initialize_by(email: params[:email])
+      cookies[:uuid] = lead.uuid if lead.present?
+    end
+    lead ||= Lead.find_or_initialize_by(uuid: cookies[:uuid])
+    lead.save! if lead.new_record?
+    return lead
+  end
+  helper_method :current_lead
 
   def complete_signup
     if current_client && !current_client.signup_completed?
@@ -27,11 +46,8 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname, :phone])
       devise_parameter_sanitizer.permit(:account_update, keys: [:slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
     elsif resource_class == Client
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:user_id, :slug, :first_name, :last_name])
-      devise_parameter_sanitizer.permit(:account_update, keys: [:user_id, :slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode, :birth_date])
-    # elsif resource_class == Pro
-    #   devise_parameter_sanitizer.permit(:sign_up, keys: [:expo_token_id, :dpt, :first_name, :last_name, :nickname, :avatar, :phone])
-    #   devise_parameter_sanitizer.permit(:account_update, keys: [:app_version, :expo_token_id, :dpt, :siret, :first_name, :last_name, :nickname, :instagram_url, :avatar, :phone, :address, :city, :moves, :at_home, moves_to: [], payment_information_attributes: [:rib, :passport, :social_security_number, :pro_id]])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:lead_id, :user_id, :slug, :first_name, :last_name])
+      devise_parameter_sanitizer.permit(:account_update, keys: [:lead_id, :user_id, :slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode, :birth_date])
     end
   end
 

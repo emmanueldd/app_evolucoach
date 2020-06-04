@@ -4,17 +4,24 @@
     .row
       .col-12
         %h3 Ton prochain coaching
-        .coaching-box
-          .co-img
-            = image_tag "member-1.png", alt:""
-          .single-box
-            %h4
-              lundi 23 sept 16h00
-              %span
-                Nicolas B.
-            %p.fontlight 1/10 pack transformation
-          .single-icon
-            = image_tag "boxbtm.png", alt:""
+        - if @courses.blank?
+          %p.white Tu n'as pas de coaching à venir.
+        - else
+          - next_course = @courses.first
+          .coaching-box
+            .co-img
+              = image_tag next_course.client.avatar_url, alt:""
+            .single-box
+              %h4
+                = I18n.l(next_course.start_time, format: :long)
+                %span
+                  = next_course.client.first_name
+              %p.fontlight
+                = link_to order_availabilities_path(client_id: next_course.client_id, id: next_course.order), class: 'iblue' do
+                  = next_course.course_infos
+            .single-icon
+              =link_to "sms:#{next_course.client.phone}" do
+                = image_tag "boxbtm.png", alt:""
 / Content Area
 .content-area.bg-light-blue
   .bg-top
@@ -24,36 +31,33 @@
         .content-inner.page23
           #september
             %h2.mt-20.subtitle Statistiques
-            %p.para-sub Période en cours : février
-            .table-box.align-items-center.row.text-center
-              .col-4.table-body
-                %p.heading Total
-                %p.fontbold €0,00
-              .col-4.table-body
-                %p.heading Clients
-                %p.fontlight 5
-              .col-4.table-body
-                %p.heading Écart
-                %p.site-btn.fontlight.btn-bg.grey-bg 0,00€
-            .table-box.align-items-center.table2.text-center.row.mt-20
-              .col-4.table-body
-                %p.heading Produit
-                %p.fontlight OFFRE 1
-                %p.fontlight OFFRE 2
-                %p.fontlight OFFRE 3
-                %p.fontlight PROGRAMMES
-              .col-4.table-body
-                %p.heading Clients
-                %p.fontlight 1
-                %p.fontlight 0
-                %p.fontlight 0
-                %p.fontlight 0
-              .col-4.table-body
-                %p.heading Total
-                %p.fontlight €500,00
-                %p.fontlight €0,00
-                %p.fontlight €0,00
-                %p.fontlight €0,00
-            %a.border-btn{:href => "#"}
+            %p.para-sub Période en cours : #{I18n.l(Date.today, format: :month)}
+            - if @orders_paid.blank?
+              %p Vous n'avez pas encore réalisé de ventes.
+            - else
+              .table-box.align-items-center.row.text-center
+                .col-4.table-body
+                  %p.heading Total
+                  %p.fontbold= price_to_currency(@orders_paid.sum(:total_price))
+                .col-4.table-body
+                  %p.heading Ventes
+                  %p.fontlight= @orders_paid.count
+                .col-4.table-body
+                  %p.heading Écart
+                  %p.site-btn.fontlight.btn-bg.grey-bg=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal * 100 )
+              .table-box.align-items-center.table2.text-center.row.mt-20
+                .col-4.table-body
+                  %p.heading Produit
+                  - @orders_paid.each do |order|
+                    %p.fontlight= order.name
+                .col-4.table-body
+                  %p.heading Ventes
+                  - @orders_paid.each do |order|
+                    %p.fontlight 1
+                .col-4.table-body
+                  %p.heading Total
+                  - @orders_paid.each do |order|
+                    %p.fontlight= price_to_currency(order.total_price)
+            %a.border-btn{:href => dashboard_stats_goal_path}
               = image_tag "pen.png", alt:""
               Créer un objectif

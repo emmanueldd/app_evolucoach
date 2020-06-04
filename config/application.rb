@@ -14,7 +14,7 @@ module Appevolucoach
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/
     config.i18n.default_locale = :fr
     config.time_zone = 'Europe/Paris'
-    config.active_record.default_timezone = :local
+    config.active_record.default_timezone = :utc
 
 
     # Settings in config/environments/* take precedence over those specified here.

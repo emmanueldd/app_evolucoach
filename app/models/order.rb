@@ -14,11 +14,15 @@ class Order < ApplicationRecord
   after_save :set_course_infos
   after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
 
+  def name
+    return 'Nom du prog ou du pack'
+  end
+
   def set_paid_actions
     # BUG
     courses.where(status: 'pending').update(status: 'confirmed')
     @crm = client.user_has_clients.find_by(user: user)
-    @crm.update(is_client: true) if @crm.present?
+    @crm.update(has_buy: true) if @crm.present?
   end
 
   def set_course_infos

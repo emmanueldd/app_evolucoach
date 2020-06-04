@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200530010546) do
+ActiveRecord::Schema.define(version: 20200604152714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,7 +81,9 @@ ActiveRecord::Schema.define(version: 20200530010546) do
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
     t.string "stripe_customer_id"
+    t.bigint "lead_id"
     t.index ["email"], name: "index_clients_on_email", unique: true
+    t.index ["lead_id"], name: "index_clients_on_lead_id"
     t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_clients_on_slug", unique: true
     t.index ["user_id"], name: "index_clients_on_user_id"
@@ -162,7 +164,9 @@ ActiveRecord::Schema.define(version: 20200530010546) do
     t.datetime "updated_at", null: false
     t.boolean "male"
     t.integer "age"
+    t.string "uuid"
     t.index ["user_id"], name: "index_leads_on_user_id"
+    t.index ["uuid"], name: "index_leads_on_uuid", unique: true
   end
 
   create_table "order_has_courses", force: :cascade do |t|
@@ -195,6 +199,7 @@ ActiveRecord::Schema.define(version: 20200530010546) do
     t.datetime "updated_at", null: false
     t.integer "credit", default: 0
     t.integer "credit_left", default: 0
+    t.datetime "paid_at"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -274,6 +279,7 @@ ActiveRecord::Schema.define(version: 20200530010546) do
     t.float "stat_value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "period"
     t.index ["user_id"], name: "index_stats_on_user_id"
   end
 
@@ -281,9 +287,11 @@ ActiveRecord::Schema.define(version: 20200530010546) do
     t.bigint "user_id"
     t.bigint "client_id"
     t.bigint "lead_id"
-    t.boolean "is_client", default: false
+    t.boolean "has_buy", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "lead_at"
+    t.datetime "client_at"
     t.index ["client_id"], name: "index_user_has_clients_on_client_id"
     t.index ["lead_id"], name: "index_user_has_clients_on_lead_id"
     t.index ["user_id"], name: "index_user_has_clients_on_user_id"
@@ -313,12 +321,14 @@ ActiveRecord::Schema.define(version: 20200530010546) do
     t.inet "current_sign_in_ip"
     t.inet "last_sign_in_ip"
     t.string "stripe_customer_id"
+    t.integer "avg_monthly_income", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
   add_foreign_key "availabilities", "users"
+  add_foreign_key "clients", "leads"
   add_foreign_key "clients", "users"
   add_foreign_key "courses", "availabilities"
   add_foreign_key "courses", "clients"

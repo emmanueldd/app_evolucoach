@@ -1,7 +1,7 @@
 # bigint "user_id"
 # bigint "client_id"
 # bigint "lead_id"
-# boolean "is_client", default: false
+# boolean "has_buy", default: false
 # datetime "created_at", null: false
 # datetime "updated_at", null: false
 
@@ -9,6 +9,16 @@ class UserHasClient < ApplicationRecord
   belongs_to :user
   belongs_to :client, optional: true
   belongs_to :lead, optional: true
+  before_save :set_date
+
+  scope :leads, -> { where.not(lead: nil) }
+  scope :clients, -> { where.not(client: nil) }
+  scope :paying_clients, -> { where.not(client: nil).where(has_buy: false) }
+
+  def set_date
+    self.lead_at = DateTime.now if lead_id_changed? && lead.present?
+    self.client_at = DateTime.now if client_id_changed? && client.present?
+  end
 
   def infos # shortcut
     client || lead

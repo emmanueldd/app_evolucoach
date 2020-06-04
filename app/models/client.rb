@@ -5,6 +5,7 @@ class Client < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable
   mount_uploader :avatar, AvatarUploader
   belongs_to :user, optional: true
+  belongs_to :lead, optional: true
   has_many :orders
   has_many :order_has_items, through: :orders
   has_many :user_has_clients
@@ -14,7 +15,11 @@ class Client < ApplicationRecord
   after_save :add_to_crm, if: -> { saved_change_to_user_id? }
 
   def add_to_crm
-    user_has_clients.create!(user: user) if user.present?
+    if user.present? && lead.present?
+      crm = UserHasClient.find_or_initialize_by(lead: lead, user: user)
+      crm.client_id = id
+      crm.save!
+    end
   end
 
   def display_name
@@ -22,7 +27,7 @@ class Client < ApplicationRecord
   end
 
   def signup_completed?
-    birth_date.present? && male.present? && phone.present? && city.present?
+    birth_date.present? && !male.nil? && phone.present? && city.present?
   end
 
   def programs

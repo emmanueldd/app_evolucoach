@@ -61,6 +61,7 @@ module Interface
     def pay
       @order.assign_attributes(order_params)
       @order.status = 'paid'
+      @order.paid_at = DateTime.now
       if @order.save!
         redirect_to [:interface, @order]
       end
