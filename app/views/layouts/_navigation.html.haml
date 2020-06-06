@@ -14,6 +14,8 @@
 - if user_signed_in?
   %ul.menu
     %li
+      %a{:href => dashboard_root_path} Accueil
+    %li
       %a{:href => dashboard_user_path(current_user)} Mon profil
     %li
       %a{:href => dashboard_stats_traffic_path} Analyses trafic

@@ -21,53 +21,53 @@
                     %li
                       %span.leftvalue 18-24
                       .progress
-                        .progress-bar.one{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
+                        .progress-bar.one{"aria-valuenow" => "100", :style => "width: #{@clients_18_24}%"}
+                        %span.rightvalue #{@clients_18_24}%
                     %li
                       %span.leftvalue 25-34
                       .progress
-                        .progress-bar.two{"aria-valuenow" => "100", :style => "width: 60%"}
-                        %span.rightvalue 25%
+                        .progress-bar.two{"aria-valuenow" => "100", :style => "width: #{@clients_25_34}%"}
+                        %span.rightvalue #{@clients_25_34}%
                     %li
                       %span.leftvalue 35-44
                       .progress
-                        .progress-bar.three{"aria-valuenow" => "100", :style => "width: 65%"}
-                        %span.rightvalue 30%
+                        .progress-bar.three{"aria-valuenow" => "100", :style => "width: #{@clients_35_44}%"}
+                        %span.rightvalue #{@clients_35_44}%
                     %li
                       %span.leftvalue 45-54
                       .progress
-                        .progress-bar.four{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
+                        .progress-bar.four{"aria-valuenow" => "100", :style => "width: #{@clients_45_54}%"}
+                        %span.rightvalue #{@clients_45_54}%
                     %li
                       %span.leftvalue +55
                       .progress
-                        .progress-bar.five{"aria-valuenow" => "100", :style => "width: 25%"}
-                        %span.rightvalue 5%
+                        .progress-bar.five{"aria-valuenow" => "100", :style => "width: #{@clients_55}%"}
+                        %span.rightvalue #{@clients_55}%
                   .panel.panel-default
                     .panel-heading
                       .panel-title
                         .panel-header.mb-25
                           %h2.subtitle.no-mb Genre
-                          %ul.nav.nav-tabs.noborder-tab
-                            %li
-                              %a.active{"data-toggle" => "tab", :href => "#tout"} Tout
-                            %li
-                              %a{"data-toggle" => "tab", :href => "#femmes"} Femmes
-                            %li
-                              %a{"data-toggle" => "tab", :href => "#hommes"} Hommes
+                          -# %ul.nav.nav-tabs.noborder-tab
+                          -#   %li
+                          -#     %a.active{"data-toggle" => "tab", :href => "#tout"} Tout
+                          -#   %li
+                          -#     %a{"data-toggle" => "tab", :href => "#femmes"} Femmes
+                          -#   %li
+                          -#     %a{"data-toggle" => "tab", :href => "#hommes"} Hommes
                     .panel-body
                       .tab-content
                         #tout.tab-pane.active
                           .cirle-chart
                             %h3
-                              %span.iblue 70%
+                              %span.iblue #{@women_clients}%
                               Femmes
                             .chart
                               %svg.chart{:viewbox => "-10 -10 20 20"}
-                                %path#femme{:d => "", :fill => "#03B3BB"}
-                                %path#homme{:d => "", :fill => "#101D26"}
+                                %path#femme{:d => '', :data => "#{@women_clients}", :fill => "#03B3BB"}
+                                %path#homme{:d => '', :data => "#{@men_clients}", :fill => "#101D26"}
                             %h3
-                              %span.iblue 30%
+                              %span.iblue #{@men_clients}%
                               Hommes
                         #femmes.tab-pane
                           %h2 femmes
@@ -75,84 +75,70 @@
                           %h2 hommes
                   %h2.subtitle.mt-25 Villes
                   %ul.tab-list.citytab
-                    %li
-                      %span.leftvalue Paris
-                      .progress
-                        .progress-bar.one{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
-                    %li
-                      %span.leftvalue Boullogne
-                      .progress
-                        .progress-bar.two{"aria-valuenow" => "100", :style => "width: 60%"}
-                        %span.rightvalue 25%
-                    %li
-                      %span.leftvalue Issy les…
-                      .progress
-                        .progress-bar.three{"aria-valuenow" => "100", :style => "width: 65%"}
-                        %span.rightvalue 30%
-                    %li
-                      %span.leftvalue Courbevoie
-                      .progress
-                        .progress-bar.four{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
-                    %li
-                      %span.leftvalue Asnières
-                      .progress
-                        .progress-bar.five{"aria-valuenow" => "100", :style => "width: 25%"}
-                        %span.rightvalue 5%
+                    - if @clients_by_city.nil?
+                      %p Vous n'avez pas suffisament de données.
+                    - else
+                      - @clients_by_city.each do |client|
+                        %li
+                          %span.leftvalue=client[0]
+                          .progress
+                            .progress-bar.one{"aria-valuenow" => "100", :style => "width: #{(client[1].to_f / @clients.count.to_f * 100).to_i}%"}
+                            %span.rightvalue
+                              #{(client[1].to_f / @clients.count.to_f * 100).to_i}%
+
                 #inscriptions.tab-pane
                   %h2.subtitle Tranche d’âge
                   %ul.tab-list.mb-25
                     %li
                       %span.leftvalue 18-24
                       .progress
-                        .progress-bar.one{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
+                        .progress-bar.one{"aria-valuenow" => "100", :style => "width: #{@paying_clients_18_24}%"}
+                        %span.rightvalue #{@paying_clients_18_24}%
                     %li
                       %span.leftvalue 25-34
                       .progress
-                        .progress-bar.two{"aria-valuenow" => "100", :style => "width: 60%"}
-                        %span.rightvalue 25%
+                        .progress-bar.two{"aria-valuenow" => "100", :style => "width: #{@paying_clients_25_34}%"}
+                        %span.rightvalue #{@paying_clients_25_34}%
                     %li
                       %span.leftvalue 35-44
                       .progress
-                        .progress-bar.three{"aria-valuenow" => "100", :style => "width: 65%"}
-                        %span.rightvalue 30%
+                        .progress-bar.three{"aria-valuenow" => "100", :style => "width: #{@paying_clients_35_44}%"}
+                        %span.rightvalue #{@paying_clients_35_44}%
                     %li
                       %span.leftvalue 45-54
                       .progress
-                        .progress-bar.four{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
+                        .progress-bar.four{"aria-valuenow" => "100", :style => "width: #{@paying_clients_45_54}%"}
+                        %span.rightvalue #{@paying_clients_45_54}%
                     %li
                       %span.leftvalue +55
                       .progress
-                        .progress-bar.five{"aria-valuenow" => "100", :style => "width: 25%"}
-                        %span.rightvalue 5%
+                        .progress-bar.five{"aria-valuenow" => "100", :style => "width: #{@paying_clients_55}%"}
+                        %span.rightvalue #{@paying_clients_55}%
                   .panel.panel-default
                     .panel-heading
                       .panel-title
                         .panel-header.mb-25
                           %h2.subtitle.no-mb Genre
-                          %ul.nav.nav-tabs.noborder-tab
-                            %li
-                              %a.active{"data-toggle" => "tab", :href => "#tout"} Tout
-                            %li
-                              %a{"data-toggle" => "tab", :href => "#femmes"} Femmes
-                            %li
-                              %a{"data-toggle" => "tab", :href => "#hommes"} Hommes
+                          -# %ul.nav.nav-tabs.noborder-tab
+                          -#   %li
+                          -#     %a.active{"data-toggle" => "tab", :href => "#tout"} Tout
+                          -#   %li
+                          -#     %a{"data-toggle" => "tab", :href => "#femmes"} Femmes
+                          -#   %li
+                          -#     %a{"data-toggle" => "tab", :href => "#hommes"} Hommes
                     .panel-body
                       .tab-content
                         #tout.tab-pane.active
                           .cirle-chart
                             %h3
-                              %span.iblue 70%
+                              %span.iblue #{@women_paying_clients}%
                               Femmes
                             .chart
                               %svg.chart{:viewbox => "-10 -10 20 20"}
-                                %path#femme1{:d => "", :fill => "#03B3BB"}
-                                %path#homme1{:d => "", :fill => "#101D26"}
+                                %path#femme1{:d => '', :data => "#{@women_paying_clients}", :fill => "#03B3BB"}
+                                %path#homme1{:d => '', :data => "#{@men_paying_clients}", :fill => "#03B3BB"}
                             %h3
-                              %span.iblue 30%
+                              %span.iblue #{@men_paying_clients}%
                               Hommes
                         #femmes.tab-pane
                           %h2 femmes
@@ -160,29 +146,14 @@
                           %h2 hommes
                   %h2.subtitle.mt-25 Villes
                   %ul.tab-list.citytab
-                    %li
-                      %span.leftvalue Paris
-                      .progress
-                        .progress-bar.one{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
-                    %li
-                      %span.leftvalue Boullogne
-                      .progress
-                        .progress-bar.two{"aria-valuenow" => "100", :style => "width: 60%"}
-                        %span.rightvalue 25%
-                    %li
-                      %span.leftvalue Issy les…
-                      .progress
-                        .progress-bar.three{"aria-valuenow" => "100", :style => "width: 65%"}
-                        %span.rightvalue 30%
-                    %li
-                      %span.leftvalue Courbevoie
-                      .progress
-                        .progress-bar.four{"aria-valuenow" => "100", :style => "width: 40%"}
-                        %span.rightvalue 15%
-                    %li
-                      %span.leftvalue Asnières
-                      .progress
-                        .progress-bar.five{"aria-valuenow" => "100", :style => "width: 25%"}
-                        %span.rightvalue 5%
-/ Content Area
+                    - if @paying_clients_by_city.nil?
+                      %p Vous n'avez pas suffisament de données.
+                    - else
+                      - @paying_clients_by_city.each do |client|
+                        %li
+                          %span.leftvalue=client[0]
+                          .progress
+                            .progress-bar.one{"aria-valuenow" => "100", :style => "width: #{(client[1].to_f / @paying_clients.count.to_f * 100).to_i}%"}
+                            %span.rightvalue
+                              #{(client[1].to_f / @paying_clients.count.to_f * 100).to_i}%
+  / Content Area

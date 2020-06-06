@@ -49,48 +49,44 @@
                   #september.text-center
 
                     %h2.subtitle
-                      %span <
-                      Septembre
-                      %span >
+                      = link_to url_for(date: @date - 1.month) do
+                        %span.left-angle
+                      = I18n.l(@date, format: "%B")
+                      = link_to url_for(date: @date + 1.month) do
+                        %span.left-angle.right
                     .table-box.align-items-center.row.text-center
                       .col-4.table-body
                         %p.heading Total
-                        %p.fontbold €5.528,00
+                        %p.fontbold= price_to_currency(@orders_paid.sum(:total_price))
                       .col-4.table-body
-                        %p.heading Clients
-                        %p.fontlight 5
+                        %p.heading Ventes
+                        %p.fontlight= @orders_paid.count
                       .col-4.table-body
                         %p.heading Écart
-                        %p.site-btn.fontlight.btn-bg -72,00€
+                        %p.site-btn.fontlight.btn-bg.grey-bg=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal * 100 )
                     .table-box.align-items-center.table2.text-center.row.mt-20
                       .col-4.table-body
                         %p.heading Produit
-                        %p.fontlight OFFRE 1
-                        %p.fontlight OFFRE 2
-                        %p.fontlight OFFRE 3
-                        %p.fontlight PROGRAMMES
+                        - @orders_paid.each do |order|
+                          %p.fontlight= order.name
                       .col-4.table-body
-                        %p.heading Clients
-                        %p.fontlight 1
-                        %p.fontlight 0
-                        %p.fontlight 0
-                        %p.fontlight 0
+                        %p.heading Ventes
+                        - @orders_paid.each do |order|
+                          %p.fontlight 1
                       .col-4.table-body
                         %p.heading Total
-                        %p.fontlight €500,00
-                        %p.fontlight €0,00
-                        %p.fontlight €0,00
-                        %p.fontlight €0,00
+                        - @orders_paid.each do |order|
+                          %p.fontlight= price_to_currency(order.total_price)
                     .conversion-bars
                       .single-bar.mt-30
                         .svg-chart
                           %svg.donut{:height => "100%", :viewbox => "0 0 40 40", :width => "100%"}
                             %circle.donut-hole{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954"}
                             %circle.donut-ring{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-width" => "8"}
-                            %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "60 40", "stroke-dashoffset" => "25", "stroke-width" => "8"}
+                            %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "#{@conversion} #{@conversion_diff}", "stroke-dashoffset" => "25", "stroke-width" => "8"}
                             %g.donut-text
                               %text{:transform => "translate(0, 2)", :y => "50%"}
-                                %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} 60%
+                                %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} #{@conversion}%
                         .bar-content
                           %h3
                             conversion
@@ -98,19 +94,19 @@
                         .table-box
                           .conversion-table
                             %p.heading Visites
-                            %p.fontlight 100
+                            %p.fontlight= @visits_count
                           .conversion-table
                             %p.heading Inscriptions
-                            %p.fontlight 60
+                            %p.fontlight= @clients_count
                       .single-bar.mt-30
                         .svg-chart
                           %svg.donut{:height => "100%", :viewbox => "0 0 40 40", :width => "100%"}
                             %circle.donut-hole{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954"}
                             %circle.donut-ring{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-width" => "8"}
-                            %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "80 20", "stroke-dashoffset" => "25", "stroke-width" => "8"}
+                            %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "#{@transformation} #{@transformation_diff}", "stroke-dashoffset" => "25", "stroke-width" => "8"}
                             %g.donut-text
                               %text{:transform => "translate(0, 2)", :y => "50%"}
-                                %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} 80%
+                                %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} #{@transformation}%
                         .bar-content
                           %h3
                             transformation
@@ -118,10 +114,10 @@
                         .table-box
                           .conversion-table
                             %p.heading Clients
-                            %p.fontlight 30
+                            %p.fontlight= @clients_count
                           .conversion-table
                             %p.heading Achats
-                            %p.fontlight 24
+                            %p.fontlight= @purchases
                   / Tab end
       #moyennes.tab-pane
         / Content Area
@@ -133,64 +129,64 @@
                   .pricing-box
                     %p Mes revenus mensuels moyens
                     %h3 #{price_to_currency(current_user.avg_monthly_income)}/mois
-                  .table-box.align-items-center.table2.text-center.row.mt-20
-                    .col-4.table-body
-                      %p.heading Produit
-                      %p.fontlight OFFRE 1
-                      %p.fontlight OFFRE 2
-                      %p.fontlight OFFRE 3
-                      %p.fontlight PROGRAMMES
-                    .col-4.table-body
-                      %p.heading Clients
-                      %p.fontlight 1
-                      %p.fontlight 0
-                      %p.fontlight 0
-                      %p.fontlight 0
-                    .col-4.table-body
-                      %p.heading Total
-                      %p.fontlight €500,00
-                      %p.fontlight €0,00
-                      %p.fontlight €0,00
-                      %p.fontlight €0,00
-                  .conversion-bars
-                    .single-bar.mt-30
-                      .svg-chart
-                        %svg.donut{:height => "100%", :viewbox => "0 0 40 40", :width => "100%"}
-                          %circle.donut-hole{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954"}
-                          %circle.donut-ring{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-width" => "8"}
-                          %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "60 40", "stroke-dashoffset" => "25", "stroke-width" => "8"}
-                          %g.donut-text
-                            %text{:transform => "translate(0, 2)", :y => "50%"}
-                              %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} 60%
-                      .bar-content
-                        %h3
-                          conversion
-                          %span visiteurs/inscriptions
-                      .table-box
-                        .conversion-table
-                          %p.heading Visites
-                          %p.fontlight 100
-                        .conversion-table
-                          %p.heading Inscriptions
-                          %p.fontlight 60
-                    .single-bar.mt-30
-                      .svg-chart
-                        %svg.donut{:height => "100%", :viewbox => "0 0 40 40", :width => "100%"}
-                          %circle.donut-hole{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954"}
-                          %circle.donut-ring{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-width" => "8"}
-                          %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "80 20", "stroke-dashoffset" => "25", "stroke-width" => "8"}
-                          %g.donut-text
-                            %text{:transform => "translate(0, 2)", :y => "50%"}
-                              %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} 80%
-                      .bar-content
-                        %h3
-                          transformation
-                          %span activations/clients
-                      .table-box
-                        .conversion-table
-                          %p.heading Clients
-                          %p.fontlight 30
-                        .conversion-table
-                          %p.heading Achats
-                          %p.fontlight 24
+                  -# .table-box.align-items-center.table2.text-center.row.mt-20
+                  -#   .col-4.table-body
+                  -#     %p.heading Produit
+                  -#     %p.fontlight OFFRE 1
+                  -#     %p.fontlight OFFRE 2
+                  -#     %p.fontlight OFFRE 3
+                  -#     %p.fontlight PROGRAMMES
+                  -#   .col-4.table-body
+                  -#     %p.heading Clients
+                  -#     %p.fontlight 1
+                  -#     %p.fontlight 0
+                  -#     %p.fontlight 0
+                  -#     %p.fontlight 0
+                  -#   .col-4.table-body
+                  -#     %p.heading Total
+                  -#     %p.fontlight €500,00
+                  -#     %p.fontlight €0,00
+                  -#     %p.fontlight €0,00
+                  -#     %p.fontlight €0,00
+                  -# .conversion-bars
+                  -#   .single-bar.mt-30
+                  -#     .svg-chart
+                  -#       %svg.donut{:height => "100%", :viewbox => "0 0 40 40", :width => "100%"}
+                  -#         %circle.donut-hole{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954"}
+                  -#         %circle.donut-ring{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-width" => "8"}
+                  -#         %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "60 40", "stroke-dashoffset" => "25", "stroke-width" => "8"}
+                  -#         %g.donut-text
+                  -#           %text{:transform => "translate(0, 2)", :y => "50%"}
+                  -#             %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} 60%
+                  -#     .bar-content
+                  -#       %h3
+                  -#         conversion
+                  -#         %span visiteurs/inscriptions
+                  -#     .table-box
+                  -#       .conversion-table
+                  -#         %p.heading Visites
+                  -#         %p.fontlight 100
+                  -#       .conversion-table
+                  -#         %p.heading Inscriptions
+                  -#         %p.fontlight 60
+                  -#   .single-bar.mt-30
+                  -#     .svg-chart
+                  -#       %svg.donut{:height => "100%", :viewbox => "0 0 40 40", :width => "100%"}
+                  -#         %circle.donut-hole{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954"}
+                  -#         %circle.donut-ring{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-width" => "8"}
+                  -#         %circle.donut-segment{:cx => "20", :cy => "20", :fill => "transparent", :r => "15.91549430918954", "stroke-dasharray" => "80 20", "stroke-dashoffset" => "25", "stroke-width" => "8"}
+                  -#         %g.donut-text
+                  -#           %text{:transform => "translate(0, 2)", :y => "50%"}
+                  -#             %tspan.donut-percent{"text-anchor" => "middle", :x => "50%"} 80%
+                  -#     .bar-content
+                  -#       %h3
+                  -#         transformation
+                  -#         %span activations/clients
+                  -#     .table-box
+                  -#       .conversion-table
+                  -#         %p.heading Clients
+                  -#         %p.fontlight 30
+                  -#       .conversion-table
+                  -#         %p.heading Achats
+                  -#         %p.fontlight 24
 / Content Area

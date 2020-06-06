@@ -13,6 +13,10 @@ module ApplicationHelper
     number ||= 0
     "#{number / 100}€"
   end
+
+  def get_age_from_date(birth_date)
+    ((DateTime.now - birth_date).to_i / 365.25).to_i
+  end
   #
   # def price_to_sequence(number, sequence)
   #   number ||= 0

@@ -50,8 +50,8 @@
           .ville.mb-60
             %p.pop-title Ville
             .header-seacrh
-              .form-group
-                %input.form-control{:placeholder => "Sélectionner une ville", :type => "seacrh"}/
+              .form-group.grey
+                %input.form-control#city{:placeholder => "Sélectionner une ville", :type => "seacrh", style: 'color: #222 !important;'}/
                 = image_tag "search.png", alt:"Seaech", class:"search-icon"
           %a.popup-btn.g-blue-bg{:href => "#"}
             OK
@@ -69,13 +69,15 @@
               %span.bar
               %span.bar
               %span.bar
-          .panel-heading.mt-30
-            .panel-title
-              %ul.nav.nav-tabs.border-tab
-                %li
-                  %a.active{"data-toggle" => "tab", :href => "#tous"} tous
-                %li
-                  %a{"data-toggle" => "tab", :href => "#groupes"} groupes
+          %br
+          -# Pouvoir faire des groupes
+          -# .panel-heading.mt-30
+          -#   .panel-title
+          -#     %ul.nav.nav-tabs.border-tab
+          -#       %li
+          -#         %a.active{"data-toggle" => "tab", :href => "#tous"} tous
+          -#       %li
+          -#         %a{"data-toggle" => "tab", :href => "#groupes"} groupes
           .header-seacrh
             %a#site-popup{:href => "#"}
               .form-group
@@ -83,11 +85,12 @@
                 = image_tag "search.png", alt:"Seaech", class:"search-icon"
                 = image_tag "trading.png", alt:"Seaech", class:"trading-icon"
           .filter-text.flexbox
+            -# Faire un if avec les params
             %a{:href => "#"} Hommes-Femmes
             %a{:href => "#"} 30-40 ans
             %a{:href => "#"} Paris
             %a{:href => "#"} Prospect
-            %a{:href => "#"}= image_tag "cross.png", alt:""
+            %a{:href => url_for}= image_tag "cross.png", alt:""
     .menu-area.profile
       = render 'layouts/navigation'
   / Header
@@ -100,18 +103,21 @@
             - @clients.each do |client|
               .member-box.checkbox-item
                 .member-left
-                  .member-check
-                    %form{:action => "#"}
-                      %p
-                        %input{:id => "user#{client.id}", :name => "radio-group", :type => "checkbox"}/
-                        %label.checkbox-radio-style{:for => "user#{client.id}"}
+                  -# Pouvoir cocher les athlètes
+                  -# .member-check
+                  -#   %form{:action => "#"}
+                  -#     %p
+                  -#       %input{:id => "user#{client.id}", :name => "radio-group", :type => "checkbox"}/
+                  -#       %label.checkbox-radio-style{:for => "user#{client.id}"}
                   .member-img
-                    = image_tag client.infos.avatar_url , alt:""
+                    %a{:href => "#{dashboard_crm_path(client)}"}
+                      = image_tag client.infos.avatar_url , alt:""
                   .member-info
-                    %h3
-                      = client.infos.first_name
-                      = client.infos.last_name
-                    %p= client.infos.email
+                    %a{:href => "#{dashboard_crm_path(client)}"}
+                      %h3
+                        = client.infos.first_name
+                        = client.infos.last_name
+                      %p= client.infos.email
                 .member-right
                   %a{:href => "#{dashboard_crm_path(client)}"}
                     - if client.has_buy
@@ -119,7 +125,7 @@
                     - else
                       prospect
                     %span.left-angle.right
-            .fixed-element.fixed
-              %a.circle-btn.grey-tik{:href => "#"}
-                = image_tag "grey-tik.png", alt:""
+            -# .fixed-element.fixed
+            -#   %a.circle-btn.grey-tik{:href => "#"}
+            -#     = image_tag "grey-tik.png", alt:""
   / Content Area

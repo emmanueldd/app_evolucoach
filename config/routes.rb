@@ -43,6 +43,7 @@ Rails.application.routes.draw do
     resources :crm, only: [:index, :show]
     get 'stats/traffic', to: 'stats#traffic', as: 'stats_traffic'
     get 'stats/goal', to: 'stats#goal', as: 'stats_goal'
+    get 'stats/get_charts', to: 'stats#get_charts', as: 'stats_get_charts'
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step
     end

@@ -10,12 +10,12 @@ App.dashboard_stats.traffic = {
       var data1 = [
         {
           label: 'homme',
-          value: 40,
+          value: parseInt($('#homme').attr('data')),
           // Récupérer l'info dans la vue
         },
         {
           label: 'femme',
-          value: 60
+          value: parseInt($('#femme').attr('data'))
           // Récupérer l'info dans la vue
         },
       ]

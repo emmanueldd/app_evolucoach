@@ -53,6 +53,8 @@ gem 'mailgun_rails'
 gem 'exception_notification'
 gem 'slack-notifier'
 gem 'groupdate'
+gem 'momentjs-rails'
+
 
 
 

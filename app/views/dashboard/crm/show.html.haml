@@ -4,7 +4,7 @@
       .row
         .col-12
           .d-flex.justify-content-between.align-items-center
-            %a{:href => "#"}
+            = link_to dashboard_crm_index_path do
               %span.left-angle
             %h1
               %span.iblue> EVOLU
@@ -16,66 +16,105 @@
           .profile-inner
             .profile-box.mt-30
               .profile-img
-                %img{:alt => "Farid", :src => "images/farid.png"}/
+                = image_tag @client.avatar_url
               %h3
-                15
+                = @client.coachings_count
                 %span.fontlight Coachings
               %h3
-                5
+                = @client.coachings_left
                 %span.fontlight Réstant
               .profile-bag
-                %img{:alt => "Bag", :src => "images/boxbtm.png"}/
+                =link_to "sms:#{@client.phone}" do
+                  = image_tag "boxbtm.png"
             .profile-name.page30.mt-10
-              %h2.name Nicolas Desloges
-              %a{:href => "#"} Pack transformation
+              %h2.name #{@client.first_name} #{@client.last_name}
+              - if @client.last_pack_purchased.present?
+                %a{:href => "#"} #{@client.last_pack_purchased}
+              -# Mettre directement le nom du dernier pack acheté sur le client .last_pack_purchased
             .profile-links.mt-30
-              %a.active{:href => "#"} planning
-              %a.fontlight{:href => "#"} programmes
-              %a.fontlight{:href => "#"} suivi
+              %a{:href => url_for(section: 'planning'), class: (params[:section].blank? || params[:section] == 'planning' ? 'active' : '')}
+                planning
+              %a.fontlight{:href => url_for(section: 'programs'), class: (params[:section].present? && params[:section] == 'programs' ? 'active' : '')}
+                programmes
+              %a.fontlight{:href => url_for(section: 'followup'), class: (params[:section].present? && params[:section] == 'followup' ? 'active' : '')}
+                suivi
   / Header
   / Content Area
-  .content-area.bg-light-blue
-    .bg-top
-    .container
-      .row
-        .col-12
-          .content-inner.page30
-            .planning-box
-              %h4
-                lundi 23 septembre
-                = succeed "16h00" do
-                  %br/
-                %span Pack transformation 5/10
-              %a{:href => "#"}
-                %img{:alt => "", :src => "images/cross-grey.png"}/
-            .planning-box
-              %h4
-                dimanche 29 septembre
-                %br>/
-                16h00
-                %span Pack transformation 5/10
-              %a{:href => "#"}
-                %img{:alt => "", :src => "images/cross-grey.png"}/
-            .planning-box
-              %h4
-                lundi 10 octobre
-                %br>/
-                16h00
-                %span Pack transformation 5/10
-              %a{:href => "#"}
-                %img{:alt => "", :src => "images/cross-grey.png"}/
-            .planning-box
-              %h4
-                lundi 17 octobre 16h00
-                %span Pack transformation 5/10
-              %a{:href => "#"}
-                %img{:alt => "", :src => "images/cross-grey.png"}/
-            .planning-box
-              %h4
-                lundi 23 septembre
-                = succeed "16h00" do
-                  %br/
-                %span Pack transformation 5/10
-              %a{:href => "#"}
-                %img{:alt => "", :src => "images/cross-grey.png"}/
-  / Content Area
+  - if params[:section].blank? || params[:section] == 'planning'
+    .content-area.bg-light-blue
+      .bg-top
+      .container
+        .row
+          .col-12
+            .content-inner.page30
+              - if @coming_courses.blank?
+                %p #{@client.first_name} n'a pas de coaching à venir.
+              - else
+                - @coming_courses.each do |course|
+                  .planning-box
+                    %h4
+                      = I18n.l(course.start_time, format: :long)
+                      %br
+                      %span= course.course_infos
+                    -# %a{:href => "#"}
+                      -# = image_tag "cross-grey.png"
+  - elsif params[:section].present? && params[:section] == 'programs'
+    .content-area.bg-light-blue
+      .bg-top
+      .container
+        .row
+          .col-12
+            .content-inner.page30
+              - if @coming_courses.blank?
+                %p #{@client.first_name} n'a pas de coaching à venir.
+              - else
+                - @coming_courses.each do |course|
+                  .planning-box
+                    %h4
+                      = I18n.l(course.start_time, format: :long)
+                      %br
+                      %span= course.course_infos
+                    -# %a{:href => "#"}
+                      -# = image_tag "cross-grey.png"
+  - elsif params[:section].present? && params[:section] == 'followup'
+    .content-area.bg-light-blue.full-vh
+      .bg-top
+      / Suivi table are
+      .suivi-area
+        .container
+          .row
+            .col-12
+              .suivi-table
+                %h3
+                  Sexe
+                  %span
+                    - if @client.male
+                      Homme
+                    - else
+                      Femme
+                %h3
+                  Âge
+                  %span #{get_age_from_date(@client.birth_date)} ans
+                -# %h3
+                  Taille
+                  %span 1m79
+                %h3
+                  Suivi depuis
+                  %span le #{I18n.l(@user_has_client.client_at, format: :fulldate)}
+                %h3
+                  Ville
+                  %span= @client.city
+      / Suivi table are
+      .container
+        .row
+          .col-12
+            .content-inner.page31.page32
+              .planning-box
+                %h4
+                  %img{:alt => "", :src => "images/line-book.png"}/
+                  Notes
+                %a{:href => "#"}
+                  %span.left-angle.right
+              %a.validate.white.g-blue-bg{:ref => "#"}
+                ajouter une note +
+    / Content Area

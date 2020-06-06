@@ -6,6 +6,14 @@ module Dashboard
     end
 
     def show
+      @client = @user_has_client.client
+      if params[:section].blank? || params[:section] == 'planning'
+        @coming_courses = Course.not_removed.coming.where(order_id: @client.orders.paid).order(start_time: :asc)
+      elsif params[:section].blank? || params[:section] == 'programs'
+        # Mettre les programmes achetés
+      elsif params[:section].blank? || params[:section] == 'followup'
+        # Mettre les infos de suivi + les notes
+      end
     end
 
     def new

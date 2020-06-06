@@ -16,6 +16,8 @@
 //= require jquery.validate
 //= require jquery.validate.localization/messages_fr
 //= require popper
+//= require moment
+//= require moment/fr.js
 //= require bootstrap
 //= require_self
 //= require_tree .

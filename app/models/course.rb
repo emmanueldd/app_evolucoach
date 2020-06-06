@@ -7,6 +7,7 @@ class Course < ApplicationRecord
   after_save :set_availability, if: -> { saved_change_to_status? }
   enum status: { pending: 0, confirmed: 1, refused: 2, canceled: 3, removed: 4, done: 5 }
   scope :coming, -> { where('start_time > ?', DateTime.now ).order(start_time: :asc) }
+  scope :done, -> { where('start_time < ?', DateTime.now ).order(start_time: :asc) }
 
   def set_fields
     # TODO : Dégueulasse, autant faire un delegate avec order. Mais reste interessant pour activeadmin

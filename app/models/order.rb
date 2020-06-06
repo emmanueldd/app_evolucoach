@@ -27,6 +27,7 @@ class Order < ApplicationRecord
 
   def set_course_infos
     # A optimiser
+    client.update_columns(last_pack_purchased: "Pack #{packs.last.name}")
     courses.where(status: ['pending', 'confirmed']).order(start_time: :asc).each_with_index do |course, index|
       i = index + 1
       course.update_columns(course_infos: "#{i}/#{credit} pack #{packs.last.name}")
@@ -40,6 +41,9 @@ class Order < ApplicationRecord
   def set_credit_left
     credit_left = credit - courses.not_removed.count
     update_columns(credit_left: credit_left)
+    # Décrémenter  @crm.update(coachings_left: user.orders.paid.sum(:credit_left) )
+    # Ah bah non, les coachings left c'est le nombre de coachings à venir + credits left
+    # Et les count sont ceux qui ont déjà été faits.
   end
 
   def set_credit

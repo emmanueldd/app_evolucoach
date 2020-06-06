@@ -13,6 +13,8 @@ class Client < ApplicationRecord
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }
   after_save :add_to_crm, if: -> { saved_change_to_user_id? }
+  scope :men, -> { where(male: true) }
+  scope :women, -> { where(male: false) }
 
   def add_to_crm
     if user.present? && lead.present?
@@ -20,6 +22,14 @@ class Client < ApplicationRecord
       crm.client_id = id
       crm.save!
     end
+  end
+
+  def coachings_left
+    orders.paid.sum(:credit_left)
+  end
+
+  def coachings_count
+    orders.paid.sum(:credit) - coachings_left
   end
 
   def display_name

@@ -189,7 +189,9 @@ a:hover {
 .white-bg a {
   color: #101D26 !important;
 }
-
+.grey, .grey * {
+  color: #222 !important;
+}
 .grey-bg {
   background: #6B727E !important;
   border-radius: 8px;

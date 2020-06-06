@@ -8,6 +8,17 @@ function readURL(input) {
   }
 }
 $(document).ready(function () {
+  if ($('#city').length) {
+    var placesAutocomplete = places({
+      container: document.getElementById('city'),
+      apiKey: '4c070d235457f51f33aa50d9410ea37a',
+      appId: 'pl09OMKOFZLK',
+      language: 'fr', // Receives results in French
+      countries: ['fr'], // Search in France
+      type: 'city'
+    });
+  }
+  
   App.form_autosave.init();
   controller = $("body").data("controller");
   if ($("body").data("namespace") !== undefined && $("body").data("namespace") != controller) {
@@ -86,5 +97,5 @@ $(document).ready(function () {
     $(".popup-area").removeClass("active");
   });
 
-  
+
 });

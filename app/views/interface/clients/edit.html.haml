@@ -39,7 +39,7 @@
                   Date de naissance
                   %abbr{:title => "requis"} *
                 %input#client_birth_date.form-control.required{type: 'date', "aria-required" => "true", :name => "client[birth_date]", :required => "required", value: @client.birth_date, min:'1940-01-01', max:'2010-01-01'}/
-              = f.input :city, required: true
+              = f.input :city, required: true, input_html: {id: 'city'}
 
             %input{type: 'hidden', name: 'next_step', value: '3'}
           - elsif params[:step].to_i == 3
