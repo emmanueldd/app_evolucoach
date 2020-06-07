@@ -27,7 +27,7 @@ class Order < ApplicationRecord
 
   def set_course_infos
     # A optimiser
-    client.update_columns(last_pack_purchased: "Pack #{packs.last.name}")
+    client.update_columns(last_pack_purchased: "Pack #{packs.last.name}") if packs.present?
     courses.where(status: ['pending', 'confirmed']).order(start_time: :asc).each_with_index do |course, index|
       i = index + 1
       course.update_columns(course_infos: "#{i}/#{credit} pack #{packs.last.name}")

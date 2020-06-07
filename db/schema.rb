@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200607112501) do
+ActiveRecord::Schema.define(version: 20200607160242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -224,6 +224,49 @@ ActiveRecord::Schema.define(version: 20200607112501) do
     t.index ["user_id"], name: "index_packs_on_user_id"
   end
 
+  create_table "payment_infos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "stripe_account_id"
+    t.string "business_name"
+    t.string "business_address_1"
+    t.string "business_address_2"
+    t.string "business_zip_code"
+    t.string "business_city"
+    t.string "business_country"
+    t.string "siren"
+    t.string "business_tax_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.datetime "birth_date"
+    t.string "ss_number"
+    t.string "contact_address_1"
+    t.string "contact_address_2"
+    t.string "contact_zip_code"
+    t.string "contact_city"
+    t.string "contact_country"
+    t.datetime "tos_acceptance_date"
+    t.string "tos_acceptance_ip"
+    t.string "tos_acceptance_user_agent"
+    t.string "iban"
+    t.string "transfer_schedule", default: "monthly"
+    t.string "stripe_bank_account_id"
+    t.string "stripe_account_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "place_id"
+    t.boolean "recurring_payments"
+    t.boolean "mandate_acceptance"
+    t.string "customer_id"
+    t.string "source_id"
+    t.string "mandate_url"
+    t.string "business_vat_id"
+    t.string "identity_card_front"
+    t.string "identity_card_back"
+    t.string "business_state"
+    t.string "contact_state"
+    t.index ["user_id"], name: "index_payment_infos_on_user_id"
+  end
+
   create_table "program_steps", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "program_id"
@@ -350,6 +393,7 @@ ActiveRecord::Schema.define(version: 20200607112501) do
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "users"
   add_foreign_key "packs", "users"
+  add_foreign_key "payment_infos", "users"
   add_foreign_key "program_steps", "exercise_categories"
   add_foreign_key "program_steps", "exercises"
   add_foreign_key "program_steps", "programs"

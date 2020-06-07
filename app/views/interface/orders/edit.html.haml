@@ -1,3 +1,6 @@
+:javascript
+  stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}', { stripeAccount: "#{@user.payment_info.stripe_account_id}" } );
+
 %header.header-area.border-btm.page15
 
   .container

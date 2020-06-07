@@ -21,6 +21,11 @@ module Dashboard
     end
 
     def show
+      if @program.user_has_client.present?
+        @back_path = dashboard_crm_path(@program.user_has_client, section: 'programs')
+      else
+        @back_path = dashboard_programs_path
+      end
       @program_steps = @program.program_steps.order(:exercise_category_id)
     end
 

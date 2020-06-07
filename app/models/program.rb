@@ -9,7 +9,7 @@ class Program < ApplicationRecord
   has_many :order_has_items, as: :item
   has_many :orders, through: :order_has_items
 
-  scope :published, -> { where(published: true) }
+  scope :published, -> { where(published: true, user_has_client: nil) }
 
   before_save :set_client, if: -> { user_has_client.present? }
 

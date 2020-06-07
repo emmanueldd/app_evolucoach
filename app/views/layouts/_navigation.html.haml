@@ -18,6 +18,8 @@
     %li
       %a{:href => dashboard_user_path(current_user)} Mon profil
     %li
+      %a{:href => dashboard_payment_infos_path} Informations bancaires
+    %li
       %a{:href => dashboard_stats_traffic_path} Analyses trafic
     %li
       %a{:href => dashboard_stats_path} Statistiques
@@ -30,5 +32,6 @@
     -# %li
     -#   %a{:href => "#"} Newsletter
     %li
-      %a{:href => "#"} Informations bancaires
+      %a{:href => dashboard_availabilities_path} Mes disponibilités
+
     %li= link_to 'Déconnexion', destroy_user_session_path, method: :delete

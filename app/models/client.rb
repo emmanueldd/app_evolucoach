@@ -49,12 +49,15 @@ class Client < ApplicationRecord
     Program.where(id: order_has_items.joins(:order).where(item_type: 'Program', orders: {status: 'paid'}).pluck(:item_id))
   end
 
-  def find_stripe_customer_id
+  def find_stripe_customer_id(connected_stripe_account_id = nil)
     if stripe_customer_id.blank?
-      customer = Stripe::Customer.create(
+      customer = Stripe::Customer.create({
         email: email
-      )
+      }, {
+        stripe_account: connected_stripe_account_id,
+      })
       update_columns(stripe_customer_id: customer.id)
+
     end
     return stripe_customer_id
   end

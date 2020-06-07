@@ -9,8 +9,13 @@
       .row
         .col-12
           .d-flex.justify-content-between.align-items-center
-            %a{:href => "#"}
-              %span.left-angle.d-none
+            - if @back_path.present?
+              %a{:href => @back_path}
+                %span.left-angle
+            - else
+              %a{:href => "#"}
+                %span.left-angle.d-none
+
             %h1
               %a{:href => root_path}
                 %span.iblue> EVOLU
@@ -54,7 +59,7 @@
                   = image_tag "bgtik.png", alt:""
                   profil certifié
               .profile-links.mt-30
-                %a{:class => "#{'active' if controller_name == 'users'} fontlight", :href => "#{dashboard_user_path(current_user)}"} coaching
+                %a{:class => "#{'active' if controller_name == 'users'} fontlight", :href => "#{dashboard_user_path(current_user)}"} packs
                 %a{:class => "#{'active' if controller_name == 'programs'} fontbold", :href => dashboard_programs_path} programmes
                 %a{:class => "#{'active' if controller_name == 'ratings'} fontlight", :href => dashboard_ratings_path} avis
     .menu-area.profile.page23

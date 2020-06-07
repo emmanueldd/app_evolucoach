@@ -64,10 +64,16 @@
       .container
         .row
           .col-12
-            .content-inner.page30
-              Programs
+            .content-inner.page31
+              - @programs.each do |program|
+                .planning-box
+                  %h4
+                    = program.name
+                    %span= I18n.l(program.created_at, format: :slash)
+                  %a{:href => dashboard_program_path(program)}
+                    %span.left-angle.right
       .fixed-element
-        %p.fontlight Lui créer un nouveau programme
+        %p.fontlight lui créer un nouveau programme
         %a.circle-btn{:href => new_dashboard_program_path(user_has_client_id: @user_has_client.id)} +
   - elsif params[:section].present? && params[:section] == 'followup'
     .content-area.bg-light-blue.full-vh

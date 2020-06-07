@@ -33,6 +33,6 @@
                 = image_tag "bgtik.png", alt:""
                 profil certifié
             .profile-links.mt-30
-              %a{:class => "#{'active' if params[:section].blank?} fontlight", :href => url_for} coaching
+              %a{:class => "#{'active' if params[:section].blank?} fontlight", :href => url_for} packs
               %a{:class => "#{'active' if params[:section] == 'programs'} fontbold", :href => "#{url_for(section: 'programs')}"} programmes
               %a{:class => "#{'active' if params[:section] == 'ratings'} fontlight", :href => "#{url_for(section: 'ratings')}"} avis

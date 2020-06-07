@@ -27,8 +27,9 @@
                             %b= exercise.name
                             - if @program_steps.exists?(exercise_id: exercise.id)
                               = image_tag 'tik.png', alt: 'déjà présent dans le programme'
+                              Ne pas afficher le check pour repos/rest
                               / <small>déjà présent dans le programme</small>
-                            %span +
+                            %span Ajouter +
                 #notes.tab-pane
                   .pacto-content.page20
                     %a{:href => "#{edit_dashboard_program_path(@program, step: 'rest_note')}"}
@@ -39,21 +40,20 @@
                       = image_tag "i.png", alt:""
                       Ajouter une note d'information
                       %span +
-            .btn-group.dropup
-              .fixed-element-margin
-              .fixed-element.fixed
-                / <p class="fontlight">Ajouter un exercice</p>
-                %a.circle-btn{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#"} +
-                / <a href="" class="circle-btn  dropdown-toggle">+</a>
-                .dropdown-menu
-                  / Dropdown menu links
-                  %a{:href => "#{new_dashboard_program_path(step_type: 'info')}"} Information
-                  %br/
-                  %br/
-                  %a{:href => "#{new_dashboard_program_path(step_type: 'rest')}"} Repos
-                  %br/
-                  %br/
-                  %a{:href => "#{new_dashboard_program_path(step_type: 'exercise')}"} Exercice
-                  %br/
-                  %br/
-/ Content Area
+            -# .btn-group.dropup
+            -#   .fixed-element-margin
+            -#   .fixed-element.fixed
+            -#     / <p class="fontlight">Ajouter un exercice</p>
+            -#     %a.circle-btn{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#"} +
+            -#     / <a href="" class="circle-btn  dropdown-toggle">+</a>
+            -#     .dropdown-menu
+            -#       / Dropdown menu links
+            -#       %a{:href => "#{new_dashboard_program_path(step_type: 'info')}"} Information
+            -#       %br/
+            -#       %br/
+            -#       %a{:href => "#{new_dashboard_program_path(step_type: 'rest')}"} Repos
+            -#       %br/
+            -#       %br/
+            -#       %a{:href => "#{new_dashboard_program_path(step_type: 'exercise')}"} Exercice
+            -#       %br/
+            -#       %br/

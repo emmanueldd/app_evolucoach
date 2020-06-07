@@ -348,6 +348,7 @@ fr:
     formats:
       default: "%A %e %B"
       fulldate: "%A %e %B %Y"
+      slash: "%m/%d/%Y"
       long: "%A %e %B %Y à %Hh%M"
       add_to_calendar: "%m/%d/%y %H:%M"
       calendar_format: "%Y%m%dT%H%M%S"

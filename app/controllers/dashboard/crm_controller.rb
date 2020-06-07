@@ -11,6 +11,7 @@ module Dashboard
         @coming_courses = Course.not_removed.coming.where(order_id: @client.orders.paid).order(start_time: :asc)
       elsif params[:section].blank? || params[:section] == 'programs'
         # Mettre les programmes achetés
+        @programs = @user_has_client.programs
       elsif params[:section].blank? || params[:section] == 'followup'
         # Mettre les infos de suivi + les notes
         @crm_comments = @user_has_client.crm_comments.published

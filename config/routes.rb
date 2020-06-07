@@ -39,6 +39,7 @@ Rails.application.routes.draw do
 
   namespace :dashboard do
     root 'home#index'
+    resources :payment_infos, only: [:index, :create, :edit, :update]
     resources :stats, only: [:index]
     resources :crm, only: [:index, :show], shallow: true do
       resources :crm_comments, as: :comment, path: :comments

@@ -4,6 +4,7 @@ module Dashboard
     before_action :set_program_step, only: [:show, :edit, :update, :destroy]
 
     def index
+      @back_path = dashboard_program_path(@program)
       @program_steps = @program.program_steps
       @program_step = current_user.program_steps.new
       @exercise_categories = ExerciseCategory.published
