@@ -65,17 +65,10 @@
         .row
           .col-12
             .content-inner.page30
-              - if @coming_courses.blank?
-                %p #{@client.first_name} n'a pas de coaching à venir.
-              - else
-                - @coming_courses.each do |course|
-                  .planning-box
-                    %h4
-                      = I18n.l(course.start_time, format: :long)
-                      %br
-                      %span= course.course_infos
-                    -# %a{:href => "#"}
-                      -# = image_tag "cross-grey.png"
+              Programs
+      .fixed-element
+        %p.fontlight Lui créer un nouveau programme
+        %a.circle-btn{:href => new_dashboard_program_path(user_has_client_id: @user_has_client.id)} +
   - elsif params[:section].present? && params[:section] == 'followup'
     .content-area.bg-light-blue.full-vh
       .bg-top

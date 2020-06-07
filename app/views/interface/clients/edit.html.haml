@@ -50,9 +50,8 @@
 
             .text-center
               = f.label :avatar do
-
-                = image_tag 'upload-avatar.png'
-              = f.input_field :avatar, style: 'opacity: 0;'
+                = image_tag 'upload-avatar.png', id: 'preview'
+              = f.input_field :avatar, style: 'opacity: 0;', onchange: "readURL(this);"
               = link_to 'Passer cette étape >', (@client.user.present? ? @client.user : interface_root_path), class: 'iblue'
               %input{type: 'hidden', name: 'next_step', value: 'completed'}
 

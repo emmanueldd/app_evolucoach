@@ -10,6 +10,7 @@ class UserHasClient < ApplicationRecord
   belongs_to :client, optional: true
   belongs_to :lead, optional: true
   has_many :crm_comments
+  has_many :programs
   before_save :set_date
 
   scope :leads, -> { where.not(lead: nil) }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200607111155) do
+ActiveRecord::Schema.define(version: 20200607112501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -259,8 +259,10 @@ ActiveRecord::Schema.define(version: 20200607111155) do
     t.string "cover"
     t.text "rest_note"
     t.text "info_note"
+    t.bigint "user_has_client_id"
     t.index ["client_id"], name: "index_programs_on_client_id"
     t.index ["slug"], name: "index_programs_on_slug", unique: true
+    t.index ["user_has_client_id"], name: "index_programs_on_user_has_client_id"
     t.index ["user_id"], name: "index_programs_on_user_id"
   end
 
@@ -353,6 +355,7 @@ ActiveRecord::Schema.define(version: 20200607111155) do
   add_foreign_key "program_steps", "programs"
   add_foreign_key "program_steps", "users"
   add_foreign_key "programs", "clients"
+  add_foreign_key "programs", "user_has_clients"
   add_foreign_key "programs", "users"
   add_foreign_key "ratings", "clients"
   add_foreign_key "ratings", "users"

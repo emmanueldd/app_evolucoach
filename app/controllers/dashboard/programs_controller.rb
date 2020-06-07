@@ -13,6 +13,10 @@ module Dashboard
 
     def create
       @program = current_user.programs.new(program_params)
+      if program_params[:user_has_client_id].present?
+        @user_has_client = current_user.user_has_clients.find(program_params[:user_has_client_id])
+        @program.user_has_client = @user_has_client if @user_has_client.present?
+      end
       redirect_to edit_dashboard_program_path(@program) if @program.save!
     end
 
@@ -44,7 +48,7 @@ module Dashboard
 
     private
       def program_params
-        params.require(:program).permit(:name, :client, :description, :price, :frequency, :duration, :cover, :published, :info_note, :rest_note)
+        params.require(:program).permit(:name, :client, :description, :price, :frequency, :duration, :cover, :published, :info_note, :rest_note, :user_has_client_id)
       end
 
       def set_program

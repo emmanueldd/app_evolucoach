@@ -46,7 +46,7 @@ module Dashboard
       end
 
       def set_program
-        @program = current_user.programs.find(params[:program_id])
+        @program = current_user.programs.friendly.find(params[:program_id])
       end
 
       def set_program_step
