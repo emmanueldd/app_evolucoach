@@ -13,6 +13,7 @@ module Dashboard
         # Mettre les programmes achetés
       elsif params[:section].blank? || params[:section] == 'followup'
         # Mettre les infos de suivi + les notes
+        @crm_comments = @user_has_client.crm_comments.published
       end
     end
 

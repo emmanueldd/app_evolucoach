@@ -40,7 +40,9 @@ Rails.application.routes.draw do
   namespace :dashboard do
     root 'home#index'
     resources :stats, only: [:index]
-    resources :crm, only: [:index, :show]
+    resources :crm, only: [:index, :show], shallow: true do
+      resources :crm_comments, as: :comment, path: :comments
+    end
     get 'stats/traffic', to: 'stats#traffic', as: 'stats_traffic'
     get 'stats/goal', to: 'stats#goal', as: 'stats_goal'
     get 'stats/get_charts', to: 'stats#get_charts', as: 'stats_get_charts'

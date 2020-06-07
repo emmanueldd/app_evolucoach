@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :programs
   has_many :program_steps
   has_many :user_has_clients
+  has_many :crm_comments
   has_many :stats
   has_many :orders
   has_many :order_has_items, through: :orders

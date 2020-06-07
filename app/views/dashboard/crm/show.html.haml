@@ -99,8 +99,12 @@
                   Taille
                   %span 1m79
                 %h3
-                  Suivi depuis
-                  %span le #{I18n.l(@user_has_client.client_at, format: :fulldate)}
+                  - if @user_has_client.client_at.present?
+                    Suivi depuis
+                    %span le #{I18n.l(@user_has_client.client_at, format: :fulldate)}
+                  - else
+                    Prospect depuis
+                    %span le #{I18n.l(@user_has_client.lead_at, format: :fulldate)}
                 %h3
                   Ville
                   %span= @client.city
@@ -109,12 +113,13 @@
         .row
           .col-12
             .content-inner.page31.page32
-              .planning-box
-                %h4
-                  %img{:alt => "", :src => "images/line-book.png"}/
-                  Notes
-                %a{:href => "#"}
-                  %span.left-angle.right
-              %a.validate.white.g-blue-bg{:ref => "#"}
+              - @crm_comments.each do |comment|
+                .planning-box
+                  %h4
+                    = image_tag "line-book.png"
+                    = comment.name
+                  %a{:href => edit_dashboard_comment_path(comment)}
+                    %span.left-angle.right
+              = link_to new_dashboard_crm_comment_path(@user_has_client), class: 'validate white g-blue-bg' do
                 ajouter une note +
     / Content Area
