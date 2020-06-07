@@ -18,11 +18,6 @@ class User < ApplicationRecord
   has_many :orders
   has_many :order_has_items, through: :orders
   has_one :payment_info
-  after_save :create_payment_info
-
-  def create_payment_info
-    PaymentInfo.create_then_set_stripe_account(self)
-  end
 
   def self.validated
     all

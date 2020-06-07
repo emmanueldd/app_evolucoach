@@ -1,20 +1,6 @@
 class PaymentInfo < ApplicationRecord
   belongs_to :user
 
-  def self.create_then_set_stripe_account(user)
-    obj = user.build_payment_info
-    stripe_account = Stripe::Account.create({
-      type: 'custom',
-      email: user.email,
-      requested_capabilities: [
-        'card_payments',
-        'transfers',
-      ],
-    })
-    obj.stripe_account_id = stripe_account['id']
-    obj.save!
-  end
-
   # def call
   #   begin
   #     country = ISO3166::Country.find_by_name(business_country.try(:strip)).first
