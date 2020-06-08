@@ -10,6 +10,9 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_has_courses, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :courses, reject_if: :all_blank, allow_destroy: true
   enum status: { waiting: 0, paid: 1, failed: 2, refunded: 3 }
+  scope :of_month, -> (date = DateTime.now) {
+    where(paid_at: date.beginning_of_month.beginning_of_day..date.end_of_month.end_of_day)
+  }
   after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
   after_save :set_course_infos
   after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
@@ -23,6 +26,11 @@ class Order < ApplicationRecord
     courses.where(status: 'pending').update(status: 'confirmed')
     @crm = client.user_has_clients.find_by(user: user)
     @crm.update(has_buy: true) if @crm.present?
+    @stat = user.stats.find_or_initialize_by(period: Date.today.end_of_month, name: 'income')
+    if @stat.present?
+      @stat.stat_value = user.orders.paid.of_month.sum(:total_price) / 100
+      @stat.save!
+    end
   end
 
   def set_course_infos

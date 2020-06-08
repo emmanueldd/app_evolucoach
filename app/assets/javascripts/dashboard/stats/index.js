@@ -89,6 +89,14 @@ App.dashboard_stats.index = {
             }]
           },
           options: {
+            layout: {
+              padding: {
+                left: 50,
+                right: 0,
+                top: 50,
+                bottom: 0
+              }
+            },
             legend: {
               display: false
             },

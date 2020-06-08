@@ -18,6 +18,14 @@ class User < ApplicationRecord
   has_many :orders
   has_many :order_has_items, through: :orders
   has_one :payment_info
+  after_create :set_past_income_stats
+
+  def set_past_income_stats
+    8.times do |index|
+      date = (Date.today - index.month).end_of_month
+      stats.create(name: 'income', period: date, stat_value: 0)
+    end
+  end
 
   def self.validated
     all

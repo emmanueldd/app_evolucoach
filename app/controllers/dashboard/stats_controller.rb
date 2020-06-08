@@ -31,7 +31,7 @@ module Dashboard
     end
 
     def get_charts(date = Date.today)
-      period_time = (date - 7.months)..date
+      period_time = (date - 7.months)..date.end_of_month
       period_time2 = (date - 1.year - 7.months)..(date - 1.year)
       render json: {
         data1: current_user.stats.where(name: 'income', period: period_time).pluck(:stat_value),

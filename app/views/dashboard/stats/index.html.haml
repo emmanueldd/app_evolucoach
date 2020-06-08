@@ -9,8 +9,8 @@
             %ul.nav.nav-tabs.border-tab
               %li
                 %a.active{"data-toggle" => "tab", :href => "#revenus"} revenus
-              %li
-                %a{"data-toggle" => "tab", :href => "#moyennes"} moyennes
+              -# %li
+              -#   %a{"data-toggle" => "tab", :href => "#moyennes"} moyennes
 
 / Header
 .panel.panel-default
@@ -37,7 +37,7 @@
                         %a{"data-toggle" => "tab", :href => "#année"} année
         / Graph Area
         .graph-area.bg-dark-blue
-          %canvas#myChart{:height => "120"}
+          %canvas#myChart{height: "120"}
         / Graph Area
         / Content Area
         .content-area.bg-light-blue
@@ -119,7 +119,7 @@
                             %p.heading Achats
                             %p.fontlight= @purchases
                   / Tab end
-      #moyennes.tab-pane
+      -# #moyennes.tab-pane
         / Content Area
         .content-area.bg-light-blue
           .container
