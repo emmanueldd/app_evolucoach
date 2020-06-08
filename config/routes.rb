@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  namespace :admin_interface do
+    get 'connect_as_this_client/:id', to: 'clients#connect_as', as: 'connect_as_this_client'
+    get 'connect_as_this_user/:id', to: 'users#connect_as', as: 'connect_as_this_user'
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
   get 'users/check_slug_availability/:slug', to: 'users#check_slug_availability', as: 'check_slug_availability'

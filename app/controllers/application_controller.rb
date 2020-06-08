@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_lead
 
   def complete_signup
-    if current_client && !current_client.signup_completed?
+    if current_client && !current_client.signup_completed? && !controller_path.include?('admin')
       if controller_path != "interface/clients"
         redirect_to edit_interface_client_path(current_client)
       end
