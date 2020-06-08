@@ -91,7 +91,7 @@ Rails.application.configure do
   config.action_mailer.asset_host
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "smtp.mailgun.org", :port => 587 }
-  config.action_mailer.default_url_options = { :host => 'evolucorp.fr' }
+  config.action_mailer.default_url_options = { :host => 'evolucoach.com' }
   config.action_mailer.delivery_method = :mailgun
   config.action_mailer.mailgun_settings = {
     api_key: '1b7ec7f3fe2b32ac06f33fa247cc26e0-3939b93a-09338395',
