@@ -50,7 +50,10 @@
 
             .text-center
               = f.label :avatar do
-                = image_tag 'upload-avatar.png', id: 'preview', class: 'avatar-preview'
+                - if @user.avatar_url.present?
+                  = image_tag @user.avatar_url, id: 'preview', class: 'avatar-preview'
+                - else
+                  = image_tag 'upload-avatar.png', id: 'preview', class: 'avatar-preview'
               = f.input_field :avatar, style: 'opacity: 0;', onchange: "readURL(this);"
               -# = link_to 'Passer cette étape >', (@user.user.present? ? @user.user : dashboard_root_path), class: 'iblue'
               %input{type: 'hidden', name: 'next_step', value: 'completed'}
