@@ -4,11 +4,11 @@
     .row
       .col-12
         .d-flex.justify-content-between.align-items-center
-          %a{:href => dashboard_crm_path(@user_has_client)}
+          %a{:href => dashboard_crm_path(@user_has_client, section: 'followup')}
             %span.left-angle
           %h1.font-sm NOTE
           %a{:href => "#"}
-            
+
 / Header
 / Content Area
 .content-area.bg-light-blue.full-vh.page33

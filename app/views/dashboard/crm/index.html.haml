@@ -127,7 +127,8 @@
                 .member-info
                   %a{:href => "#{dashboard_crm_path(client)}"}
                     %h3
-                      = client.infos.first_name
+                      - if client.infos.first_name
+                        = client.infos.first_name
                       = client.infos.last_name
                     %p= client.infos.email
               .member-right

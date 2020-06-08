@@ -1,4 +1,5 @@
 class Lead < ApplicationRecord
+  mount_uploader :avatar, AvatarUploader
   belongs_to :user, optional: true
   has_many :user_has_clients
 

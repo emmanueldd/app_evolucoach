@@ -19,8 +19,17 @@
               %h2.subtitle.pl-15.font-sm.fontlight= step.exercise_category.name
             - prev_exercise_category_id = step.exercise_category_id
             .input-box.grey-bg.white
-              %h2.subtitle.font-sm.fontbold.mb-15
-                %strong= step.exercise.name
+              .row
+                .col-8.col-md-10.col-lg-10
+                  %h2.subtitle.font-sm.fontbold.mb-15
+                    %strong= step.exercise.name
+                .col-4.col-md-2.col-lg-2.text-right
+                  = link_to edit_dashboard_step_path(step) do
+                    %span= image_tag 'pen.png', height: 20
+                  &nbsp; &nbsp;
+                  = link_to dashboard_step_path(step), method: :delete, data: { confirm: "Supprimer \"#{step.exercise.name}\" du programme ?" } do
+                    %span= image_tag 'trash.png', height: 20
+
               .list
                 .list-item
                   %p

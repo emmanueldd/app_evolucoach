@@ -38,7 +38,9 @@ module Dashboard
     end
 
     def destroy
-      redirect_to dashboard_program_steps_path if @program_step.destroy
+      if @program_step.destroy
+        redirect_to dashboard_program_path(@program_step.program), notice: "\"#{@program_step.exercise.name}\" a été retiré du programme"
+      end
     end
 
     private
