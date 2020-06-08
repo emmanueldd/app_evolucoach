@@ -31,7 +31,7 @@
               .pack-profile-img
                 = image_tag current_user.avatar_url, alt:"Farid"
               %p
-                = f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , required: true, placeholder: 'Tu peux décrire le programme ici ou laisser ce champ vide.'
+                = f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , required: true, placeholder: 'Décris ton programme ici', autofocus: true
 
             = f.hidden_field :published, value: 'true'
             %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :type => "submit"}
