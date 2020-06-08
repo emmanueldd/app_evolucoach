@@ -88,7 +88,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-  config.action_mailer.asset_host
+  config.action_mailer.asset_host = 'http://localhost:3000'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "smtp.mailgun.org", :port => 587 }
   config.action_mailer.default_url_options = { :host => 'evolucoach.com' }
