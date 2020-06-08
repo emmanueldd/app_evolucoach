@@ -170,8 +170,8 @@ a:hover {
 .blue-dark-bg {
   background: #1A626A !important;
 }
-.blue-bg {
-  background-color: #168B95 !important;
+.dark-blue-bg {
+  background-color: #1A626A !important;
 }
 
 .white-bg {
@@ -1716,7 +1716,7 @@ a.border-btn img {
   margin-right: 10px;
 }
 
-.aboslute-text {
+.flash-container {
   position: fixed;
   left: 0px;
   bottom: 0px;
@@ -1730,13 +1730,13 @@ a.border-btn img {
   z-index: 9;
 }
 
-.aboslute-text p {
+.flash-container p {
   font-size: 13px;
   color: #fff;
 }
 
 
-.aboslute-text img {
+.flash-container img {
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -3003,11 +3003,19 @@ a.circle-btn img {
   outline: none;
 }
 
+
 @media (min-width: 768px) {
   .selector .ui-slider-handle {
     top: -7px;
     width: 16px;
     height: 16px;
+  }
+}
+@media (max-width: 768px) {
+  .flash-container {
+    height: 70px;
+    padding: 5px;
+    text-align: center
   }
 }
 
@@ -3650,13 +3658,13 @@ a.popup-btn {
 
 
   /*=======Page 15=====*/
-  .aboslute-text p {
+  .flash-container p {
     font-size: 16px;
     color: #fff;
   }
 
 
-  .aboslute-text img {
+  .flash-container img {
     width: 25px;
     height: 25px;
     border-radius: 50%;

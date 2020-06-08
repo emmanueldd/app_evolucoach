@@ -13,7 +13,7 @@ App.dashboard_home.index = {
       el.setSelectionRange(0, 99999);
       document.execCommand('copy');
       document.body.removeChild(el);
-      $('body').append('<div class="aboslute-text blue-bg" id="flash-message"><i class="fa fa-check white"></i  > &nbsp;<p>Copié</p></div>');
+      $('body').append('<div class="flash-container blue-bg" id="flash-message"><i class="fa fa-check white"></i  > &nbsp;<p>Copié</p></div>');
       setTimeout(function() {
         $('#flash-message').hide('slow')
       }, 5000);

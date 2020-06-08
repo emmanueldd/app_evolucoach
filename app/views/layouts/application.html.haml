@@ -16,7 +16,7 @@
 
   %body{"data-prod-env": (Rails.env.production?).to_s, "data-namespace": content_for(:namespace) || namespace, "data-action": content_for(:action_name) || action_name, "data-controller": content_for(:controller_name) || controller_name}
     - if notice || alert || params[:success].present? || params[:error].present?
-      .aboslute-text.blue-bg#flash-message
+      .flash-container.blue-bg#flash-message
         - if params[:pause].present?
           = image_tag 'pause.png', class: 'no-border'
         - else
