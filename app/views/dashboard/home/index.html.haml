@@ -60,4 +60,8 @@
                     %p.fontlight= price_to_currency(order.total_price)
             %a.border-btn{:href => dashboard_stats_goal_path}
               = image_tag "pen.png", alt:""
-              Créer un objectif
+              - if current_user.financial_goal == 0
+                Créer un
+              - else
+                Modifier mon
+              objectif

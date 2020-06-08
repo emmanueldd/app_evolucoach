@@ -1,4 +1,10 @@
-
+#preview {
+  max-width: 100%;
+}
+.avatar-preview {
+  width: 170px !important;
+  height: 175px !important;
+}
 #user_financial_goal {
   width: 250px;
   text-align: right;
@@ -109,7 +115,7 @@ label.error {
 }
 .profile-img img {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   border-radius: 50%;
 }

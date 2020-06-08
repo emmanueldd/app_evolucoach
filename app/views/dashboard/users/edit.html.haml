@@ -1,0 +1,60 @@
+.bg-dark-blue.full-height
+  .container
+    .row
+      .col-12.col-md-4.offset-md-4.col-lg-4.offset-lg-4
+        = render 'layouts/header'
+        %h3 Infos du compte #{@step}/3
+        %br
+        = simple_form_for([:dashboard, @user]) do |f|
+          = f.error_notification
+          - if params[:step].to_i == 1 || params[:step].blank?
+            -# Prénom, nom
+            .form-inputs
+              = f.input :first_name, required: true, input_html: { autocomplete: "first_name" }
+              = f.input :last_name, required: true, input_html: { autocomplete: "last_name" }
+              = f.input :phone, required: true, input_html: { autocomplete: "phone_number" }
+              %input{type: 'hidden', name: 'next_step', value: '2'}
+          - elsif params[:step].to_i == 2
+            .form-inputs
+              %fieldset.form-group.radio_buttons.optional.user_male.text-center
+                -# .row
+                -#   %input{:name => "user[male]", :type => "hidden", :value => ""}/
+                -#   .col-6
+                -#     .form-check
+                -#
+                -#     %label{:for => "user_male_true"}
+                -#       = image_tag 'man-icon.png', style: 'margin-left: 4px;'
+                -#     %br
+                -#     %input#user_male_true{:name => "user[male]", :type => "radio", :value => "true", checked: @user.male}/
+                -#   .col-6
+                -#     .form-check
+                -#     %label{:for => "user_male_false"}
+                -#       = image_tag 'woman-icon.png', style: 'margin-left: 4px;'
+                -#     %br
+                -#     %input#user_male_false{:name => "user[male]", :type => "radio", :value => "false", checked: !@user.male}/
+
+
+              -# .form-group.string.required.user_city
+              -#   %label.string.required{:for => "user_birth_date"}
+              -#     Date de naissance
+              -#     %abbr{:title => "requis"} *
+              -#   %input#user_birth_date.form-control.required{type: 'date', "aria-required" => "true", :name => "user[birth_date]", :required => "required", value: @user.birth_date, min:'1940-01-01', max:'2010-01-01'}/
+              = f.input :city, required: true, input_html: {id: 'city'}
+
+            %input{type: 'hidden', name: 'next_step', value: '3'}
+          - elsif params[:step].to_i == 3
+            %p
+              Photo de profil
+              %br
+              %br
+
+            .text-center
+              = f.label :avatar do
+                = image_tag 'upload-avatar.png', id: 'preview', class: 'avatar-preview'
+              = f.input_field :avatar, style: 'opacity: 0;', onchange: "readURL(this);"
+              -# = link_to 'Passer cette étape >', (@user.user.present? ? @user.user : dashboard_root_path), class: 'iblue'
+              %input{type: 'hidden', name: 'next_step', value: 'completed'}
+
+          .form-actions
+            %br
+            = f.button :submit, "Valider", class: 'custom-btn blue-bg white full-width'

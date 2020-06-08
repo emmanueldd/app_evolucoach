@@ -54,7 +54,11 @@
                   = link_to dashboard_availabilities_path do
                     = image_tag "bag.png", alt:"Bag"
               .profile-name.mt-10
-                %h2.name= current_user.first_name
+                %h2.name
+                  = current_user.first_name
+                  = link_to edit_dashboard_user_path(current_user) do
+                    🖊
+                %br
                 %p.iblue
                   = image_tag "bgtik.png", alt:""
                   profil certifié
