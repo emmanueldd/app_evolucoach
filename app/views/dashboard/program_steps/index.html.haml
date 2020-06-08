@@ -25,10 +25,14 @@
                           = f.hidden_field :exercise_category_id, value: exercise.exercise_category_id
                           %button.full-width.text-left{:type => "submit"}
                             %b= exercise.name
-                            - if @program_steps.exists?(exercise_id: exercise.id)
-                              = image_tag 'tik.png', alt: 'déjà présent dans le programme'
-                              Ne pas afficher le check pour repos/rest
-                              / <small>déjà présent dans le programme</small>
+                            - check_program_step = @program_steps.find_by(exercise_id: exercise.id)
+                            - if check_program_step.present? && !['repos', 'info'].include?(exercise.name)
+                              -# = image_tag 'tik.png', alt: 'déjà présent dans le programme'
+                              &nbsp;✅
+                              %small
+                                a été ajouté au programme
+                                %b #{check_program_step.exercise_count}
+                                fois
                             %span Ajouter +
                 #notes.tab-pane
                   .pacto-content.page20

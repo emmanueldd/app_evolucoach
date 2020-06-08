@@ -4,7 +4,7 @@ module AdminInterface
     def connect_as
       @client = Client.find(params[:id])
       sign_in(:client, @client)
-      redirect_to root_path
+      redirect_to interface_root_path
     end
 
   end

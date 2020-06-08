@@ -6,14 +6,17 @@
     .row
       .col-12
         .content-inner.page14
-          - @ratings.each do |rating|
-            .about-box
-              .about-img
-                = image_tag rating.client.avatar_url, alt: "about"
-              .about-content
-                %h3.about-title
-                  = rating.client.nickname
-                  %span
-                    ⭐️#{rating.score}
-                %p= rating.comment
-/ Content Area
+          - if @ratings.blank?
+            %p Vous n'avez pas encore eu d'avis
+          - else
+            - @ratings.each do |rating|
+              .about-box
+                .about-img
+                  = image_tag rating.client.avatar_url, alt: "about"
+                .about-content
+                  %h3.about-title
+                    = rating.client.nickname
+                    %span
+                      ⭐️#{rating.score}
+                  %p= rating.comment
+  / Content Area
