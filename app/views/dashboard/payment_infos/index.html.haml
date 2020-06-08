@@ -41,7 +41,7 @@
             -#   = f.input :contact_state
             -#   = f.input :contact_zip_code
 
-            
+
             -# %p
             -#   %br
             -#   En cliquant sur ce bouton, vous acceptez
@@ -50,4 +50,7 @@
             -#   %a{:href => "/connect-account/legal"} Conditions d'Utilisation des Comptes Connectés Stripe
             -#   %br
             -#   %br
-            %button.validate.g-blue-bg.fontbold Suivant →
+            - if @stripe_account.present? && @stripe_account.details_submitted
+              %button.validate.g-blue-bg.fontbold Modifier →
+            - else
+              %button.validate.g-blue-bg.fontbold Suivant →

@@ -1,6 +1,6 @@
 // TODO : TESTER le cas de l'update
 App.users_registrations = App.users_registrations || {};
-App.users_registrations.new_edit = {
+App.users_registrations.create = {
   init: function() {
     var self = this;
     self.setPseudoUrl(this);

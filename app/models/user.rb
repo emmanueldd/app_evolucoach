@@ -19,6 +19,11 @@ class User < ApplicationRecord
   has_many :order_has_items, through: :orders
   has_one :payment_info
   after_create :set_past_income_stats
+  validate :is_account_allowed?, on: :create
+
+  def is_account_allowed?
+    errors[:base] << "Ton email n'est pas celui d'un Evolucoach." unless AllowedAccount.exists?(email: email)
+  end
 
   def set_past_income_stats
     8.times do |index|

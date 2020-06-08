@@ -1,0 +1,2 @@
+class AllowedAccount < ApplicationRecord
+end
