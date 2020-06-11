@@ -15,9 +15,8 @@ Rails.application.routes.draw do
   get ':user_id/orders/:id/availabilities' , to: 'interface/orders#availabilities', as: :order_availabilities
 
   resources :users, only: :index do
-    # resources :availabilities, only: :index, shallow: true
+    resources :availabilities, only: :index, shallow: true
   end
-  get ':user_id/availabilities', to: 'availabilities#index', as: :user_availabilities
 
   resources :programs, only: :show
   resources :packs, only: :show
