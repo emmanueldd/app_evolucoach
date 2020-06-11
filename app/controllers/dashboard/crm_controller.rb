@@ -7,6 +7,7 @@ module Dashboard
     end
 
     def show
+      exit
       puts '######'
       puts '######'
       puts @user_has_client

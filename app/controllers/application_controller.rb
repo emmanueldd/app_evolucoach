@@ -24,11 +24,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_lead
 
   def complete_signup
-    puts '######'
-    puts '######'
-    puts controller_path
-    puts '######'
-    puts '######'
     if current_client && !current_client.signup_completed? && !controller_path.include?('admin') && controller_name != 'sessions'
       if controller_path != "interface/clients"
         redirect_to edit_interface_client_path(current_client)

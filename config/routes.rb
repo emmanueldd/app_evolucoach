@@ -60,7 +60,6 @@ Rails.application.routes.draw do
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step
     end
-    # resources :user_has_clients, path: :crm, as: :crm
     resources :packs
     resources :ratings
     resources :availabilities
