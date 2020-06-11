@@ -7,9 +7,9 @@
         .object-content
           = simple_form_for [:dashboard, current_user ] do |f|
             = f.hidden_field :next_step, value: 'price'
-            %p.fontlight Entre ton objectif
+            %h5.fontlight Entre ton objectif mensuel
             %h3.fontlight
-              = f.input_field :financial_goal,  class: 'fontlight big-transparent-input', required: true, placeholder: '5000'
+              = f.input_field :financial_goal,  class: 'fontlight big-transparent-input white', required: true, placeholder: '5000'
               %sub €
             %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Valider →
 / Content Area

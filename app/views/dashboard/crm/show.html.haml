@@ -84,29 +84,34 @@
           .row
             .col-12
               .suivi-table
-                %h3
-                  Sexe
-                  %span
-                    - if @client.male
-                      Homme
-                    - else
-                      Femme
-                %h3
-                  Âge
-                  %span #{get_age_from_date(@client.birth_date)} ans
-                -# %h3
-                  Taille
-                  %span 1m79
-                %h3
-                  - if @user_has_client.client_at.present?
-                    Suivi depuis
-                    %span le #{I18n.l(@user_has_client.client_at, format: :fulldate)}
-                  - else
-                    Prospect depuis
-                    %span le #{I18n.l(@user_has_client.lead_at, format: :fulldate)}
-                %h3
-                  Ville
-                  %span= @client.city
+                - if @client.is_a?(Lead)
+                  Prospect depuis
+                  %span le #{I18n.l(@user_has_client.lead_at, format: :fulldate)}
+                - else
+                  %h3
+                    Sexe
+                    %span
+                      - if @client.male
+                        Homme
+                      - else
+                        Femme
+                  %h3
+                    Âge
+                    %span #{get_age_from_date(@client.birth_date)} ans
+                  -# %h3
+                    Taille
+                    %span 1m79
+                  %h3
+                    - if @user_has_client.client_at.present?
+                      Suivi depuis
+                      %span le #{I18n.l(@user_has_client.client_at, format: :fulldate)}
+                      - if @user_has_client.lead_at.present?
+                        %br
+                        Prospect depuis
+                        %span le #{I18n.l(@user_has_client.lead_at, format: :fulldate)}
+                  %h3
+                    Ville
+                    %span= @client.city
       / Suivi table are
       .container
         .row

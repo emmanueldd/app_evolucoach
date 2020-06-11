@@ -51,7 +51,7 @@
             .text-center
               = f.label :avatar do
                 - if @user.avatar_url.present?
-                  = image_tag @user.avatar_url, id: 'preview', class: 'avatar-preview'
+                  = image_tag @user.avatar_url, id: 'preview', class: 'avatar-preview', "data-class": 'profile-img'
                 - else
                   = image_tag 'upload-avatar.png', id: 'preview', class: 'avatar-preview'
               = f.input_field :avatar, style: 'opacity: 0;', onchange: "readURL(this);"

@@ -26,6 +26,12 @@
               %span.bar
           - if @profile_home
             .profile-inner.page23
+              - if @stripe_account.blank? || !@stripe_account.details_submitted
+                %br
+                .alert.alert-danger.text-center{:role => "alert"}
+                  Veuillez remplir vos informations de paiement en
+                  = link_to dashboard_payment_infos_path do
+                    %u{style: 'color: #721c24'} cliquant ici.
               .profile-box.mt-30
                 .profile-img
                   = image_tag current_user.avatar_url, alt:"Farid"
@@ -33,8 +39,6 @@
                   Bonjour #{current_user.first_name} !
               %br/
               %small
-                La version définitive te sera communiquée prochainement.
-                %br/
                 Ton url est : https://evolucoach.com/#{current_user.slug} |
                 %a#copy.iblue{:href => "#"}
                   %b Copier

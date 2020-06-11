@@ -3,7 +3,6 @@ App.users_registrations = App.users_registrations || {};
 App.users_registrations.new_edit = {
   init: function() {
     var self = this;
-    self.setPseudoUrl(this);
     $('#user_nickname').keyup(function() {
       self.setPseudoUrl(this);
     })
@@ -12,7 +11,7 @@ App.users_registrations.new_edit = {
     })
   },
   setPseudoUrl: function(self) {
-    var slug = $(self).val().toLowerCase()
+    var slug = $(self).val().toLowerCase();
     $.ajax({
 			url: '/users/check_slug_availability/' + slug,
 	    dataType: "json",

@@ -9,4 +9,20 @@ class Lead < ApplicationRecord
     user_has_clients.create!(user: user) if user.present?
   end
 
+  def orders
+    return nil
+  end
+
+  def coachings_count
+    return 0
+  end
+
+  def coachings_left
+    return 0
+  end
+
+  def last_pack_purchased
+    return nil
+  end
+
 end

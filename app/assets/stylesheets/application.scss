@@ -153,6 +153,7 @@ a:hover {
 .g-blue-bg {
   background: rgb(7, 171, 177) !important;
   background: linear-gradient(90deg, #07ABB1 10%, #0AC8CF 80%, #60F8FD 100%) !important;
+  border: 1px solid #fff;
 }
 
 .green {
@@ -1010,7 +1011,9 @@ ul.nav.nav-tabs.circle-tab.profile {
   background: #07ABB1;
   margin-bottom: 20px;
   overflow: hidden;
+
 }
+
 
 .profile-card h3 {
   font-size: 16px;
@@ -1175,6 +1178,10 @@ header.header-area.page6 img {
   height: 70px !important;
   border: 2px solid #03B3BB;
   border-radius: 50%;
+  img {
+    object-fit: cover;
+    object-position: top;
+  }
 }
 
 
@@ -1218,7 +1225,6 @@ a.blue-btn {
 
 input:focus {
   outline: none !important;
-  background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   border-bottom: 1px solid #fff !important;
@@ -2297,9 +2303,13 @@ header.header-area.page26 a img {
 
 /*=======Page 27=====*/
 
-h3 sub, h3 input, .object-content h3 sub {
+h3 sub, .object-content h3 sub {
   font-size: 18px;
   color: #767C91 !important;
+  font-weight: 700;
+}
+h3 input {
+  font-size: 18px;
   font-weight: 700;
 }
 
@@ -3249,7 +3259,9 @@ p.pop-title {
   width: 100%;
   font-weight: 300;
 }
-
+.form-control, .form-control:focus {
+  color: #222;
+}
 .ville .header-seacrh .form-group input.form-control {
   border-radius: 8px;
   font-weight: 300;

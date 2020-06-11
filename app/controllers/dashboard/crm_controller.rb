@@ -6,9 +6,11 @@ module Dashboard
     end
 
     def show
-      @client = @user_has_client.client
+      @client = @user_has_client.client.present? ? @user_has_client.client : @user_has_client.lead
       if params[:section].blank? || params[:section] == 'planning'
-        @coming_courses = Course.not_removed.coming.where(order_id: @client.orders.paid).order(start_time: :asc)
+        if @client.orders.present?
+          @coming_courses = Course.not_removed.coming.where(order_id: @client.orders.paid).order(start_time: :asc)
+        end
       elsif params[:section].blank? || params[:section] == 'programs'
         # Mettre les programmes achetés
         @programs = @user_has_client.programs

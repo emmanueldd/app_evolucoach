@@ -1,5 +1,16 @@
 #preview {
   max-width: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+.fixed-btn {
+  position: fixed;
+  bottom: 40px;
+  width: 33%;
+  left: 33%;
+}
+.banner-upload {
+  object-position: center !important;
 }
 .avatar-preview {
   width: 170px !important;
@@ -116,7 +127,8 @@ label.error {
 .profile-img img {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover;
+  object-position: top;
   border-radius: 50%;
 }
 .about-img img {
@@ -186,6 +198,12 @@ label.error {
 }
 
 @media only screen and (max-width : 1024px) {
+
+
+  .fixed-btn {
+    width: 60%;
+    left: 20%;
+  }
 
   .fixed-element .dropdown-menu a {
     margin-left: -15%;

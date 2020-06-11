@@ -3,6 +3,7 @@ function readURL(input) {
     var reader = new FileReader();
     reader.onload = function (e) {
       $('#preview').attr('src', e.target.result)
+      $('#preview').attr('class', $('#preview').attr('data-class'));
     };
     reader.readAsDataURL(input.files[0]);
   }
@@ -18,7 +19,7 @@ $(document).ready(function () {
       type: 'city'
     });
   }
-  
+
   App.form_autosave.init();
   controller = $("body").data("controller");
   if ($("body").data("namespace") !== undefined && $("body").data("namespace") != controller) {

@@ -127,10 +127,14 @@
                 .member-info
                   %a{:href => "#{dashboard_crm_path(client)}"}
                     %h3
-                      - if client.infos.first_name
+                      - if client.infos.first_name.present?
                         = client.infos.first_name
-                      = client.infos.last_name
-                    %p= client.infos.email
+                      - else
+                        Sans nom
+                      - if client.infos.last_name
+                        = client.infos.last_name
+                    - if client.infos.email
+                      %p= client.infos.email
               .member-right
                 %a{:href => "#{dashboard_crm_path(client)}"}
                   - if client.has_buy

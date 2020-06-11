@@ -7,7 +7,7 @@
       .col-12
         .content-inner
           - @programs.each do |program|
-            .profile-card.card1{:style => 'background-image: url("#{program.cover_url}")'}
+            .profile-card.program-card.card1{:style => "background-image: url(#{program.cover_url})"}
               .left
                 %h3.fontlight= program.name
                 %p.fontlight.iblue

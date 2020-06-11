@@ -1,0 +1,12 @@
+form.new_program input, form.new_pack input, form.edit_program input, form.edit_pack input {
+  color: #fff;
+}
+.program-card {
+  .left {
+    background: rgba(0,0,0,0.6);
+    padding: 0px 10px;
+  }
+  .right {
+    font-weight: bold !important;
+  }
+}

@@ -7,7 +7,7 @@
         .content-inner
           .bet-text.flexbox
             %a.active{:href => "#"} Pectoraux
-            %a{:href => "#"} Exercice 1
+            %a{:href => "#"} Exercice #{@program_step.exercise_count + 1}
           = simple_form_for @program_step, url: dashboard_step_path do |f|
             .input-box.grey-bg.white
               .form-group

@@ -10,12 +10,10 @@
               %a{:href => root_path}
                 %span.iblue> EVOLU
                 COACH
-            - if user_signed_in? || client_signed_in?
-              %a#menubar{:href => "#"}
-                %span.bar
-                %span.bar
-                %span.bar
-              = render 'layouts/navigation'
+                
+            -# Si enlevé, ça pete le menu
+            %a#menubar{:href => "#"}
+
           .profile-inner
             .profile-box.mt-30
               .profile-img

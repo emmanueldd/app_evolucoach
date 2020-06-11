@@ -24,7 +24,7 @@
           .pack-profile-box.mb-30
             .pack-profile-img
               = image_tag @program.user.avatar_url
-            %p=@program.description
+            %p=simple_format(@program.description)
           = simple_form_for [:interface, @order] do |f|
             = simple_fields_for :order_has_item do |ff|
               = ff.input_field :item_id, as: :hidden, value: @program.id

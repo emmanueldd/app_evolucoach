@@ -73,3 +73,8 @@
                     %tr
                       - (0..6).each do |d|
                         %td{'data-date': "#{date = @date.change({ hour: h }) + d.day}"}
+  %br
+  %br
+  %br
+  = link_to user_path(@user, section: 'packs'), class: 'btn btn-primary fixed-btn' do
+    Réserver un coaching >

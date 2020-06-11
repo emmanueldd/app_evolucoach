@@ -1,6 +1,6 @@
 = render 'header'
 / Content Area
-- if params[:section].blank?
+- if params[:section].blank? || params[:section] == 'packs'
   .content-area.bg-light-blue
     .bg-top
     .container
@@ -60,7 +60,7 @@
         .col-12
           .content-inner
             - @user.programs.published.each do |program|
-              .profile-card.card1{:style => 'background-image: url("#{program.cover_url}")'}
+              .profile-card.program-card.card1{:style => "background-image: url(#{program.cover_url})"}
                 .left
                   %h3.fontlight= program.name
                   %p.fontlight.iblue
