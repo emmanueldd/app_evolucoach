@@ -16,6 +16,15 @@ class UsersController < ApplicationController
     current_lead.update(user: @user)
   end
 
+  def user_important
+    @user = User.friendly.find(params[:id])
+    if cookies[:last_important_object_visited].present?
+      redirect_to_last_important_path_visited
+    else
+      redirect_to @user
+    end
+  end
+
   def index
     # return redirect_to dashboard_root_path, notice: 'Votre profil sera prochainement disponible'
     @users = User.validated

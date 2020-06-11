@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     # History.create(cookies[:uuid], request.env['PATH_INFO']) if request.env['PATH_INFO'].present? && current_admin_user.blank?
   end
 
+  def redirect_to_last_important_path_visited
+    redirect_to cookies[:last_important_object_visited].constantize.find(cookies[:last_important_id_visited])
+  end
+
   def current_lead
     if params[:email].present?
       lead = Lead.find_or_initialize_by(email: params[:email])

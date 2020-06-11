@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'inscription' , to: redirect('/users/sign_up')
   get 'app' , to: redirect('/dashboard')
   get ':user_id/orders/:id/availabilities' , to: 'interface/orders#availabilities', as: :order_availabilities
+  get 'continue_to_user/:id' , to: 'users#user_important', as: :user_important
 
   resources :users, only: :index do
     resources :availabilities, only: :index, shallow: true
