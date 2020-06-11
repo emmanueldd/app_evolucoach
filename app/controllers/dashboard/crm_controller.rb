@@ -1,11 +1,7 @@
 module Dashboard
   class CrmController < DashboardController
     before_action :set_user_has_client, only: [:show, :edit, :update, :destroy]
-
-    def index
-      @clients = current_user.user_has_clients
-    end
-
+    
     def show
       exit
       puts '######'
@@ -31,6 +27,12 @@ module Dashboard
         @crm_comments = @user_has_client.crm_comments.published
       end
     end
+
+    def index
+      @clients = current_user.user_has_clients
+    end
+
+
 
     def new
       @user_has_client = current_user.user_has_clients.new
