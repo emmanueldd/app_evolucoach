@@ -55,6 +55,7 @@
                 - else
                   = image_tag 'upload-avatar.png', id: 'preview', class: 'avatar-preview'
               = f.input_field :avatar, style: 'opacity: 0;', onchange: "readURL(this);"
+              = f.input :first_name, as: :hidden
               -# = link_to 'Passer cette étape >', (@user.user.present? ? @user.user : dashboard_root_path), class: 'iblue'
               %input{type: 'hidden', name: 'next_step', value: 'completed'}
 

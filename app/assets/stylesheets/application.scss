@@ -134,7 +134,7 @@ a:hover {
   color: #03B3BB !important;
 }
 
-.white, .white * {
+.white {
   color: #fff !important;
 }
 
@@ -1823,7 +1823,7 @@ a.border-btn img {
 
 .input-box input:focus {
   border: 1px solid #fff !important;
-  color: #fff;
+  color: #222; // todo ??
 }
 
 
@@ -1838,11 +1838,15 @@ span.input-absolute {
   position: relative;
 }
 
+
 .form-group ::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #999 !important;
   opacity: 1;
   /* Firefox */
+}
+.program_description ::placeholder, .pack_description ::placeholder {
+  color: #fff !important;
 }
 
 .form-group :-ms-input-placeholder {
