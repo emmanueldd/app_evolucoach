@@ -1,12 +1,23 @@
 module Dashboard
   class CrmController < DashboardController
     before_action :set_user_has_client, only: [:show, :edit, :update, :destroy]
+
     def index
       @clients = current_user.user_has_clients
     end
 
     def show
+      puts '######'
+      puts '######'
+      puts @user_has_client
+      puts '######'
+      puts '######'
       @client = @user_has_client.client.present? ? @user_has_client.client : @user_has_client.lead
+      puts '######'
+      puts '######'
+      puts @client
+      puts '######'
+      puts '######'
       if params[:section].blank? || params[:section] == 'planning'
         if @client.orders.present?
           @coming_courses = Course.not_removed.coming.where(order_id: @client.orders.paid).order(start_time: :asc)
