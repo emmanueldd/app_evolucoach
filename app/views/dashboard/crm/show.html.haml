@@ -1,0 +1,129 @@
+%body
+  %header.header-area.profile.page30.py-4
+    .container
+      .row
+        .col-12
+          .d-flex.justify-content-between.align-items-center
+            = link_to dashboard_crm_index_path do
+              %span.left-angle
+            %h1
+              %span.iblue> EVOLU
+              COACH
+            %a#menubar{:href => "#"}
+              %span.bar.d-none
+              %span.bar.d-none
+              %span.bar.d-none
+          .profile-inner
+            .profile-box.mt-30
+              .profile-img
+                = image_tag @client.avatar_url
+              %h3
+                = @client.coachings_count
+                %span.fontlight Coachings
+              %h3
+                = @client.coachings_left
+                %span.fontlight Réstant
+              .profile-bag
+                =link_to "sms:#{@client.phone}" do
+                  = image_tag "boxbtm.png"
+            .profile-name.page30.mt-10
+              %h2.name #{@client.first_name} #{@client.last_name}
+              - if @client.last_pack_purchased.present?
+                %a{:href => "#"} #{@client.last_pack_purchased}
+              -# Mettre directement le nom du dernier pack acheté sur le client .last_pack_purchased
+            .profile-links.mt-30
+              %a{:href => url_for(section: 'planning'), class: (params[:section].blank? || params[:section] == 'planning' ? 'active' : '')}
+                planning
+              %a.fontlight{:href => url_for(section: 'programs'), class: (params[:section].present? && params[:section] == 'programs' ? 'active' : '')}
+                programmes
+              %a.fontlight{:href => url_for(section: 'followup'), class: (params[:section].present? && params[:section] == 'followup' ? 'active' : '')}
+                suivi
+  / Header
+  / Content Area
+  - if params[:section].blank? || params[:section] == 'planning'
+    .content-area.bg-light-blue
+      .bg-top
+      .container
+        .row
+          .col-12
+            .content-inner.page30
+              - if @coming_courses.blank?
+                %p #{@client.first_name} n'a pas de coaching à venir.
+              - else
+                - @coming_courses.each do |course|
+                  .planning-box
+                    %h4
+                      = I18n.l(course.start_time, format: :long)
+                      %br
+                      %span= course.course_infos
+                    -# %a{:href => "#"}
+                      -# = image_tag "cross-grey.png"
+  - elsif params[:section].present? && params[:section] == 'programs'
+    .content-area.bg-light-blue
+      .bg-top
+      .container
+        .row
+          .col-12
+            .content-inner.page31
+              - @programs.each do |program|
+                .planning-box
+                  %h4
+                    = program.name
+                    %span= I18n.l(program.created_at, format: :slash)
+                  %a{:href => dashboard_program_path(program)}
+                    %span.left-angle.right
+      .fixed-element
+        %p.fontlight lui créer un nouveau programme
+        %a.circle-btn{:href => new_dashboard_program_path(user_has_client_id: @user_has_client.id)} +
+  - elsif params[:section].present? && params[:section] == 'followup'
+    .content-area.bg-light-blue.full-vh
+      .bg-top
+      / Suivi table are
+      .suivi-area
+        .container
+          .row
+            .col-12
+              .suivi-table
+                - if @client.is_a?(Lead)
+                  Prospect depuis
+                  %span le #{I18n.l(@user_has_client.lead_at, format: :fulldate)}
+                - else
+                  %h3
+                    Sexe
+                    %span
+                      - if @client.male
+                        Homme
+                      - else
+                        Femme
+                  %h3
+                    Âge
+                    %span #{get_age_from_date(@client.birth_date)} ans
+                  -# %h3
+                    Taille
+                    %span 1m79
+                  %h3
+                    - if @user_has_client.client_at.present?
+                      Suivi depuis
+                      %span le #{I18n.l(@user_has_client.client_at, format: :fulldate)}
+                      - if @user_has_client.lead_at.present?
+                        %br
+                        Prospect depuis
+                        %span le #{I18n.l(@user_has_client.lead_at, format: :fulldate)}
+                  %h3
+                    Ville
+                    %span= @client.city
+      / Suivi table are
+      .container
+        .row
+          .col-12
+            .content-inner.page31.page32
+              - @crm_comments.each do |comment|
+                .planning-box
+                  %h4
+                    = image_tag "line-book.png"
+                    = comment.name
+                  %a{:href => edit_dashboard_comment_path(comment)}
+                    %span.left-angle.right
+              = link_to new_dashboard_crm_comment_path(@user_has_client), class: 'validate white g-blue-bg' do
+                ajouter une note +
+    / Content Area

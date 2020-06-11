@@ -1,9 +1,8 @@
 module Dashboard
   class CrmController < DashboardController
     before_action :set_user_has_client, only: [:show, :edit, :update, :destroy]
-    
+
     def show
-      exit
       puts '######'
       puts '######'
       puts @user_has_client
