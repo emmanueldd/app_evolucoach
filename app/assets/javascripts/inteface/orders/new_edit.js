@@ -1,7 +1,7 @@
 'use strict';
 
 App.interface_orders = App.interface_orders || {};
-App.interface_orders.new_edit = {
+App.interface_orders.payment = {
 	init: function init() {
 		var self = this;
 		var style = {

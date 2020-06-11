@@ -1,0 +1,12 @@
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-light-blue
+  .container
+    .row
+      .col-12
+        .content-inner
+          = simple_form_for [:dashboard, @user], html: { class: 'my-form' } do |f|
+            %fieldset
+              = f.input :fb_pixel_code, label: 'Code Facebook pixel', input_html: { class: 'tracking-code' }
+              = f.input :ga_code, label: 'Code Google Analytics', input_html: { class: 'tracking-code' }
+            %button.validate.g-blue-bg.fontbold Valider

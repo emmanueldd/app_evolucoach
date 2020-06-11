@@ -1,0 +1,71 @@
+:javascript
+  stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}', { stripeAccount: "#{@user.payment_info.stripe_account_id}" } );
+
+%header.header-area.border-btm.page15
+
+  .container
+    .row
+      .col-6
+        .d-flex.justify-content-between.align-items-center
+          = link_to :back do
+            %span.left-angle
+
+/ Content Area
+.content-area.bg-dark-blue.page13.page15#order-pay
+  .container
+    .row
+      .col-lg-6.offset-lg-3
+        .content-inner.text-center
+          = image_tag 'secure-payment.png'
+          %br
+          %br
+          %p
+            Payez en toute tranquilité grâceà notre sytème
+            %br
+            de sécurité certifié.
+          = simple_form_for @order, url: interface_pay_order_path(@order), html: {id: 'payment-form'} do |f|
+            %div
+              %h2{style: 'margin-bottom:5px;'}
+                Paiement sécurisé
+              -# = link_to 'Je souhaite payer en 4x', url_for, style: 'color: #999; text-decoration: underline;'
+              %br
+              %br
+            .form-row.text-left
+              .col-md-6
+                = f.input :first_name, label: 'Prénom', input_html: { value: current_client.first_name }, required: true
+              .col-md-6
+                = f.input :last_name, label: 'Nom', input_html: { value: current_client.last_name }, required: true
+              .col-md-12
+                = f.input :email, label: 'Email', input_html: { value: current_client.email }, required: true
+              .col-md-12
+                = f.input :phone, label: 'Numéro de téléphone', input_html: { value: current_client.phone }, required: true
+              .col-md-12
+
+                %hr
+
+              -#   = f.input :address, label: 'Adresse', required: true, input_html: { value: current_client.address }
+              -# .col-md-6
+              -#   = f.input :city, label: 'Ville', required: true, input_html: { value: current_client.city }
+              -# .col-md-6
+              -#   = f.input :zipcode, laxbel: 'Code postal', required: true, input_html: { value: current_client.zipcode }
+              -# .col-md-12
+              -#   = f.input :country, as: :string, label: 'Pays', required: true, input_html: { value: current_client.country }
+              -#
+              -#   %hr
+
+
+              = hidden_field_tag "order[scs]", @client_secret, id: 'scs'
+              -# .text-center= image_tag 'cbs.png', class: 'full-max-width'
+              %label{:for => "card-element", required: true}
+                &nbsp; Carte bancaire
+                %abbr{title:"requis"} *
+              #card-element
+                / A Stripe Element will be inserted here.
+              / Used to display form errors.
+              #card-errors{:role => "alert"}
+            %br
+
+            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
+              Payer
+              %small
+                %b #{price_to_currency(@order.total_price)}

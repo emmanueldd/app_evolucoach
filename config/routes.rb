@@ -41,7 +41,9 @@ Rails.application.routes.draw do
     root 'home#index'
     resources :clients, only: [:edit, :update]
     resources :programs, except: [:index]
-    resources :orders, except: [:destroy]
+    resources :orders, except: [:destroy, :show]
+    resources :orders, only: :show, path: 'payment_completed'
+    get 'orders/:id/payment_page', to: 'orders#payment', as: 'order_payment'
     patch 'orders/:id/pay', to: 'orders#pay', as: 'pay_order'
   end
 
@@ -54,6 +56,7 @@ Rails.application.routes.draw do
     end
     get 'stats/traffic', to: 'stats#traffic', as: 'stats_traffic'
     get 'stats/goal', to: 'stats#goal', as: 'stats_goal'
+    get 'stats/params', to: 'stats#params', as: 'stats_params'
     get 'stats/get_charts', to: 'stats#get_charts', as: 'stats_get_charts'
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step

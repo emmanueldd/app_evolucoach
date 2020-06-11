@@ -1,6 +1,6 @@
 module Interface
   class OrdersController < InterfaceController
-    before_action :set_order, only: [:show, :edit, :update, :availabilities, :pay]
+    before_action :set_order, only: [:show, :edit, :update, :availabilities, :pay, :payment]
 
     def show
     end
@@ -21,7 +21,7 @@ module Interface
 
       # if @order_has_item.item_type == 'Program'
       if @order_has_item.item_type == 'Program'
-        redirect_to edit_interface_order_path(@order)
+        redirect_to interface_order_payment_path(@order)
       else # if @order_has_item.item_type == 'pack'
         redirect_to order_availabilities_path(id: @order.id, user_id: @user.id)
       end
@@ -33,7 +33,7 @@ module Interface
       @program = @order.programs.last # toujours retourner vers le dernier program ajouté
     end
 
-    def edit # page de paiement
+    def payment # page de paiement
       @stripe = true
       @user = @order.user
 

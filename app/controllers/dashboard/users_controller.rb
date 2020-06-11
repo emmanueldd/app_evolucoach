@@ -24,6 +24,8 @@ module Dashboard
         redirect_to edit_dashboard_user_path(step: params[:next_step])
       elsif user_params[:financial_goal].present?
         redirect_to dashboard_stats_path, notice: 'Ton objectif financier a été mis à jour.'
+      elsif user_params[:ga_code].present? || user_params[:fb_pixel_code].present?
+        redirect_back fallback_location: dashboard_stats_params_path, notice: 'Tes codes de tracking ont bien été mis à jour.'
       end
     end
 
@@ -33,7 +35,7 @@ module Dashboard
 
     private
       def user_params
-        params.require(:user).permit(:name, :client, :description, :price, :financial_goal, :first_name, :last_name, :avatar, :city)
+        params.require(:user).permit(:name, :client, :description, :price, :financial_goal, :first_name, :last_name, :avatar, :city, :ga_code, :fb_pixel_code)
       end
   end
 end

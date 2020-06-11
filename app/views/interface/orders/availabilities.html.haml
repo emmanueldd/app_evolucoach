@@ -93,7 +93,7 @@
   %br
   %br
   %br
-  = link_to @order.paid? ? interface_root_path(success: 'Enregistré') : edit_interface_order_path(@order), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
+  = link_to @order.paid? ? interface_root_path(success: 'Enregistré') : interface_order_payment_path(@order), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
     Confirmer >
 :javascript
   $(function() {

@@ -39,6 +39,10 @@ module Dashboard
       }
     end
 
+    def params
+      @user = current_user
+    end
+
 
     def traffic
       begin
