@@ -16,7 +16,8 @@
           .profile-inner
             .profile-box.mt-30
               .profile-img
-                = image_tag @client.avatar_url
+                - if @client.avatar_url.present?
+                  = image_tag @client.avatar_url
               %h3
                 = @client.coachings_count
                 %span.fontlight Coachings
