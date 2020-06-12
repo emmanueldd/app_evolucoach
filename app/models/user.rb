@@ -18,8 +18,17 @@ class User < ApplicationRecord
   has_many :orders
   has_many :order_has_items, through: :orders
   has_one :payment_info
+  before_save :set_slug
   after_create :set_past_income_stats
   validate :is_account_allowed?, on: :create
+
+  def set_slug
+    if slug.present?
+      self.slug = slug.downcase if slug_changed?
+    # else
+    #   self.slug = name.parameterize if name.present?
+    end
+  end
 
   def is_account_allowed?
     errors[:base] << "Ton email n'est pas celui d'un Evolucoach." unless AllowedAccount.exists?(email: email)

@@ -1,5 +1,6 @@
-:javascript
-  stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}', { stripeAccount: "#{@user.payment_info.stripe_account_id}" } );
+- if @order.total_price > 0
+  :javascript
+    stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}', { stripeAccount: "#{@user.payment_info.stripe_account_id}" } );
 
 %header.header-area.border-btm.page15
 
@@ -16,20 +17,24 @@
     .row
       .col-lg-6.offset-lg-3
         .content-inner.text-center
-          = image_tag 'secure-payment.png'
-          %br
-          %br
-          %p
-            Payez en toute tranquilité grâceà notre sytème
+          - if @order.total_price > 0
+            = image_tag 'secure-payment.png'
             %br
-            de sécurité certifié.
+            %br
+            %p
+              Payez en toute tranquilité grâceà notre sytème
+              %br
+              de sécurité certifié.
+            %h2{style: 'margin-bottom:20px; margin-top: 10px;'}
+              Paiement sécurisé
+          - else
+            %h5{style: 'margin-bottom:20px; margin-top: 10px;'}
+              Confirmation
           = simple_form_for @order, url: interface_pay_order_path(@order), html: {id: 'payment-form'} do |f|
             %div
-              %h2{style: 'margin-bottom:5px;'}
-                Paiement sécurisé
+
               -# = link_to 'Je souhaite payer en 4x', url_for, style: 'color: #999; text-decoration: underline;'
-              %br
-              %br
+
             .form-row.text-left
               .col-md-6
                 = f.input :first_name, label: 'Prénom', input_html: { value: current_client.first_name }, required: true
@@ -53,19 +58,24 @@
               -#
               -#   %hr
 
-
-              = hidden_field_tag "order[scs]", @client_secret, id: 'scs'
-              -# .text-center= image_tag 'cbs.png', class: 'full-max-width'
-              %label{:for => "card-element", required: true}
-                &nbsp; Carte bancaire
-                %abbr{title:"requis"} *
-              #card-element
-                / A Stripe Element will be inserted here.
-              / Used to display form errors.
-              #card-errors{:role => "alert"}
+              - if @order.total_price > 0
+                = hidden_field_tag "order[scs]", @client_secret, id: 'scs'
+                -# .text-center= image_tag 'cbs.png', class: 'full-max-width'
+                %label{:for => "card-element", required: true}
+                  &nbsp; Carte bancaire
+                  %abbr{title:"requis"} *
+                #card-element
+                  / A Stripe Element will be inserted here.
+                / Used to display form errors.
+                #card-errors{:role => "alert"}
             %br
-
-            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
-              Payer
-              %small
-                %b #{price_to_currency(@order.total_price)}
+            - if @order.total_price > 0
+              %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
+                Payer
+                %small
+                  %b #{price_to_currency(@order.total_price)}
+            - else
+              %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
+                Accéder
+                %small
+                  %b gratuitement

@@ -39,20 +39,21 @@ module Interface
 
       @order.set_total_price
       @order.save!
-
-      stripe_intent = Stripe::PaymentIntent.create({
-        amount: @order.total_price,
-        customer: current_client.find_stripe_customer_id(@user.payment_info.stripe_account_id),
-        receipt_email: current_client.email,
-        currency: 'eur',
-        payment_method_types: ['card'],
-        capture_method: 'automatic',
-        description: "https://evolucoach.com/admin/orders/#{@order.id}",
-        setup_future_usage: 'off_session'
-      }, {
-        stripe_account: @user.payment_info.stripe_account_id,
-      })
-      @client_secret = stripe_intent.client_secret
+      if @order.total_price > 0
+        stripe_intent = Stripe::PaymentIntent.create({
+          amount: @order.total_price,
+          customer: current_client.find_stripe_customer_id(@user.payment_info.stripe_account_id),
+          receipt_email: current_client.email,
+          currency: 'eur',
+          payment_method_types: ['card'],
+          capture_method: 'automatic',
+          description: "https://evolucoach.com/admin/orders/#{@order.id}",
+          setup_future_usage: 'off_session'
+        }, {
+          stripe_account: @user.payment_info.stripe_account_id,
+        })
+        @client_secret = stripe_intent.client_secret
+      end
     end
 
     def update
@@ -65,7 +66,7 @@ module Interface
       @order.status = 'paid'
       @order.paid_at = DateTime.now
       if @order.save!
-        redirect_to [:interface, @order]
+        redirect_to interface_payment_completed_path(@order)
       end
     end
 

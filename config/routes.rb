@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     resources :clients, only: [:edit, :update]
     resources :programs, except: [:index]
     resources :orders, except: [:destroy, :show]
-    resources :orders, only: :show, path: 'payment_completed'
+    resources :orders, only: :show, path: 'payment_completed', as: :payment_completed
     get 'orders/:id/payment_page', to: 'orders#payment', as: 'order_payment'
     patch 'orders/:id/pay', to: 'orders#pay', as: 'pay_order'
   end

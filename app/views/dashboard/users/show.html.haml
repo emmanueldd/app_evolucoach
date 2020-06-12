@@ -27,11 +27,18 @@
                           = pack.nb_of_courses
                           séances
                       .right
+                        = link_to edit_dashboard_pack_path(pack) do
+                          Modifier
+                        |
+                        = link_to dashboard_pack_path(pack), method: :delete do
+                          Supprimer
+                      .right
                         %h3.fontlight
                           = number_to_currency(pack.unit_price)
                           = succeed "La séance" do
                             %br/
-                        %a.rightarrow{:href => "#"}
+                        %a.rightarrow{href: edit_dashboard_pack_path(pack)}
+
                 #duo.tab-pane
                   - current_user.packs.duo.each_with_index do |pack, index|
                     - card_index = index == 0 ? '2' : '1'
@@ -45,11 +52,17 @@
                           = pack.nb_of_courses
                           séances
                       .right
+                        = link_to edit_dashboard_pack_path(pack) do
+                          Modifier
+                        |
+                        = link_to dashboard_pack_path(pack), method: :delete do
+                          Supprimer
+                      .right
                         %h3.fontlight
                           = number_to_currency(pack.unit_price)
                           = succeed "La séance" do
                             %br/
-                        %a.rightarrow{:href => "#"}
+                        %a.rightarrow{href: edit_dashboard_pack_path(pack)}
 .fixed-element
   %p.fontlight Créer un nouveau pack
   %a.circle-btn{:href => new_dashboard_pack_path} +
