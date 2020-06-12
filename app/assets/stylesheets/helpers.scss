@@ -8,6 +8,9 @@ textarea.tracking-code {
   object-fit: cover;
   object-position: top;
 }
+.display-inline-block {
+  display: inline-block !important;
+}
 .fixed-btn {
   position: fixed;
   bottom: 40px;
@@ -218,6 +221,10 @@ label.error {
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+  }
+  .big-profile-img {
+    width: 100px;
+    height: 100px;
   }
 
 }

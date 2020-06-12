@@ -55,6 +55,7 @@ gem 'slack-notifier'
 gem 'groupdate'
 gem 'momentjs-rails'
 gem 'sidekiq'
+gem "browser"
 
 
 
