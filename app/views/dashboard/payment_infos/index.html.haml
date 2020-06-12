@@ -25,35 +25,11 @@
               -# = f.input :first_name, input_html: { value: current_user.first_name }
               -# = f.input :last_name, input_html: { value: current_user.last_name }
             %fieldset
-              = f.input :iban, placeholder: 'ex: FR7630001007941234567890185'
-              -#
-              -# %legend Business Address
-              -# = f.input :business_address_1
-              -#
-              -# = f.input :business_city
-              -# = f.input :business_state
-              -# = f.input :business_zip_code
-
-            -# %fieldset
-            -#   %legend Representative Address
-            -#   = f.input :contact_address_1
-            -#   = f.input :contact_city
-            -#   = f.input :contact_state
-            -#   = f.input :contact_zip_code
-
-
-            -# %p
-            -#   %br
-            -#   En cliquant sur ce bouton, vous acceptez
-            -#   %a{:href => "#"} nos Conditions Générales d'Utilisation
-            -#   ainsi que les
-            -#   %a{:href => "/connect-account/legal"} Conditions d'Utilisation des Comptes Connectés Stripe
-            -#   %br
-            -#   %br
+              = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
             - if @stripe_account.present? && @stripe_account.details_submitted
-              %button.validate.g-blue-bg.fontbold{:type => "submit"} Modifier →
+              = f.button :submit, "Modifier →", class: 'custom-btn validate blue-bg fontbold'
             - else
-              %button.validate.g-blue-bg.fontbold{:type => "submit"} Suivant →
+              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold'
               %br
               %br
               .text-center.full-width
