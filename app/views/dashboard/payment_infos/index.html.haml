@@ -51,9 +51,9 @@
             -#   %br
             -#   %br
             - if @stripe_account.present? && @stripe_account.details_submitted
-              %button.validate.g-blue-bg.fontbold Modifier →
+              %button.validate.g-blue-bg.fontbold{:type => "submit"} Modifier →
             - else
-              %button.validate.g-blue-bg.fontbold Suivant →
+              %button.validate.g-blue-bg.fontbold{:type => "submit"} Suivant →
               %br
               %br
               .text-center.full-width
