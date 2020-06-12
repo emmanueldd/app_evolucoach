@@ -17,6 +17,12 @@
                   = program.frequency
                   séances/semaine
               .right
+                = link_to edit_dashboard_program_path(program) do
+                  Modifier
+                |
+                = link_to dashboard_program_path(program), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Programme #{program.name} ?" } do
+                  Supprimer
+              .right
                 %h3.fontlight= number_to_currency(program.price)
                 %a.rightarrow.white{:href => "#{edit_dashboard_program_path(program)}"}
           /

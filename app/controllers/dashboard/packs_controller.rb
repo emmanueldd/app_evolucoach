@@ -32,7 +32,7 @@ module Dashboard
     end
 
     def destroy
-      redirect_back(fallback_location: dashboard_packs_path, notice: 'Pack supprimé') if @pack.destroy
+      redirect_back(fallback_location: [:dashboard, current_user], notice: 'Pack supprimé') if @pack.destroy
     end
 
     private

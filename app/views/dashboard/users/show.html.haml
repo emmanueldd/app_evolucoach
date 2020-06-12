@@ -30,7 +30,7 @@
                         = link_to edit_dashboard_pack_path(pack) do
                           Modifier
                         |
-                        = link_to dashboard_pack_path(pack), method: :delete do
+                        = link_to dashboard_pack_path(pack), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Pack #{pack.name} ?" } do
                           Supprimer
                       .right
                         %h3.fontlight
@@ -55,7 +55,7 @@
                         = link_to edit_dashboard_pack_path(pack) do
                           Modifier
                         |
-                        = link_to dashboard_pack_path(pack), method: :delete do
+                        = link_to dashboard_pack_path(pack), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Pack #{pack.name} ?" } do
                           Supprimer
                       .right
                         %h3.fontlight
