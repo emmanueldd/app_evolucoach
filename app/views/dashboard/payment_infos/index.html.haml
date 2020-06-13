@@ -7,15 +7,18 @@
       .col-12
         .content-inner
           %h5.white
-            - if @stripe_account.present?
-              - if @stripe_account.details_submitted
-                Vos informations de paiement sont validées
-              - else
-                Veuillez compléter vos informations de paiement.
-            - else
-              Veuillez compléter vos informations de paiement.
+            Votre compte est en cours d'approbation par Stripe.
+          %p.white
+            Cette vérification peut prendre 72h, vous pourrez ensuite remplir le formulaire.
+            -# - if @stripe_account.present?
+            -#   - if @stripe_account.details_submitted
+            -#     Vos informations de paiement sont validées
+            -#   - else
+            -#     Veuillez compléter vos informations de paiement.
+            -# - else
+            -#   Veuillez compléter vos informations de paiement.
             %br
-          %p.white Ces informations sont nécessaires pour percevoir vos paiements.
+          -# %p.white Ces informations sont nécessaires pour percevoir vos paiements.
           %br
 
           = simple_form_for [:dashboard, @payment_info], html: { class: 'my-form' } do |f|
@@ -27,9 +30,9 @@
             %fieldset
               = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
             - if @stripe_account.present? && @stripe_account.details_submitted
-              = f.button :submit, "Modifier →", class: 'custom-btn validate blue-bg fontbold'
+              = f.button :submit, "Modifier →", class: 'custom-btn validate blue-bg fontbold', disabled: true
             - else
-              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold'
+              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold', disabled: true
               %br
               %br
               .text-center.full-width
