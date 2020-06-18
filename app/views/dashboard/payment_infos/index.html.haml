@@ -27,9 +27,9 @@
             %fieldset
               = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
             - if @stripe_account.present? && @stripe_account.details_submitted
-              = f.button :submit, "Modifier →", class: 'custom-btn validate blue-bg fontbold', disabled: true
+              = f.button :submit, "Modifier →", class: 'custom-btn validate blue-bg fontbold'
             - else
-              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold', disabled: true
+              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold'
               %br
               %br
               .text-center.full-width
