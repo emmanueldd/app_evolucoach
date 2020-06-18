@@ -30,7 +30,8 @@ module Dashboard
       })
       @payment_info.stripe_account_id = stripe_account.id
       if @payment_info.save!
-        url = "http://#{request.domain}#{dashboard_payment_infos_path}"
+        s_for_ssl = Rails.env.production? ? 's' : ''
+        url = "http#{s_for_ssl}://#{request.domain}#{dashboard_payment_infos_path}"
         account_links = Stripe::AccountLink.create({
           account: @payment_info.stripe_account_id,
           failure_url: "#{url}?error=Erreur",
@@ -58,7 +59,8 @@ module Dashboard
         }
       )
       if current_user.payment_info.update(payment_info_params)
-        url = "http://#{request.domain}#{dashboard_payment_infos_path}"
+        s_for_ssl = Rails.env.production? ? 's' : ''
+        url = "http#{s_for_ssl}://#{request.domain}#{dashboard_payment_infos_path}"
         account_links = Stripe::AccountLink.create({
           account: @payment_info.stripe_account_id,
           failure_url: "#{url}?error=Erreur",
