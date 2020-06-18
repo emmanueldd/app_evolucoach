@@ -7,18 +7,15 @@
       .col-12
         .content-inner
           %h5.white
-            Votre compte est en cours d'approbation par Stripe.
-          %p.white
-            Cette vérification peut prendre 72h, vous pourrez ensuite remplir le formulaire.
-            -# - if @stripe_account.present?
-            -#   - if @stripe_account.details_submitted
-            -#     Vos informations de paiement sont validées
-            -#   - else
-            -#     Veuillez compléter vos informations de paiement.
-            -# - else
-            -#   Veuillez compléter vos informations de paiement.
+            - if @stripe_account.present?
+              - if @stripe_account.details_submitted
+                Vos informations de paiement sont validées
+              - else
+                Veuillez compléter vos informations de paiement.
+            - else
+              Veuillez compléter vos informations de paiement.
             %br
-          -# %p.white Ces informations sont nécessaires pour percevoir vos paiements.
+          %p.white Ces informations sont nécessaires pour percevoir vos paiements.
           %br
 
           = simple_form_for [:dashboard, @payment_info], html: { class: 'my-form' } do |f|
