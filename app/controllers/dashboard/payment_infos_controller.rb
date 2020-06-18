@@ -43,6 +43,7 @@ module Dashboard
     end
 
     def update
+      @payment_info = current_user.payment_info
       token = params['token-account']
       stripe_account = Stripe::Account.update(
         current_user.payment_info.stripe_account_id,
