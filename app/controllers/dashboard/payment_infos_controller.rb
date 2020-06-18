@@ -20,6 +20,7 @@ module Dashboard
       stripe_account = Stripe::Account.create({
         type: 'custom',
         account_token: token,
+        requested_capabilities: ['card_payments', 'transfers'],
         external_account: {
           object: 'bank_account',
           country: 'FR', # TODO : INTERNATIONNALISATION
