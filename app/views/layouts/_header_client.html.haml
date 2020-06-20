@@ -9,10 +9,10 @@
       .row
         .col-12
           .d-flex.justify-content-between.align-items-center
-            %a{:href => "#"}
+            = link_to :back do
               %span.left-angle.d-none
             %h1
-              %a{:href => root_path}
+              = link_to current_client.user do
                 %span.iblue> EVOLU
                 COACH
             %a#menubar{:href => "#"}

@@ -61,7 +61,15 @@
                   %br
                   %br
               - else
-                Vous n'avez pas encore acheté de coachings.
+                Vous n'avez pas de coachings à venir.
+              - if current_client.orders.with_credits.present?
+                %br
+                %br
+                - current_client.orders.with_credits.each do |order|
+                  %u
+                    = link_to order_availabilities_path(id: order.id, user_id: order.user.id), class: 'iblue' do
+                      Il vous reste #{order.credit_left} à placer sur votre Pack "#{order.packs.last.name}" du #{I18n.l(order.paid_at)} auprès de #{order.user.first_name}
+                  %hr
       #programmes.tab-pane.coaching-area
         .container
           .row

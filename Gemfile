@@ -56,6 +56,8 @@ gem 'groupdate'
 gem 'momentjs-rails'
 gem 'sidekiq'
 gem "browser"
+gem 'acts_as_list'
+
 
 
 

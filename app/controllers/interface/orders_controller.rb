@@ -16,7 +16,7 @@ module Interface
       @user = @order.user
       @order_has_item = @order.order_has_items.new(order_has_item_params)
       @order_has_item.save!
-      @order.set_credit
+      # @order.set_credit # Déplacé dans le model order has item
       # end dégueulasse
 
       # if @order_has_item.item_type == 'Program'
@@ -64,6 +64,7 @@ module Interface
     def pay
       @order.assign_attributes(order_params)
       @order.status = 'paid'
+      @order.set_credit_left
       @order.paid_at = DateTime.now
       if @order.save!
         redirect_to interface_payment_completed_path(@order)

@@ -13,6 +13,7 @@ class Order < ApplicationRecord
   scope :of_month, -> (date = DateTime.now) {
     where(paid_at: date.beginning_of_month.beginning_of_day..date.end_of_month.end_of_day)
   }
+  scope :with_credits, -> { where('credit_left > ?', 0) }
   after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
   after_save :set_course_infos
   after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
@@ -54,12 +55,6 @@ class Order < ApplicationRecord
     # Et les count sont ceux qui ont déjà été faits.
   end
 
-  def set_credit
-    if packs.present? && credit == 0
-      pack_credits = packs.last.nb_of_courses
-      update_columns(credit_left: pack_credits, credit: pack_credits)
-    end
-  end
 
   accepts_nested_attributes_for :order_has_items
 

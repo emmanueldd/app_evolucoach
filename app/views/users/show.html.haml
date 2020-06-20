@@ -29,9 +29,12 @@
                             séances
                         .right
                           %h3.fontlight
-                            = number_to_currency(pack.unit_price)
-                            = succeed "La séance" do
-                              %br/
+                            - if pack.unit_price.to_i == 0
+                              %b Gratuit
+                            - else
+                              = number_to_currency(pack.unit_price)
+                              = succeed "La séance" do
+                                %br/
                           = link_to '', pack, class: 'rightarrow'
                   #duo.tab-pane
                     - @user.packs.duo.each_with_index do |pack, index|
@@ -47,9 +50,12 @@
                             séances
                         .right
                           %h3.fontlight
-                            = number_to_currency(pack.unit_price)
-                            = succeed "La" do
-                              %br/
+                            - if pack.unit_price.to_i == 0
+                              %b Gratuit
+                            - else
+                              = number_to_currency(pack.unit_price)
+                              = succeed "La séance" do
+                                %br/
                           %a.rightarrow{:href => "#lienverslapagedepresentationdupack"}
   / Content Area
 - elsif params[:section] == 'programs'

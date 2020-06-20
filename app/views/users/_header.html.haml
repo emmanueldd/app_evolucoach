@@ -7,10 +7,15 @@
             %a{:href => "#"}
               %span.left-angle.d-none
             %h1
-              %a{:href => root_path}
-                %span.iblue> EVOLU
-                COACH
-                
+              - if client_signed_in?
+                %a{:href => current_client.user}
+                  %span.iblue> EVOLU
+                  COACH
+              - else
+                %a{:href => root_path}
+                  %span.iblue> EVOLU
+                  COACH
+
             -# Si enlevé, ça pete le menu
             %a#menubar{:href => "#"}
 
