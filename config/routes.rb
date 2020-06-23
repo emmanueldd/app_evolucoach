@@ -50,6 +50,7 @@ Rails.application.routes.draw do
   namespace :dashboard do
     root 'home#index'
     resources :payment_infos, only: [:index, :create, :edit, :update]
+    get 'payment_info/redirect_uri', to: 'payment_infos#redirect_uri', as: 'payment_info_redirect_uri'
     resources :stats, only: [:index]
     resources :crm, only: [:index, :show], shallow: true do
       resources :crm_comments, as: :comment, path: :comments

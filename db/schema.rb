@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200611152355) do
+ActiveRecord::Schema.define(version: 20200621193247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -270,6 +270,8 @@ ActiveRecord::Schema.define(version: 20200611152355) do
     t.string "identity_card_back"
     t.string "business_state"
     t.string "contact_state"
+    t.string "alma_api_key"
+    t.string "stripe_oauth_token"
     t.index ["user_id"], name: "index_payment_infos_on_user_id"
   end
 

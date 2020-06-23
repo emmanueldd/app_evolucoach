@@ -1,12 +1,16 @@
 // TODO : TESTER le cas de l'update
 App.dashboard_payment_infos = App.dashboard_payment_infos || {};
 App.dashboard_payment_infos.index = {
+  enableBtn: function() {
+    var self = this;
+    $(self).attr('disabled', false);
+  },
   init: function() {
     var self = this;
 
     // Assumes you've already included Stripe.js!
-    const myForm = document.querySelector('.my-form');
-    myForm.addEventListener('submit', handleForm);
+    // const myForm = document.querySelector('.my-form');
+    // myForm.addEventListener('submit', handleForm);
 
     async function handleForm(event) {
       event.preventDefault();

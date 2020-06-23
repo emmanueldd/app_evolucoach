@@ -9,7 +9,10 @@
           %h5.white
             - if @stripe_account.present?
               - if @stripe_account.details_submitted
-                Vos informations de paiement sont validées
+                - if @stripe_account.capabilities.card_payments.present? && @stripe_account.capabilities.card_payments == 'active'
+                  Vos informations de paiement ont été validées
+                - else
+                  Vos informations de paiement ont été enregistrées, et sont en attente de validation par Stripe.
               - else
                 Veuillez compléter vos informations de paiement.
             - else
@@ -18,18 +21,20 @@
           %p.white Ces informations sont nécessaires pour percevoir vos paiements.
           %br
 
+
           = simple_form_for [:dashboard, @payment_info], html: { class: 'my-form' } do |f|
-            %input#token-account{:name => "token-account", :type => "hidden"}/
-            %input#token-person{:name => "token-person", :type => "hidden"}/
+            -# %input#token-account{:name => "token-account", :type => "hidden"}/
+            -# %input#token-person{:name => "token-person", :type => "hidden"}/
             %fieldset
               -# = f.input :first_name, input_html: { value: current_user.first_name }
               -# = f.input :last_name, input_html: { value: current_user.last_name }
             %fieldset
-              = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
+              -# = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
+              = f.input :alma_api_key, placeholder: 'ex: sk_live_78fgs78ojsndifv8dfgv0', required: false, hint: 'Rendez-vous sur https://getalma.eu/register pour créer votre compte et activer le paiement en plusieurs fois.'
             - if @stripe_account.present? && @stripe_account.details_submitted
-              = f.button :submit, "Modifier →", class: 'custom-btn validate blue-bg fontbold'
+              = f.button :submit, "Enregister →", class: 'custom-btn validate blue-bg fontbold'
             - else
-              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold'
+              = f.button :submit, "Enregistrer →", class: 'custom-btn validate blue-bg fontbold'
               %br
               %br
               .text-center.full-width
