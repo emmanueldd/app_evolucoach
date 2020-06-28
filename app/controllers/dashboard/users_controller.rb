@@ -25,7 +25,7 @@ module Dashboard
       elsif user_params[:financial_goal].present?
         redirect_to dashboard_stats_path, notice: 'Ton objectif financier a été mis à jour.'
       elsif user_params[:ga_code].present? || user_params[:fb_pixel_code].present?
-        redirect_back fallback_location: dashboard_stats_params_path, notice: 'Tes codes de tracking ont bien été mis à jour.'
+        redirect_back fallback_location: dashboard_stats_params_path, notice: 'Ton tracking Facebook a bien été mis à jour.'
       end
     end
 

@@ -13,7 +13,7 @@ class UsersController < ApplicationController
       return redirect_to users_path if @user.blank?
     end
     cookies[:last_user_visited_id] = @user.id
-    current_lead.update(user: @user)
+    current_lead.update(user: @user) # le lead ou le client prend automatiquement le dernier user visité
   end
 
   def user_important

@@ -7,6 +7,5 @@
         .content-inner
           = simple_form_for [:dashboard, @user], html: { class: 'my-form' } do |f|
             %fieldset
-              = f.input :fb_pixel_code, label: 'Code Facebook pixel', input_html: { class: 'tracking-code' }
-              = f.input :ga_code, label: 'Code Google Analytics', input_html: { class: 'tracking-code' }
+              = f.input :fb_pixel_code, as: :string, label: 'Numéro de Pixel Facebook', placeholder: 'ex: 553687795253501', input_html: { class: 'tracking-code' }, hint: 'Se trouve sur le gestionnaire d\'évenements de Facebook Business'
             %button.validate.g-blue-bg.fontbold Valider

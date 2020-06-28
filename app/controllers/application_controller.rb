@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_lead
+    return current_client if current_client
     if params[:email].present?
       lead = Lead.find_or_initialize_by(email: params[:email])
       cookies[:uuid] = lead.uuid if lead.present?

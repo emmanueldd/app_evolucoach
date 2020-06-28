@@ -30,7 +30,11 @@
               -# = f.input :last_name, input_html: { value: current_user.last_name }
             %fieldset
               -# = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
-              = f.input :alma_api_key, placeholder: 'ex: sk_live_78fgs78ojsndifv8dfgv0', required: false, hint: 'Rendez-vous sur https://getalma.eu/register pour créer votre compte et activer le paiement en plusieurs fois.'
+              = f.input :alma_api_key, placeholder: 'ex: sk_live_78fgs78ojsndifv8dfgv0', required: false
+              %small.form-text.text-muted
+                Rendez-vous sur
+                = link_to 'https://getalma.eu/register', 'https://getalma.eu/register'
+                pour créer votre compte, récupérer votre "Api key" et activer le paiement en plusieurs fois.
             - if @stripe_account.present? && @stripe_account.details_submitted
               = f.button :submit, "Enregister →", class: 'custom-btn validate blue-bg fontbold'
             - else

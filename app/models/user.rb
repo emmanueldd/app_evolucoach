@@ -18,15 +18,16 @@ class User < ApplicationRecord
   has_many :orders
   has_many :order_has_items, through: :orders
   has_one :payment_info
-  before_save :set_slug
+  before_save :set_fields
   after_create :set_past_income_stats
   validate :is_account_allowed?, on: :create
 
-  def set_slug
-    if slug.present?
-      self.slug = slug.downcase if slug_changed?
-    # else
-    #   self.slug = name.parameterize if name.present?
+  def set_fields
+    if slug.present? && slug_changed?
+      self.slug = slug.downcase.parameterize
+    end
+    if fb_pixel_code.present? && fb_pixel_code_changed?
+      self.fb_pixel_code = fb_pixel_code.delete(' ').to_i.to_s
     end
   end
 

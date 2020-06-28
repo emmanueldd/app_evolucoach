@@ -15,6 +15,26 @@
 
     = javascript_include_tag "https://cdn.jsdelivr.net/npm/places.js@1.19.0"
 
+    - if current_lead.present? && !user_signed_in? && current_lead.user.present?
+      - if current_lead.user.fb_pixel_code.present?
+        - fb_pixel = current_lead.user.fb_pixel_code
+        / User Facebook Pixel Code
+        :javascript
+          !function(f,b,e,v,n,t,s)
+          {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+          if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+          n.queue=[];t=b.createElement(e);t.async=!0;
+          t.src=v;s=b.getElementsByTagName(e)[0];
+          s.parentNode.insertBefore(t,s)}(window, document,'script',
+          'https://connect.facebook.net/en_US/fbevents.js');
+          fbq('init', "#{fb_pixel}");
+          fbq('track', 'PageView');
+        %noscript
+          %img{:height => "1", :src => "https://www.facebook.com/tr?id=#{fb_pixel}&ev=PageView&noscript=1", :style => "display:none", :width => "1"}/
+        / End User Facebook Pixel Code
+
+
   %body{"data-prod-env": (Rails.env.production?).to_s, "data-namespace": content_for(:namespace) || namespace, "data-action": content_for(:action_name) || action_name, "data-controller": content_for(:controller_name) || controller_name}
     - if notice || alert || params[:success].present? || params[:error].present?
       .flash-container.blue-bg#flash-message
