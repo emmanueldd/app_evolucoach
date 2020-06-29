@@ -9,13 +9,15 @@
     def update
       @client.update(client_params)
       if params[:next_step] == 'completed' # always FIRST !
-        redirect_to interface_root_path
+        if cookies[:last_important_object_visited].present?
+            redirect_to_last_important_path_visited
+        elsif @client.user.present?
+          redirect_to @client.user
+        else
+          redirect_to interface_root_path
+        end
       elsif params[:next_step].present?
         redirect_to edit_interface_client_path(step: params[:next_step])
-      elsif cookies[:last_important_object_visited].present?
-          redirect_to_last_important_path_visited
-      elsif @client.user.present?
-        redirect_to @client.user
       end
 
     end
