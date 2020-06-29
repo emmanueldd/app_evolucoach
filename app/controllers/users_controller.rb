@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     rescue
       return redirect_to users_path if @user.blank?
     end
+    store_user_location!
     cookies[:last_user_visited_id] = @user.id
     current_lead.update(user: @user) # le lead ou le client prend automatiquement le dernier user visité
   end

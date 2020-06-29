@@ -23,6 +23,15 @@ class Clients::SessionsController < Devise::SessionsController
       stored_location_for(resource) || resource.user
     end
 
+    def after_sign_out_path_for(resource)
+      current_lead.user
+      # if cookies[:last_important_object_visited].present? && cookies[:last_important_id_visited].present?
+      #   cookies[:last_important_object_visited].constantize.find(cookies[:last_important_id_visited])
+      # else
+      #   current_lead.user
+      # end
+   end
+
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_in_params
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])

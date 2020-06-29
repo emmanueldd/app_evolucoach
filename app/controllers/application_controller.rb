@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
+  # before_action :store_user_location!, if: :storable_location?
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :forbid_multiple_connexion, unless: :format_js?
   before_action :complete_signup, unless: :format_js?
@@ -68,5 +69,35 @@ class ApplicationController < ActionController::Base
   def format_json?
     request.format.json?
   end
+
+  def current_resource
+    if user_signed_in?
+      current_user
+    elsif client_signed_in?
+      current_client
+    end
+  end
+  helper_method :current_resource
+
+  def stored_location_for(current_resource)
+    super
+  end
+  helper_method :stored_location_for
+
+  private
+    # Its important that the location is NOT stored if:
+    # - The request method is not GET (non idempotent)
+    # - The request is handled by a Devise controller such as Devise::SessionsController as that could cause an
+    #    infinite redirect loop.
+    # - The request is an Ajax request as this can lead to very unexpected behaviour.
+    def storable_location?
+      return if request.path.include?('ckeditor')
+      request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && request.env['PATH_INFO'] != edit_user_registration_path
+    end
+
+    def store_user_location!
+      # :user is the scope we are authenticating
+      store_location_for(:client, request.fullpath)
+    end
 
 end

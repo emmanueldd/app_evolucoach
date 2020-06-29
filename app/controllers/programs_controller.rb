@@ -1,6 +1,7 @@
 class ProgramsController < ApplicationController
 
   def show
+    store_user_location!
     begin
       @program = Program.friendly.find(params[:id])
     rescue
