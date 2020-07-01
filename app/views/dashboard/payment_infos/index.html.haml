@@ -31,14 +31,41 @@
             %fieldset
               -# = f.input :iban, placeholder: 'ex: FR7630001007941234567890185', required: true
               = f.input :alma_api_key, placeholder: 'ex: sk_live_78fgs78ojsndifv8dfgv0', required: false
-              %small.form-text.text-muted
-                Rendez-vous sur
-                = link_to 'https://getalma.eu/register', 'https://getalma.eu/register'
-                pour créer votre compte, récupérer votre "Api key" et activer le paiement en plusieurs fois.
+              -# %small.form-text.text-muted
+              -#   Rendez-vous sur
+              -#   = link_to 'https://getalma.eu/register', 'https://getalma.eu/register'
+              -#   pour créer votre compte, récupérer votre "Api key" et activer le paiement en plusieurs fois.
+            .white
+              %br
+              %p Pour activer les paiements en ligne, cliquez sur "Suivant" pour être redirigé sur Stripe et remplir le formulaire.
+              %br
+
+              %p
+                Pour activer le paiement en plusieurs fois, créez votre compte sur Alma sur
+                = link_to 'https://dashboard.getalma.eu/register', 'https://dashboard.getalma.eu/register', class: 'iblue '
+                \.
+              %p
+                Vos obtiendrez alors votre "Api key Live" à rentrer dans le formulaire ci-dessus.
+
+                %br
+                %br
+                Une fois votre inscription terminée, activez votre compte pour pouvoir décaisser vos revenus, en envoyant les documents suivants à
+                %b compliance@getalma.eu
+                \:
+                %br
+                %br
+                %ul
+                  %li - RIB du compte sur lequel nous verserons l'argent collecté
+                  %li - Le kbis de moins de 3 mois de la société (disponible sur https://www.infogreffe.fr/documents-officiels/demande-kbis.html)
+                  %li
+                    \- Pour chaque dirigeant (dirigeant = gérant, président, etc.) et chaque bénéficiaire effectif possédant plus de 25% du capital : scan de la carte d'identité / passeport en couleur (l’ensemble des bords doivent être correctement visibles).
+                    %br
+                    %b Si vous êtes auto-entrepreneur, envoyez simplement votre carte d'identité ou votre passeport.
+
             - if @stripe_account.present? && @stripe_account.details_submitted
-              = f.button :submit, "Enregister →", class: 'custom-btn validate blue-bg fontbold'
+              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold'
             - else
-              = f.button :submit, "Enregistrer →", class: 'custom-btn validate blue-bg fontbold'
+              = f.button :submit, "Suivant →", class: 'custom-btn validate blue-bg fontbold'
               %br
               %br
               .text-center.full-width

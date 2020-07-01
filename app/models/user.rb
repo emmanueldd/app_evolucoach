@@ -22,6 +22,8 @@ class User < ApplicationRecord
   after_create :set_past_income_stats
   validate :is_account_allowed?, on: :create
 
+
+
   def set_fields
     if slug.present? && slug_changed?
       self.slug = slug.downcase.parameterize

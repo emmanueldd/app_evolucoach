@@ -1,4 +1,8 @@
 Rails.application.configure do
+  config.middleware.use(Rack::Tracker) do
+    handler :facebook_pixel, { id: lambda { |env| env['PIXEL_ID'] } }
+  end
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.

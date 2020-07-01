@@ -57,7 +57,7 @@ Rails.application.routes.draw do
     end
     get 'stats/traffic', to: 'stats#traffic', as: 'stats_traffic'
     get 'stats/goal', to: 'stats#goal', as: 'stats_goal'
-    get 'stats/params', to: 'stats#params', as: 'stats_params'
+    get 'stats/params', to: 'stats#tracking_params', as: 'stats_params'
     get 'stats/get_charts', to: 'stats#get_charts', as: 'stats_get_charts'
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step

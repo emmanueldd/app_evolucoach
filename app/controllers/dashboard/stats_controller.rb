@@ -39,8 +39,21 @@ module Dashboard
       }
     end
 
-    def params
+    def tracking_params
       @user = current_user
+      if params[:set_default_trackings].present?
+        request.env['PIXEL_ID'] = current_user.fb_pixel_code
+        tracker do |t|
+          t.facebook_pixel :track, { type: 'ViewContent' }
+          t.facebook_pixel :track, { type: 'AddToCart' }
+          t.facebook_pixel :track, { type: 'AddPaymentInfo' }
+          t.facebook_pixel :track, { type: 'InitiateCheckout' }
+          t.facebook_pixel :track, { type: 'Purchase' }
+          t.facebook_pixel :track, { type: 'Lead' }
+          t.facebook_pixel :track, { type: 'CompleteRegistration' }
+        end
+
+      end
     end
 
 
