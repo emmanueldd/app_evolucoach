@@ -44,13 +44,13 @@ module Dashboard
       if params[:set_default_trackings].present? && params[:set_default_trackings] == 'true'
         request.env['PIXEL_ID'] = current_user.fb_pixel_code
         tracker do |t|
-          t.facebook_pixel :track, { type: 'ViewContent' }
-          t.facebook_pixel :track, { type: 'AddToCart' }
-          t.facebook_pixel :track, { type: 'AddPaymentInfo' }
-          t.facebook_pixel :track, { type: 'InitiateCheckout' }
-          t.facebook_pixel :track, { type: 'Purchase' }
-          t.facebook_pixel :track, { type: 'Lead' }
-          t.facebook_pixel :track, { type: 'CompleteRegistration' }
+          # t.facebook_pixel :track, { type: 'Lead' } # Meme que viewContent ?
+          # t.facebook_pixel :track, { type: 'AddPaymentInfo' } # Meme que initiateCheckout ?
+          t.facebook_pixel :track, { type: 'ViewContent' } # Toutes les pages
+          t.facebook_pixel :track, { type: 'AddToCart' } # = Bouton "commander" || Page registration si params[:addToCart] ?
+          t.facebook_pixel :track, { type: 'InitiateCheckout' } # = Page de paiement
+          t.facebook_pixel :track, { type: 'Purchase' } # = Les achats
+          t.facebook_pixel :track, { type: 'CompleteRegistration' } # = Les inscrits
         end
 
       end
