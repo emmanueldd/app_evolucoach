@@ -17,6 +17,7 @@ module Dashboard
     end
 
     def update
+      fb_pixel_was = current_user.fb_pixel.to_s
       current_user.update(user_params)
       if params[:next_step] == 'completed'
         redirect_to dashboard_user_path(current_user), notice: 'Informations mises à jour'
@@ -25,7 +26,8 @@ module Dashboard
       elsif user_params[:financial_goal].present?
         redirect_to dashboard_stats_path, notice: 'Ton objectif financier a été mis à jour.'
       elsif user_params[:ga_code].present? || user_params[:fb_pixel_code].present?
-        redirect_to dashboard_stats_params_path(set_default_trackings: true), notice: 'Ton tracking Facebook a bien été mis à jour.'
+        does_fb_pixel_changed = fb_pixel_was != current_user.fb_pixel
+        redirect_to dashboard_stats_params_path(set_default_trackings: does_fb_pixel_changed), notice: 'Ton tracking Facebook a bien été mis à jour.'
       end
     end
 

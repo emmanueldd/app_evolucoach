@@ -41,7 +41,7 @@ module Dashboard
 
     def tracking_params
       @user = current_user
-      if params[:set_default_trackings].present?
+      if params[:set_default_trackings].present? && params[:set_default_trackings] == 'true'
         request.env['PIXEL_ID'] = current_user.fb_pixel_code
         tracker do |t|
           t.facebook_pixel :track, { type: 'ViewContent' }
