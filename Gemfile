@@ -58,6 +58,8 @@ gem 'sidekiq'
 gem "browser"
 gem 'acts_as_list'
 gem 'rack-tracker'
+gem 'carrierwave-aws'
+gem 'aws-sdk-rails'
 
 
 

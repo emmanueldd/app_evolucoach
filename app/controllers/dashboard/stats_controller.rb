@@ -50,6 +50,7 @@ module Dashboard
           t.facebook_pixel :track, { type: 'AddToCart' } # = Bouton "commander" || Page registration si params[:addToCart] ?
           t.facebook_pixel :track, { type: 'InitiateCheckout' } # = Page de paiement
           t.facebook_pixel :track, { type: 'Purchase' } # = Les achats
+          t.facebook_pixel :track, { type: 'Lead' } # = Achat d'un produit ou programme gratuit, non ça c'est completeRegistration. Garder "Lead" pour plus tard quand on créera des pages de captures
           t.facebook_pixel :track, { type: 'CompleteRegistration' } # = Les inscrits
         end
 
