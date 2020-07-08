@@ -13,15 +13,35 @@ class User < ApplicationRecord
   has_many :programs
   has_many :program_steps
   has_many :user_has_clients
+  has_many :subscriptions
   has_many :crm_comments
   has_many :stats
   has_many :orders
   has_many :order_has_items, through: :orders
   has_one :payment_info
+  has_many :stripe_payment_methods
   before_save :set_fields
   after_create :set_past_income_stats
   validate :is_account_allowed?, on: :create
 
+  def find_or_create_stripe_customer_id
+    if stripe_customer_id.blank?
+      customer = Stripe::Customer.create(
+        email: email
+      )
+      update_columns(stripe_customer_id: customer.id)
+    end
+    return stripe_customer_id
+  end
+
+  def subscription
+    subscriptions.last
+  end
+
+  def subscribed?
+    subscriptions.still_active.present?
+    # || subscriptions.active.present? || subscriptions.trialing.present?
+  end
 
 
   def set_fields

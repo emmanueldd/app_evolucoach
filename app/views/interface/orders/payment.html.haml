@@ -18,64 +18,106 @@
       .col-lg-6.offset-lg-3
         .content-inner.text-center
           - if @order.total_price > 0
-            = image_tag 'secure-payment.png'
-            %br
-            %br
-            %p
-              Payez en toute tranquilité grâceà notre sytème
+            .white
+              -# %h2{style: 'margin-bottom:20px; margin-top: 10px;'}
+              -#   Paiement sécurisé
+              = image_tag 'secure-payment.png'
               %br
-              de sécurité certifié.
-            %h2{style: 'margin-bottom:20px; margin-top: 10px;'}
-              Paiement sécurisé
+
+              %p
+                %h5{style: 'margin-bottom:10px; margin-top: 10px;'}
+                  Paiement sécurisé
+                Payez en toute tranquilité grâceà notre sytème
+                %br
+                de sécurité certifié.
+                %br
+                %br
+
+
           - else
             %h5{style: 'margin-bottom:20px; margin-top: 10px;'}
               Confirmation
-          = simple_form_for @order, url: interface_pay_order_path(@order), html: {id: 'payment-form'} do |f|
-            %div
-
-              -# = link_to 'Je souhaite payer en 4x', url_for, style: 'color: #999; text-decoration: underline;'
-
-            .form-row.text-left
-              .col-md-6
-                = f.input :first_name, label: 'Prénom', input_html: { value: current_client.first_name }, required: true
-              .col-md-6
-                = f.input :last_name, label: 'Nom', input_html: { value: current_client.last_name }, required: true
-              .col-md-12
-                = f.input :email, label: 'Email', input_html: { value: current_client.email }, required: true
-              .col-md-12
-                = f.input :phone, label: 'Numéro de téléphone', input_html: { value: current_client.phone }, required: true
-              .col-md-12
-
-                %hr
-
-              -#   = f.input :address, label: 'Adresse', required: true, input_html: { value: current_client.address }
-              -# .col-md-6
-              -#   = f.input :city, label: 'Ville', required: true, input_html: { value: current_client.city }
-              -# .col-md-6
-              -#   = f.input :zipcode, laxbel: 'Code postal', required: true, input_html: { value: current_client.zipcode }
-              -# .col-md-12
-              -#   = f.input :country, as: :string, label: 'Pays', required: true, input_html: { value: current_client.country }
-              -#
-              -#   %hr
-
-              - if @order.total_price > 0
-                = hidden_field_tag "order[scs]", @client_secret, id: 'scs'
-                -# .text-center= image_tag 'cbs.png', class: 'full-max-width'
-                %label{:for => "card-element", required: true}
-                  &nbsp; Carte bancaire
-                  %abbr{title:"requis"} *
-                #card-element
-                  / A Stripe Element will be inserted here.
-                / Used to display form errors.
-                #card-errors{:role => "alert"}
+          - if params[:alma].present?
+            %u= link_to 'Je souhaite payer en 1 fois →', url_for(), class: 'iblue'
             %br
-            - if @order.total_price > 0
-              %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
-                Payer
-                %small
-                  %b #{price_to_currency(@order.total_price)}
-            - else
-              %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
-                Accéder
-                %small
-                  %b gratuitement
+            %br
+            = form_tag(interface_pay_order_via_alma_path(@order.id), method: "post", id: "alma") do
+              .form-group.form-row.text-left
+
+                .col-md-6
+                  = label_tag('billing_address[first_name]', "Prénom", class: 'form-control-label')
+                  = text_field_tag('billing_address[first_name]', current_lead.first_name, required: true, class: 'form-control')
+                .col-md-6
+                  = label_tag('billing_address[last_name]', "Nom", class: 'form-control-label')
+                  = text_field_tag('billing_address[last_name]', current_lead.last_name, required: true, class: 'form-control')
+                .col-md-12
+                  %br
+                  = label_tag('billing_address[line1]', "Adresse", class: 'form-control-label')
+                  = text_field_tag('billing_address[line1]', current_lead.address, required: true, class: 'form-control')
+                .col-md-4
+                  %br
+                  = label_tag('billing_address[postal_code]', "Code postal", class: 'form-control-label')
+                  = text_field_tag('billing_address[postal_code]', current_lead.zipcode, required: true, class: 'form-control')
+                .col-md-8
+                  %br
+                  = label_tag('billing_address[city]', "Ville", class: 'form-control-label')
+                  = text_field_tag('billing_address[city]', current_lead.city, required: true, class: 'form-control')
+                .col-md-12
+                  %br
+                  %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
+                    Confirmer
+                    -# = @product.price_4x
+          - else
+            - if @user.payment_info.alma_api_key
+              %u= link_to 'Je souhaite payer en 3 fois sans frais →', url_for(alma: true), class: 'iblue'
+            %br
+            %br
+            = simple_form_for @order, url: interface_pay_order_path(@order), html: {id: 'payment-form'} do |f|
+              %div
+
+                -# = link_to 'Je souhaite payer en 4x', url_for, style: 'color: #999; text-decoration: underline;'
+
+              .form-row.text-left
+                .col-md-6
+                  = f.input :first_name, label: 'Prénom', input_html: { value: current_client.first_name }, required: true
+                .col-md-6
+                  = f.input :last_name, label: 'Nom', input_html: { value: current_client.last_name }, required: true
+                .col-md-12
+                  = f.input :email, label: 'Email', input_html: { value: current_client.email }, required: true
+                .col-md-12
+                  = f.input :phone, label: 'Numéro de téléphone', input_html: { value: current_client.phone }, required: true
+                .col-md-12
+
+                  %hr
+
+                -#   = f.input :address, label: 'Adresse', required: true, input_html: { value: current_client.address }
+                -# .col-md-6
+                -#   = f.input :city, label: 'Ville', required: true, input_html: { value: current_client.city }
+                -# .col-md-6
+                -#   = f.input :zipcode, laxbel: 'Code postal', required: true, input_html: { value: current_client.zipcode }
+                -# .col-md-12
+                -#   = f.input :country, as: :string, label: 'Pays', required: true, input_html: { value: current_client.country }
+                -#
+                -#   %hr
+
+                - if @order.total_price > 0
+                  = hidden_field_tag "order[scs]", @client_secret, id: 'scs'
+                  -# .text-center= image_tag 'cbs.png', class: 'full-max-width'
+                  %label{:for => "card-element", required: true}
+                    &nbsp; Carte bancaire
+                    %abbr{title:"requis"} *
+                  #card-element
+                    / A Stripe Element will be inserted here.
+                  / Used to display form errors.
+                  #card-errors{:role => "alert"}
+              %br
+              - if @order.total_price > 0
+                %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
+                  Payer
+                  %small
+                    %b #{price_to_currency(@order.total_price)}
+              - else
+                %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
+                  Accéder
+                  %small
+                    %b gratuitement

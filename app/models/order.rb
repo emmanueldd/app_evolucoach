@@ -14,9 +14,26 @@ class Order < ApplicationRecord
     where(paid_at: date.beginning_of_month.beginning_of_day..date.end_of_month.end_of_day)
   }
   scope :paid_with_credits, -> { paid.where('credit_left > ?', 0) }
+  before_save :alma_state_actions, if: -> { alma_state_changed? && alma_state.present? }
   after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
   after_save :set_course_infos
   after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
+
+  def alma_state_actions
+    # { not_started: 0, scored_no: 1, scored_maybe: 2, scored_yes: 3, paid: 4 }
+    if alma_state == 'not_started'
+      # Email votre paiement est en attente de validation
+    elsif alma_state == 'scored_no'
+      # Email pour paiement en une fois
+    elsif alma_state == 'scored_maybe'
+      # Email pour récolter plus d'informations
+    elsif alma_state == 'scored_yes'
+      # Email de confirmation
+      self.status = 'paid' # => Va call set_paid_actions
+    elsif alma_state == 'paid'
+      # Email pour un autre pack ave un code promo ?
+    end
+  end
 
   def name
     return 'Nom du prog ou du pack'

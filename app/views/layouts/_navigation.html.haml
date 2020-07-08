@@ -16,6 +16,8 @@
     %li
       %a{:href => dashboard_root_path} Accueil
     %li
+      %a{:href => dashboard_subscriptions_path} Abonnement
+    %li
       %a{:href => dashboard_user_path(current_user)} Mon profil
     %li
       %a{:href => dashboard_payment_infos_path} Informations bancaires
@@ -23,15 +25,15 @@
       %a{:href => dashboard_stats_path} Statistiques
     %li
       %a{:href => dashboard_stats_traffic_path} Analyses trafic
-    %li
-      %a{:href => dashboard_user_path(current_user)} Packs coaching
-    %li
-      %a{:href => dashboard_programs_path} Programmes
+    -# %li
+    -#   %a{:href => dashboard_user_path(current_user)} Packs coaching
+    -# %li
+    -#   %a{:href => dashboard_programs_path} Programmes
     %li
       %a{:href => dashboard_crm_index_path} Mes athlètes
     -# %li
     -#   %a{:href => "#"} Newsletter
     %li
-      %a{:href => dashboard_availabilities_path} Mes disponibilités
+      %a{:href => dashboard_availabilities_path} Disponibilités
 
     %li= link_to 'Déconnexion', destroy_user_session_path, method: :delete

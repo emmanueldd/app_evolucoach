@@ -10,16 +10,12 @@ module Interface
     end
 
     def create
-      # begin dégueulasse
       @order = current_client.orders.new(order_params)
       @order.save!
       @user = @order.user
       @order_has_item = @order.order_has_items.new(order_has_item_params)
       @order_has_item.save!
-      # @order.set_credit # Déplacé dans le model order has item
-      # end dégueulasse
 
-      # if @order_has_item.item_type == 'Program'
       if @order_has_item.item_type == 'Program'
         redirect_to interface_order_payment_path(@order)
       else # if @order_has_item.item_type == 'pack'
@@ -71,14 +67,93 @@ module Interface
       end
     end
 
+    def pay_alma
+      @order = Order.find(params[:id])
+      @user = @order.user
+      billing_address = params[:billing_address]
+      current_lead.update(billing_address_params)
+      begin
+        uri = URI('https://api.getalma.eu/v1/payments')
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        req = Net::HTTP::Post.new(uri.path)
+        req["Authorization"] = "Alma-Auth #{@user.payment_info.alma_api_key}"
+        req["Content-Type"] = 'text/json'
+        req.body = {
+          payment: {
+            installments_count: 3,
+            purchase_amount: @order.price.to_i,
+            return_url: "#{interface_payment_completed_url(@order, alma: true)}",
+            customer_cancel_url: "#{alma_cancel_url}",
+            customer: {
+              email: current_lead.email,
+              first_name: current_lead.first_name,
+              last_name: current_lead.last_name,
+              phone: current_lead.phone
+            },
+            billing_address: {
+              first_name: billing_address[:first_name],
+              last_name: billing_address[:last_name],
+              line1: billing_address[:line1],
+              postal_code: billing_address[:postal_code],
+              city: billing_address[:city],
+              email: current_lead.email,
+              phone: current_lead.phone
+            }
+          }
+        }.to_json
+
+        res = http.request(req)
+        puts "response #{res.body}"
+        payment = JSON.parse(res.body)
+        url = payment["url"]
+        @order.update(alma_payment_id: payment['id'], alma_state: 'not_started')
+        redirect_to url
+      rescue => e
+        flash[:notice] = "Une erreur s\'est produite #{e}"
+        puts "ALMA: Une erreur s\'est produite #{e}"
+        pp payment
+        redirect_back(fallback_location: new_product_order_path(@order.product))
+      end
+    end
+
+    def alma_cancel
+      @order = current_lead.orders.last
+      if @order.present?
+        redirect_to interface_order_payment_path(@order)
+      else
+        redirect_to current_lead.user
+      end
+    end
+
+    def alma_confirm #webhook
+      # uri = URI("https://api.sandbox.getalma.eu/v1/payments/#{params[:pid]}")
+      @order = Order.find_by(alma_payment_id: params[:pid])
+      @user = @order.user
+      if @order.present?
+        uri = URI("https://api.getalma.eu/v1/payments/#{params[:pid]}")
+        http = Net::HTTP.new(uri.host, uri.port)
+        http.use_ssl = true
+        req = Net::HTTP::Get.new(uri.path)
+        req["Authorization"] = "Alma-Auth #{@user.payment_info.alma_api_key}"
+        res = http.request(req)
+        payment = JSON.parse(res.body)
+        if payment.present?
+          @order.update(alma_state: payment['state'])
+        end
+        render status: 200, json: { success: true } and return
+      end
+    end
+
     private
       def set_order
         @order = current_client.orders.find(params[:id])
       end
 
-        # def order_params
-        #   params.require(:order).permit(:user_id)
-        # end
+
+      def billing_address_params
+        params.require(:billing_address).permit(:first_name, :last_name, :line1, :postal_code, :city, :phone)
+      end
 
       def order_params
         params.require(:order).permit(:user_id, :coupon_text, :card_token, :card_name, :pack_id, order_has_courses_attributes: [:course_id, :order_id], courses_attributes: [:availability_id, :id, :order_id, :start_time, :status, :my_checkbox, :_destroy])

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     get 'connect_as_this_user/:id', to: 'users#connect_as', as: 'connect_as_this_user'
   end
 
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
   get 'users/check_slug_availability/:slug', to: 'users#check_slug_availability', as: 'check_slug_availability'
@@ -14,6 +16,8 @@ Rails.application.routes.draw do
   get 'app' , to: redirect('/dashboard')
   get ':user_id/orders/:id/availabilities' , to: 'interface/orders#availabilities', as: :order_availabilities
   get 'continue_to_user/:id' , to: 'users#user_important', as: :user_important
+  get 'orders/alma_confirm' , to: 'interface/orders#alma_confirm', as: :alma_confirm
+  get 'orders/alma_cancel' , to: 'interface/orders#alma_cancel', as: :alma_cancel
 
   resources :users, only: :index do
     resources :availabilities, only: :index, shallow: true
@@ -45,6 +49,7 @@ Rails.application.routes.draw do
     resources :orders, only: :show, path: 'payment_completed', as: :payment_completed
     get 'orders/:id/payment_page', to: 'orders#payment', as: 'order_payment'
     patch 'orders/:id/pay', to: 'orders#pay', as: 'pay_order'
+    post 'orders/:id/pay_alma', to: 'orders#pay_alma', as: 'pay_order_via_alma'
   end
 
   namespace :dashboard do
@@ -66,6 +71,15 @@ Rails.application.routes.draw do
     resources :ratings
     resources :availabilities
     resources :users
+    resources :stripe_payment_methods
+    resources :subscriptions do
+      member do
+        get 'cancel'
+      end
+      collection do
+        post 'create_subscription'
+      end
+    end
   end
   get ':id', to: 'users#show', as: 'user'
 end

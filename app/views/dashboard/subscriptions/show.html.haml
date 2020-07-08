@@ -1,0 +1,44 @@
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-light-blue.page19.full-vh
+  .bg-top
+  .container
+    .row
+      .col-4.offset-4
+        .content-inner.text-center
+          - if params[:success].present?
+            = image_tag 'check-in-circle.png'
+            %br
+            %br
+            %h5.white
+              Félicitations !
+            %p
+              Ton abonnement est confirmé.
+            %br
+            %br
+            %br
+            = link_to 'Tableau de bord →', dashboard_root_path, class: 'custom-btn validate blue-bg fontbold full-width mt-10'
+          - else
+            .white
+              - if @subscription.ends_on > DateTime.now
+                - if @subscription.trialing? || @subscription.active?
+                  Ton abonnement est actif.
+                  %br
+                  le prochain prélèvement aura lieu le #{I18n.l(@subscription.ends_on, format: :fulldate)}.
+                  %br
+                  %br
+                  %u
+                    = link_to 'Je souhaite me désabonner', cancel_dashboard_subscription_path(@subscription), class: 'iblue'
+                - else
+                  Ton abonnement arrive à expiration dans #{days_from_now(@subscription.ends_on)} jours.
+                  %br
+                  %br
+                  En te réabonnant, ton premier prélèvement aura lieu le #{I18n.l(Date.today + days_from_now(@subscription.ends_on).days)}.
+                  %br
+                  %br
+                  = link_to 'Me réabonner', new_dashboard_subscription_path, class: 'custom-btn validate blue-bg fontbold mt-10 full-width'
+              - else
+                Ton abonnement est arrivé à expiration.
+                %br
+                %br
+                = link_to 'Me réabonner', new_dashboard_subscription_path, class: 'custom-btn validate blue-bg fontbold mt-10 full-width'

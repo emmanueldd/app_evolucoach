@@ -26,12 +26,24 @@
               %span.bar
           - if @profile_home
             .profile-inner.page23
-              - if @stripe_account.blank? || !@stripe_account.details_submitted
+              - if !current_user.subscribed?
                 %br
                 .alert.alert-danger.text-center{:role => "alert"}
-                  Veuillez remplir vos informations de paiement en
-                  = link_to dashboard_payment_infos_path do
-                    %u{style: 'color: #721c24'} cliquant ici.
+                  Pour commencer ton abonnement et utiliser l'outil,
+                  = link_to dashboard_subscriptions_path do
+                    %u{style: 'color: #721c24'}
+                      %b Clique ici
+              - elsif @stripe_account.blank? || !@stripe_account.details_submitted
+                %br
+                .text-center
+                  .alert.alert-danger{:role => "alert"}
+                    Veuillez remplir vos informations de paiement en
+                    = link_to dashboard_payment_infos_path do
+                      %u{style: 'color: #721c24'} cliquant ici.
+                  - if current_user.subscription.canceled?
+                    Ton abonnement expire dans #{days_from_now(current_user.subscription.ends_on)} jours,
+                    %u= link_to 'clique ici', dashboard_subscriptions_path, class: 'iblue'
+                    pour te réabonner.
               .profile-box.mt-30
                 .profile-img
                   = image_tag current_user.avatar_url, alt:"Farid"

@@ -1,0 +1,133 @@
+:css
+  /**
+  * Shows how you can use CSS to style your Element's container.
+  */
+  .MyCardElement {
+    height: 40px;
+    padding: 10px 12px;
+    width: 100%;
+    color: #32325d;
+    background-color: white;
+    border: 1px solid transparent;
+    border-radius: 4px;
+
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .MyCardElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .MyCardElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .MyCardElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-light-blue.page19.full-vh
+  .bg-top
+  .container
+    .row
+      .col-6.offset-3.text-center
+        .content-inner
+          - if current_user.subscriptions.blank?
+            %h5.white Profite de 30 jours gratuit
+            %span.white
+              Puis 89€/mois
+              %br
+              Tu ne seras débité qu'après ton mois d'essai.
+          - else
+            %h5.white Abonnement Evolucoach
+            %span.white 89€/mois
+        %br
+        - if params[:step].present? && params[:step] == 'subscription'
+          = image_tag 'secure-payment.png'
+          %br
+          %br
+          %p.white
+            Paye en toute tranquilité grâceà notre sytème
+            %br
+            de sécurité certifié.
+          %br
+
+
+          = simple_form_for [:dashboard, @subscription], html: { id: 'subscription-form' } do |f|
+            #card-element.MyCardElement{style: 'width: 80%; margin: auto;'}
+              / Elements will create input elements here
+            / We'll put the error messages in this element
+            #card-errors{:role => "alert"}
+            -# %input#customer_id{type: "hidden", value: "#{current_user.find_or_create_stripe_customer_id}"}
+            = f.input_field :stripe_price_id, as: :hidden, value: @stripe_price_id
+            %br
+            %br
+            = f.button :submit, "M'abonner", class: 'custom-btn validate blue-bg fontbold mt-10'
+        - else
+          #carouselExampleIndicators.carousel.slide{"data-ride" => "carousel", style: 'height: 250px;'}
+            %ol.carousel-indicators
+              %li.active{"data-slide-to" => "0", "data-target" => "#carouselExampleIndicators"}
+              %li{"data-slide-to" => "1", "data-target" => "#carouselExampleIndicators"}
+              %li{"data-slide-to" => "2", "data-target" => "#carouselExampleIndicators"}
+            .carousel-inner
+              .carousel-item.active
+                .white{style: 'height: 250px; width: 60%; margin:auto; border-radius: 10%; padding: 20px; background: #03B3BB;'}
+                  %h5 Offres de coaching illimité
+                  %br
+                  Vends en 4 fois avec garantie
+                  de paiement en 1 fois à l’achat
+                  %br
+                  %br
+                  Finalise ton tunnel de vente sans être en
+                  concurrence avec les autres Evolucoach
+                  %br
+                  %br
+                  Encaisse 24h/24 7j/7
+              .carousel-item
+                .white{style: 'height: 250px; width: 60%; margin:auto; border-radius: 10%; padding: 20px; background: #03B3BB;'}
+                  %h5 Programmes illimités
+                  %br
+                  Génère un revenu passif grâce à tes
+                  programmes sportifs
+                  %br
+                  %br
+                  Finalise ton tunnel de vente sans être en
+                  concurrence avec les autres Evolucoach
+                  %br
+                  %br
+                  Encaisse 24h/24 7j/7
+              .carousel-item
+                .white{style: 'height: 250px; width: 60%; margin:auto; border-radius: 10%; padding: 20px; background: #03B3BB;'}
+                  %h5 Suivi
+                  %br
+                  Suis jusqu’à 30 athlètes
+                  %br
+                  %br
+                  Prépare et vends leurs programmes
+                  personnalisés
+                  %br
+                  %br
+                  Encaisse 24h/24 7j/7
+            %a.carousel-control-prev{"data-slide" => "prev", :href => "#carouselExampleIndicators", :role => "button"}
+              %span.carousel-control-prev-icon{"aria-hidden" => "true"}
+              %span.sr-only Previous
+            %a.carousel-control-next{"data-slide" => "next", :href => "#carouselExampleIndicators", :role => "button"}
+              %span.carousel-control-next-icon{"aria-hidden" => "true"}
+              %span.sr-only Next
+            %br
+            %br
+            .white
+              ⭐️
+              %br
+              0 commission
+              %br
+              Vente en 4 fois
+              %br
+              Paiement garanti en 1 fois
+              %br
+              %br
+            .col-8.offset-2
+              = link_to 'Finaliser mon inscription →', url_for(step: 'subscription'), class: 'custom-btn validate blue-bg fontbold full-width mt-10'

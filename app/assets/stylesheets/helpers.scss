@@ -1,3 +1,16 @@
+.carousel-control-prev, .carousel-control-next {
+  display: inherit;
+  top: 120px;
+}
+.validate {
+  border: 1px solid #f0f0f0;
+}
+.carousel-indicators {
+  top: 250px;
+}
+.mt-10 {
+  margin-top: 10px;
+}
 textarea.tracking-code {
   height: 100px;
   color: #222;

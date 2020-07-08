@@ -13,17 +13,27 @@
     .row
       .col-lg-6.offset-lg-3
         .content-inner.text-center
-          = image_tag 'check-in-circle.png'
-          %br
-          %br
-          %p
-            %span.green Félicitations !
+          - if params[:alma].present?
+            = image_tag 'check-in-circle.png'
             %br
-            Nous te confirmons ta commande.
             %br
-            Retrouve-la sur ton profil.
-          %br
+            %p
+              Ton paiement est en attente de validation.
+              %br
+              Tu recevras un email de confirmation lorsque Alma l'aura validé.
+            %br
+          - else
+            = image_tag 'check-in-circle.png'
+            %br
+            %br
+            %p
+              %span.green Félicitations !
+              %br
+              Ta commande est confirmée.
+              %br
+              Retrouve-la sur ton profil.
+            %br
 
 
           %a.margin-auto.blue-btn.fontbold.blue-bg{href: interface_root_path}
-            Aller au profil
+            Aller à l'accueil →

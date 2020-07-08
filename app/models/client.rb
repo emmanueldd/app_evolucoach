@@ -9,12 +9,23 @@ class Client < ApplicationRecord
   has_many :orders
   has_many :order_has_items, through: :orders
   has_many :user_has_clients
+  has_many :stripe_payment_methods
 
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }
+  before_save :set_address, if: -> { line1.present? || postal_code.present? || zipcode_changed? }
   after_save :add_to_crm, if: -> { saved_change_to_user_id? }
+
   scope :men, -> { where(male: true) }
   scope :women, -> { where(male: false) }
+
+  attr_accessor :postal_code, :line1
+
+  def set_address
+    self.address = line1 if line1.present?
+    self.zipcode = postal_code if postal_code.present?
+    self.dpt = self.zipcode.first(2)
+  end
 
   def add_to_crm
     if user.present? && lead.present?

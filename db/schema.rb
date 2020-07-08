@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200621193247) do
+ActiveRecord::Schema.define(version: 20200708095926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -209,6 +209,7 @@ ActiveRecord::Schema.define(version: 20200621193247) do
     t.integer "credit", default: 0
     t.integer "credit_left", default: 0
     t.datetime "paid_at"
+    t.string "alma_state"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -330,6 +331,13 @@ ActiveRecord::Schema.define(version: 20200621193247) do
     t.index ["user_id"], name: "index_ratings_on_user_id"
   end
 
+  create_table "settings", force: :cascade do |t|
+    t.string "setting_name"
+    t.string "setting_value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stats", force: :cascade do |t|
     t.bigint "user_id"
     t.string "name"
@@ -338,6 +346,39 @@ ActiveRecord::Schema.define(version: 20200621193247) do
     t.datetime "updated_at", null: false
     t.date "period"
     t.index ["user_id"], name: "index_stats_on_user_id"
+  end
+
+  create_table "stripe_payment_methods", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "client_id"
+    t.string "stripe_payment_method_id"
+    t.boolean "favorite"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "name"
+    t.string "country"
+    t.string "exp_month"
+    t.string "exp_year"
+    t.string "last_4"
+    t.string "brand"
+    t.string "payment_method_type"
+    t.date "exp_date"
+    t.index ["client_id"], name: "index_stripe_payment_methods_on_client_id"
+    t.index ["user_id"], name: "index_stripe_payment_methods_on_user_id"
+  end
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "stripe_subscription_id"
+    t.datetime "ends_on"
+    t.datetime "started_at"
+    t.datetime "canceled_at"
+    t.integer "status", default: 0
+    t.string "stripe_price_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "trial_ends_on"
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
   create_table "user_has_clients", force: :cascade do |t|
@@ -427,6 +468,9 @@ ActiveRecord::Schema.define(version: 20200621193247) do
   add_foreign_key "ratings", "clients"
   add_foreign_key "ratings", "users"
   add_foreign_key "stats", "users"
+  add_foreign_key "stripe_payment_methods", "clients"
+  add_foreign_key "stripe_payment_methods", "users"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "user_has_clients", "clients"
   add_foreign_key "user_has_clients", "leads"
   add_foreign_key "user_has_clients", "users"
