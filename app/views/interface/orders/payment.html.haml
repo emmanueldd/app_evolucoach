@@ -52,6 +52,10 @@
                   = text_field_tag('billing_address[last_name]', current_lead.last_name, required: true, class: 'form-control')
                 .col-md-12
                   %br
+                  = label_tag('billing_address[phone]', "Téléphone", class: 'form-control-label')
+                  = text_field_tag('billing_address[phone]', current_lead.phone, required: true, class: 'form-control')
+                .col-md-12
+                  %br
                   = label_tag('billing_address[line1]', "Adresse", class: 'form-control-label')
                   = text_field_tag('billing_address[line1]', current_lead.address, required: true, class: 'form-control')
                 .col-md-4
