@@ -181,7 +181,7 @@ module Interface
       end
 
       def order_params
-        params.require(:order).permit(:user_id, :coupon_text, :card_token, :card_name, :pack_id, order_has_courses_attributes: [:course_id, :order_id], courses_attributes: [:availability_id, :id, :order_id, :start_time, :status, :my_checkbox, :set_changed_recently_at, :_destroy])
+        params.require(:order).permit(:stripe_payment_method_id, :stripe_payment_intent_id, :user_id, :coupon_text, :card_token, :card_name, :pack_id, order_has_courses_attributes: [:course_id, :order_id], courses_attributes: [:availability_id, :id, :order_id, :start_time, :status, :my_checkbox, :set_changed_recently_at, :_destroy])
       end
 
       def order_has_item_params

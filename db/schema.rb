@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200715134114) do
+ActiveRecord::Schema.define(version: 20200715141617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,8 @@ ActiveRecord::Schema.define(version: 20200715134114) do
     t.datetime "paid_at"
     t.string "alma_state"
     t.string "alma_payment_id"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_payment_intent_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
