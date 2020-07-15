@@ -116,6 +116,12 @@ module Interface
               email: current_lead.email,
               phone: current_lead.phone
             }
+          },
+          customer: {
+            email: current_lead.email,
+            first_name: current_lead.first_name,
+            last_name: current_lead.last_name,
+            phone: current_lead.phone
           }
         }.to_json
 
