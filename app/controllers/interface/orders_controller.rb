@@ -94,7 +94,7 @@ module Interface
         req.body = {
           payment: {
             installments_count: 3,
-            purchase_amount: @order.price.to_i,
+            purchase_amount: @order.total_price,
             return_url: "#{interface_payment_completed_url(@order, alma: true)}",
             customer_cancel_url: "#{alma_cancel_url}",
             customer: {

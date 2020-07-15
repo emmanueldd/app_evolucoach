@@ -9,15 +9,16 @@ class Order < ApplicationRecord
   has_many :courses, through: :order_has_courses
   accepts_nested_attributes_for :order_has_courses, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :courses, reject_if: :all_blank, allow_destroy: true
+  before_save :alma_state_actions, if: -> { alma_state_changed? && alma_state.present? }
+  after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
+  after_save :set_course_infos
+  after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
   enum status: { waiting: 0, paid: 1, failed: 2, refunded: 3 }
   scope :of_month, -> (date = DateTime.now) {
     where(paid_at: date.beginning_of_month.beginning_of_day..date.end_of_month.end_of_day)
   }
   scope :paid_with_credits, -> { paid.where('credit_left > ?', 0) }
-  before_save :alma_state_actions, if: -> { alma_state_changed? && alma_state.present? }
-  after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
-  after_save :set_course_infos
-  after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
+
 
   def alma_state_actions
     # ['not_started', 'scored_no', 'scored_maybe', 'scored_yes', 'paid']
@@ -66,8 +67,13 @@ class Order < ApplicationRecord
     end
   end
 
+
   def set_total_price
     self.total_price = order_has_items.sum('quantity * price')
+  end
+
+  def price
+    total_price
   end
 
   def set_credit_left
