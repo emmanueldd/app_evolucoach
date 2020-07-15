@@ -85,7 +85,11 @@ module Interface
       billing_address = params[:billing_address]
       current_lead.update(billing_address_params)
       begin
-        uri = URI('https://api.getalma.eu/v1/payments')
+        if @user.payment_info.alma_api_key.include?('test')
+          uri = URI("https://api.sandbox.getalma.eu/v1/payments/#{params[:pid]}")
+        else
+          uri = URI("https://api.getalma.eu/v1/payments/#{params[:pid]}")
+        end
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         req = Net::HTTP::Post.new(uri.path)
@@ -139,11 +143,14 @@ module Interface
     end
 
     def alma_confirm #webhook
-      # uri = URI("https://api.sandbox.getalma.eu/v1/payments/#{params[:pid]}")
+      if @user.payment_info.alma_api_key.include?('test')
+        uri = URI("https://api.sandbox.getalma.eu/v1/payments/#{params[:pid]}")
+      else
+        uri = URI("https://api.getalma.eu/v1/payments/#{params[:pid]}")
+      end
       @order = Order.find_by(alma_payment_id: params[:pid])
       @user = @order.user
       if @order.present?
-        uri = URI("https://api.getalma.eu/v1/payments/#{params[:pid]}")
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
         req = Net::HTTP::Get.new(uri.path)
