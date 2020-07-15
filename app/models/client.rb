@@ -10,6 +10,7 @@ class Client < ApplicationRecord
   has_many :order_has_items, through: :orders
   has_many :user_has_clients
   has_many :stripe_payment_methods
+  has_many :stripe_customer_ids
 
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }
@@ -60,17 +61,37 @@ class Client < ApplicationRecord
     Program.where(id: order_has_items.joins(:order).where(item_type: 'Program', orders: {status: 'paid'}).pluck(:item_id))
   end
 
-  def find_stripe_customer_id(connected_stripe_account_id = nil)
+  def find_stripe_customer_id(user)
+    connected_stripe_account_id = user.payment_info.stripe_account_id
+    # my_stripe_customer_id = stripe_customer_ids.find_by(user: user).customer_id
     if stripe_customer_id.blank?
-      customer = Stripe::Customer.create({
-        email: email
-      }, {
-        stripe_account: connected_stripe_account_id,
-      })
-      update_columns(stripe_customer_id: customer.id)
-
+      create_stripe_customer_id(connected_stripe_account_id)
+      # my_stripe_customer_id = create_stripe_customer_id(connected_stripe_account_id)
+    end
+    begin
+      stripe_customer = Stripe::Customer.retrieve(
+        stripe_customer_id,
+        {
+          stripe_account: connected_stripe_account_id,
+        }
+      )
+    rescue => e
+      create_stripe_customer_id(connected_stripe_account_id)
+      # my_stripe_customer_id = create_stripe_customer_id(connected_stripe_account_id)
     end
     return stripe_customer_id
+    # return my_stripe_customer_id
+  end
+
+  def create_stripe_customer_id(connected_stripe_account_id = nil)
+    customer = Stripe::Customer.create({
+      email: email
+    }, {
+      stripe_account: connected_stripe_account_id,
+    })
+    # stripe_customer_ids.create(user: user, customer_id: customer.id)
+    # return customer.id
+    update_columns(stripe_customer_id: customer.id)
   end
 
 

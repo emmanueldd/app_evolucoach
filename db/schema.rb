@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200715141617) do
+ActiveRecord::Schema.define(version: 20200715160654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -214,8 +215,10 @@ ActiveRecord::Schema.define(version: 20200715141617) do
     t.string "alma_payment_id"
     t.string "stripe_payment_method_id"
     t.string "stripe_payment_intent_id"
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["uuid"], name: "index_orders_on_uuid"
   end
 
   create_table "packs", force: :cascade do |t|
@@ -352,6 +355,16 @@ ActiveRecord::Schema.define(version: 20200715141617) do
     t.index ["user_id"], name: "index_stats_on_user_id"
   end
 
+  create_table "stripe_customer_ids", force: :cascade do |t|
+    t.string "customer_id"
+    t.bigint "user_id"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_stripe_customer_ids_on_client_id"
+    t.index ["user_id"], name: "index_stripe_customer_ids_on_user_id"
+  end
+
   create_table "stripe_payment_methods", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "client_id"
@@ -472,6 +485,8 @@ ActiveRecord::Schema.define(version: 20200715141617) do
   add_foreign_key "ratings", "clients"
   add_foreign_key "ratings", "users"
   add_foreign_key "stats", "users"
+  add_foreign_key "stripe_customer_ids", "clients"
+  add_foreign_key "stripe_customer_ids", "users"
   add_foreign_key "stripe_payment_methods", "clients"
   add_foreign_key "stripe_payment_methods", "users"
   add_foreign_key "subscriptions", "users"

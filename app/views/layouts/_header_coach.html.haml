@@ -37,9 +37,9 @@
                 %br
                 .text-center
                   .alert.alert-danger{:role => "alert"}
-                    Veuillez remplir vos informations de paiement en
+                    Pour fournir tes informations de paiement,
                     = link_to dashboard_payment_infos_path do
-                      %u{style: 'color: #721c24'} cliquant ici.
+                      %u{style: 'color: #721c24'} clique ici
                   - if current_user.subscription.canceled?
                     Ton abonnement expire dans #{days_from_now(current_user.subscription.ends_on)} jours,
                     %u= link_to 'clique ici', dashboard_subscriptions_path, class: 'iblue'

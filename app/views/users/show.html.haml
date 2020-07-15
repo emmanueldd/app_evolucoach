@@ -18,7 +18,7 @@
                   #solo.tab-pane.active
                     - @user.packs.solo.each_with_index do |pack, index|
                       - card_index = index == 0 ? '1' : '2'
-                      %div{:class => "profile-card card#{card_index}"}
+                      %a{:class => "profile-card card#{card_index}", :href => "#{pack_path(pack)}"}
                         .left
                           %h3.fontlight
                             PACK
@@ -35,11 +35,11 @@
                               = number_to_currency(pack.unit_price)
                               = succeed "La séance" do
                                 %br/
-                          = link_to '', pack, class: 'rightarrow'
+                          %span.rightarrow
                   #duo.tab-pane
                     - @user.packs.duo.each_with_index do |pack, index|
                       - card_index = index == 0 ? '2' : '1'
-                      %div{:class => "profile-card card#{card_index}"}
+                      %a{:class => "profile-card card#{card_index}", :href => "#{pack_path(pack)}"}
                         .left
                           %h3.fontlight
                             PACK
@@ -56,7 +56,7 @@
                               = number_to_currency(pack.unit_price)
                               = succeed "La séance" do
                                 %br/
-                          %a.rightarrow{:href => "#lienverslapagedepresentationdupack"}
+                          %span.rightarrow
   / Content Area
 - elsif params[:section] == 'programs'
   .content-area.bg-light-blue.page13.full-vh
@@ -66,7 +66,7 @@
         .col-12
           .content-inner
             - @user.programs.published.each do |program|
-              .profile-card.program-card.card1{:style => "background-image: url(#{program.cover_url})"}
+              %a.profile-card.program-card.card1{:style => "background-image: url(#{program.cover_url})", :href => "#{program_path(program)}"}
                 .left
                   %h3.fontlight= program.name
                   %p.fontlight.iblue
@@ -77,7 +77,7 @@
                     séances/semaine
                 .right
                   %h3.fontlight= number_to_currency(program.price)
-                  %a.rightarrow.white{:href => "#{program_path(program)}"}
+                  %span.rightarrow.white
 - elsif params[:section] == 'ratings'
   .content-area.bg-light-blue.page13
     .bg-top

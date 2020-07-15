@@ -22,24 +22,28 @@ class Order < ApplicationRecord
 
   def alma_state_actions
     # ['not_started', 'scored_no', 'scored_maybe', 'scored_yes', 'paid']
-    # if alma_state == 'error'
-    # 
+    # if alma_state == 'new'
+    #
     # els
     if alma_state == 'not_started'
       # Email votre paiement est en attente de validation
       OrderMailer.with(order: self).alma_payment_user_email.deliver_later
       OrderMailer.with(order: self).alma_payment_client_email.deliver_later
     elsif alma_state == 'scored_no'
-      # Email pour paiement en une fois
+      # Alma envoie un Email pour paiement en une fois ?
     elsif alma_state == 'scored_maybe'
-      # Email pour récolter plus d'informations
+      # Alma envoie un Email pour récolter plus d'informations ?
     elsif alma_state == 'scored_yes'
-      # Email de confirmation
+      # Email de confirmation via le status paid
       self.status = 'paid' # => Va call set_paid_actions, qui va call l'email
     elsif alma_state == 'paid'
       # Set_paid_actions s'en occupe
       # Email pour un autre pack ave un code promo ?
     end
+  end
+
+  def alma_uncomplete?
+    (alma_state == 'new' || alma_state.blank?) # && alma_payment_id.present?
   end
 
   def name
@@ -57,8 +61,8 @@ class Order < ApplicationRecord
       @stat.save!
     end
 
-    OrderMailer.delay.with(order: self).order_paid_user_email
-    OrderMailer.with(order: self).delay.order_paid_client_email
+    OrderMailer.with(order: self).order_paid_user_email.deliver_later
+    OrderMailer.with(order: self).order_paid_client_email.deliver_later
   end
 
   def set_course_infos

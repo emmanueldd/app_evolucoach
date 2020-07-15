@@ -76,7 +76,7 @@
               %u= link_to 'Je souhaite payer en 3 fois sans frais →', url_for(alma: true), class: 'iblue'
             %br
             %br
-            = simple_form_for @order, url: interface_pay_order_path(@order), html: {id: 'payment-form'} do |f|
+            = simple_form_for @order, url: interface_pay_order_path(@order.uuid), html: {id: 'payment-form'} do |f|
               %div
 
                 -# = link_to 'Je souhaite payer en 4x', url_for, style: 'color: #999; text-decoration: underline;'

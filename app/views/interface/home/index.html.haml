@@ -67,7 +67,7 @@
                 %br
                 - current_client.orders.paid_with_credits.each do |order|
                   %u
-                    = link_to order_availabilities_path(id: order.id, user_id: order.user.id), class: 'iblue' do
+                    = link_to order_availabilities_path(id: order.uuid, user_id: order.user.id), class: 'iblue' do
                       Il vous reste #{order.credit_left} à placer sur votre Pack "#{order.packs.last.name}" du #{I18n.l(order.paid_at)} auprès de #{order.user.first_name}
                   %hr
       #programmes.tab-pane.coaching-area

@@ -5,13 +5,22 @@ module Interface
     before_action :authenticate_client_to_add_to_cart, only: :create
 
     def show
-      return redirect_to interface_order_payment_path(@order) if !@order.paid?
-      tracker do |t|
-        t.facebook_pixel :track, {
-          type: 'Purchase',
-          options: { value: ( @order.total_price.to_f / 100), currency: 'EUR' }
-        }
+      if params[:alma].present? && @order.alma_uncomplete?
+        @order.update(alma_state: 'not_started')
+      elsif !@order.paid?
+        return redirect_to interface_order_payment_path(@order.uuid)
       end
+      # Track if order is paid or its alma payment state is at not_started
+      if @order.paid_at.blank?
+        @order.update_columns(paid_at: DateTime.now)
+        tracker do |t|
+          t.facebook_pixel :track, {
+            type: 'Purchase',
+            options: { value: ( @order.total_price.to_f / 100), currency: 'EUR' }
+          }
+        end
+      end
+      #
     end
 
     def index
@@ -20,15 +29,16 @@ module Interface
 
     def create
       @order = current_client.orders.new(order_params)
+      @order.uuid ||= SecureRandom.uuid
       @order.save!
       @user = @order.user
       @order_has_item = @order.order_has_items.new(order_has_item_params)
       @order_has_item.save!
 
       if @order_has_item.item_type == 'Program'
-        redirect_to interface_order_payment_path(@order)
+        redirect_to interface_order_payment_path(@order.uuid)
       else # if @order_has_item.item_type == 'pack'
-        redirect_to order_availabilities_path(id: @order.id, user_id: @user.id)
+        redirect_to order_availabilities_path(id: @order.uuid, user_id: @user.id)
       end
     end
 
@@ -50,7 +60,7 @@ module Interface
       if @order.total_price > 0
         stripe_intent = Stripe::PaymentIntent.create({
           amount: @order.total_price,
-          customer: current_client.find_stripe_customer_id(@user.payment_info.stripe_account_id),
+          customer: current_client.find_stripe_customer_id(@user),
           receipt_email: current_client.email,
           currency: 'eur',
           payment_method_types: ['card'],
@@ -73,14 +83,13 @@ module Interface
       @order.assign_attributes(order_params)
       @order.status = 'paid'
       @order.set_credit_left
-      @order.paid_at = DateTime.now
       if @order.save!
-        redirect_to interface_payment_completed_path(@order)
+        redirect_to interface_payment_completed_path(@order.uuid)
       end
     end
 
     def pay_alma
-      @order = Order.find(params[:id])
+      @order = Order.find_by(uuid: params[:id])
       @user = @order.user
       billing_address = params[:billing_address]
       current_lead.update(billing_address_params)
@@ -129,20 +138,20 @@ module Interface
         puts "response #{res.body}"
         payment = JSON.parse(res.body)
         url = payment["url"]
-        @order.update(alma_payment_id: payment['id'], alma_state: 'error')
+        @order.update(alma_payment_id: payment['id'], alma_state: 'new')
         redirect_to url
       rescue => e
         flash[:notice] = "Une erreur s\'est produite #{e}"
         puts "ALMA: Une erreur s\'est produite #{e}"
         pp payment
-        redirect_back(fallback_location: interface_order_payment_path(@order))
+        redirect_back(fallback_location: interface_order_payment_path(@order.uuid))
       end
     end
 
     def alma_cancel
       @order = current_lead.orders.last
       if @order.present?
-        redirect_to interface_order_payment_path(@order)
+        redirect_to interface_order_payment_path(@order.uuid)
       else
         redirect_to current_lead.user
       end
@@ -172,7 +181,7 @@ module Interface
 
     private
       def set_order
-        @order = current_client.orders.find(params[:id])
+        @order = current_client.orders.find_by(uuid: params[:id])
       end
 
 

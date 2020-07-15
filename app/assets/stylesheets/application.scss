@@ -1074,7 +1074,7 @@ ul.nav.nav-tabs.circle-tab.profile {
   position: relative;
 }
 
-a.rightarrow {
+.rightarrow {
   border-width: 0px 9px 9px 0px;
   border-style: solid;
   border-color: #000 #000 transparent transparent;
@@ -1085,8 +1085,8 @@ a.rightarrow {
   top: 45%;
 }
 
-.profile-card.card2 a.rightarrow,
-.profile-card.card3 a.rightarrow {
+.profile-card.card2 .rightarrow,
+.profile-card.card3 .rightarrow {
 
   border-color: #fff #fff transparent transparent;
 }
@@ -1348,7 +1348,7 @@ a.site-btn img {
   color: #fff;
 }
 
-.page13 .profile-card a.rightarrow.white {
+.page13 .profile-card .rightarrow.white {
   border-color: #fff #fff transparent transparent;
 }
 
@@ -1356,7 +1356,7 @@ a.site-btn img {
   color: #fff;
 }
 
-.page13 .profile-card a.rightarrow {
+.page13 .profile-card .rightarrow {
   top: 64px;
 }
 
@@ -1406,7 +1406,7 @@ a.circle-btn {
   font-size: 15px;
 }
 
-.page13 .profile-card a.rightarrow {
+.page13 .profile-card .rightarrow {
   top: 61px;
 }
 
@@ -3492,7 +3492,7 @@ a.popup-btn {
     line-height: 26px;
   }
 
-  a.rightarrow {
+  .rightarrow {
     border-width: 0px 13px 13px 0px;
   }
 

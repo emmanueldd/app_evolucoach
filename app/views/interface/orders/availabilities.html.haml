@@ -71,7 +71,7 @@
                               %br
                               x
                             - else
-                              = simple_form_for(@order, url: interface_order_path(@order), namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/interface/orders/#{@order.id}" }) do |f|
+                              = simple_form_for(@order, url: interface_order_path(@order.uuid), namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/interface/orders/#{@order.id}" }) do |f|
 
                                 = f.error_notification
                                 .form-inputs
@@ -95,7 +95,7 @@
   %br
   %br
   %br
-  = link_to @order.paid? ? interface_root_path(success: 'Enregistré') : interface_order_payment_path(@order), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
+  = link_to @order.paid? ? interface_root_path(success: 'Enregistré') : interface_order_payment_path(@order.uuid), class: 'btn btn-primary', style: 'position: fixed; bottom: 40px; width: 33%; left: 33%;' do
     Confirmer >
 :javascript
   $(function() {
