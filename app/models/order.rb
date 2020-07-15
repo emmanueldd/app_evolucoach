@@ -22,6 +22,9 @@ class Order < ApplicationRecord
 
   def alma_state_actions
     # ['not_started', 'scored_no', 'scored_maybe', 'scored_yes', 'paid']
+    # if alma_state == 'error'
+    # 
+    # els
     if alma_state == 'not_started'
       # Email votre paiement est en attente de validation
       OrderMailer.with(order: self).alma_payment_user_email.deliver_later

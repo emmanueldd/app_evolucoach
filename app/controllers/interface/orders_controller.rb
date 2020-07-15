@@ -86,9 +86,9 @@ module Interface
       current_lead.update(billing_address_params)
       begin
         if @user.payment_info.alma_api_key.include?('test')
-          uri = URI("https://api.sandbox.getalma.eu/v1/payments/#{params[:pid]}")
+          uri = URI("https://api.sandbox.getalma.eu/v1/payments")
         else
-          uri = URI("https://api.getalma.eu/v1/payments/#{params[:pid]}")
+          uri = URI("https://api.getalma.eu/v1/payments")
         end
         http = Net::HTTP.new(uri.host, uri.port)
         http.use_ssl = true
@@ -129,7 +129,7 @@ module Interface
         puts "response #{res.body}"
         payment = JSON.parse(res.body)
         url = payment["url"]
-        @order.update(alma_payment_id: payment['id'], alma_state: 'not_started')
+        @order.update(alma_payment_id: payment['id'], alma_state: 'error')
         redirect_to url
       rescue => e
         flash[:notice] = "Une erreur s\'est produite #{e}"
