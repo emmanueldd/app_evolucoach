@@ -10,9 +10,12 @@ class Clients::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    tracker do |t|
+      t.facebook_pixel :track, { type: 'CompleteRegistration' }
+    end
+  end
 
   # GET /resource/edit
   # def edit

@@ -5,6 +5,22 @@ class ApplicationController < ActionController::Base
   before_action :forbid_multiple_connexion, unless: :format_js?
   before_action :complete_signup, unless: :format_js?
   before_action :set_lead_and_history
+  before_action :track_page_view, if: -> { request.get? && !request.xhr? }
+
+  def track_page_view
+    if current_lead.user.present? && current_lead.user.fb_pixel_code.present?
+      request.env['PIXEL_ID'] = current_lead.user.fb_pixel_code
+      tracker do |t|
+        t.facebook_pixel :track, { type: 'ViewContent' } # Toutes les pages
+      end
+    end
+  end
+
+  def authenticate_client_to_add_to_cart
+    if !client_signed_in?
+      redirect_to authenticate_client_path(step: 'AddToCart')
+    end
+  end
 
   def set_lead_and_history
     cookies[:uuid] ||= SecureRandom.uuid
@@ -92,7 +108,7 @@ class ApplicationController < ActionController::Base
     # - The request is an Ajax request as this can lead to very unexpected behaviour.
     def storable_location?
       return if request.path.include?('ckeditor')
-      request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && request.env['PATH_INFO'] != edit_user_registration_path
+      request.get? && is_navigational_format? && !devise_controller? && !request.xhr? && request.env['PATH_INFO'] != edit_user_registration_path && request.env['PATH_INFO'] != authenticate_client_path
     end
 
     def store_user_location!

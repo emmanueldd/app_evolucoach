@@ -1,8 +1,17 @@
 module Interface
   class OrdersController < InterfaceController
     before_action :set_order, only: [:show, :edit, :update, :availabilities, :pay, :payment]
+    skip_before_action :authenticate_client!, only: :create
+    before_action :authenticate_client_to_add_to_cart, only: :create
 
     def show
+      return redirect_to interface_order_payment_path(@order) if !@order.paid?
+      tracker do |t|
+        t.facebook_pixel :track, {
+          type: 'Purchase',
+          options: { value: ( @order.total_price.to_f / 100), currency: 'EUR' }
+        }
+      end
     end
 
     def index
@@ -30,6 +39,9 @@ module Interface
     end
 
     def payment # page de paiement
+      tracker do |t|
+        t.facebook_pixel :track, { type: 'InitiateCheckout' }
+      end
       @stripe = true
       @user = @order.user
 
@@ -156,7 +168,7 @@ module Interface
       end
 
       def order_params
-        params.require(:order).permit(:user_id, :coupon_text, :card_token, :card_name, :pack_id, order_has_courses_attributes: [:course_id, :order_id], courses_attributes: [:availability_id, :id, :order_id, :start_time, :status, :my_checkbox, :_destroy])
+        params.require(:order).permit(:user_id, :coupon_text, :card_token, :card_name, :pack_id, order_has_courses_attributes: [:course_id, :order_id], courses_attributes: [:availability_id, :id, :order_id, :start_time, :status, :my_checkbox, :set_changed_recently_at, :_destroy])
       end
 
       def order_has_item_params

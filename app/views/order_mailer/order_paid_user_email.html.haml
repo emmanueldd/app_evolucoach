@@ -1,0 +1,16 @@
+%p
+  Félicitations #{@user.first_name},
+%p
+  #{@client.first_name} #{@client.last_name} vient de faire un achat de #{number_to_currency(@order.total_price.to_f / 100)} :
+  %br
+  %b #{@order.item_title}
+
+%table.btn.btn-primary{:border => "0", :cellpadding => "0", :cellspacing => "0", :role => "presentation"}
+  %tbody
+    %tr
+      %td{:align => "left"}
+        %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :role => "presentation"}
+          %tbody
+            %tr
+              %td
+                = link_to 'Tableau de bord', dashboard_root_url

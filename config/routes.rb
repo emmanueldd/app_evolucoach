@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get 'continue_to_user/:id' , to: 'users#user_important', as: :user_important
   get 'orders/alma_confirm' , to: 'interface/orders#alma_confirm', as: :alma_confirm
   get 'orders/alma_cancel' , to: 'interface/orders#alma_cancel', as: :alma_cancel
+  get 'client/authenticate' , to: 'clients#authenticate_client', as: :authenticate_client
 
   resources :users, only: :index do
     resources :availabilities, only: :index, shallow: true

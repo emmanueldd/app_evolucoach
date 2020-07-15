@@ -1,9 +1,15 @@
 class Subscription < ApplicationRecord
   belongs_to :user
   before_update :change_stripe_price_id, if: -> { stripe_price_id_changed? }
+  after_create :subscription_active_actions, if: -> { active? }
   # before_save :cancel, if: -> { status_changed? && canceled? }
   scope :still_active, -> { where('ends_on > ?', DateTime.now )}
   enum status: { incomplete: 0, incomplete_expired: 1, trialing: 2, active: 3, past_due: 4, canceled: 5, unpaid: 6 }
+
+  def subscription_active_actions
+    SubscriptionMailer.with(subscription: @subscription).subscription_paid_email.deliver_later
+  end
+
 
   def renew_stripe_infos
     stripe_subscription = Stripe::Subscription.retrieve(stripe_subscription_id)
@@ -59,7 +65,7 @@ class Subscription < ApplicationRecord
       trial_ends_on = (DateTime.now + 30.days).to_i
     end
     stripe_subscription = Stripe::Subscription.create(
-      customer: user.stripe_customer_id,
+      customer: user.find_or_create_stripe_customer_id,
       items: [
         {
           price: stripe_price_id

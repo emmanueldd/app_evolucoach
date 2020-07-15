@@ -1,0 +1,9 @@
+%p.text-center
+  %br
+  Il te faut un compte pour continuer.
+  %br
+  Tu seras redirigé dans 3 secondes..
+:javascript
+  setTimeout(function() {
+    window.location.replace("#{new_client_registration_url}");
+  }, 2000)

@@ -20,17 +20,20 @@ class Order < ApplicationRecord
   after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
 
   def alma_state_actions
-    # { not_started: 0, scored_no: 1, scored_maybe: 2, scored_yes: 3, paid: 4 }
+    # ['not_started', 'scored_no', 'scored_maybe', 'scored_yes', 'paid']
     if alma_state == 'not_started'
       # Email votre paiement est en attente de validation
+      OrderMailer.with(order: self).alma_payment_user_email.deliver_later
+      OrderMailer.with(order: self).alma_payment_client_email.deliver_later
     elsif alma_state == 'scored_no'
       # Email pour paiement en une fois
     elsif alma_state == 'scored_maybe'
       # Email pour récolter plus d'informations
     elsif alma_state == 'scored_yes'
       # Email de confirmation
-      self.status = 'paid' # => Va call set_paid_actions
+      self.status = 'paid' # => Va call set_paid_actions, qui va call l'email
     elsif alma_state == 'paid'
+      # Set_paid_actions s'en occupe
       # Email pour un autre pack ave un code promo ?
     end
   end
@@ -49,6 +52,9 @@ class Order < ApplicationRecord
       @stat.stat_value = user.orders.paid.of_month.sum(:total_price) / 100
       @stat.save!
     end
+
+    OrderMailer.delay.with(order: self).order_paid_user_email
+    OrderMailer.with(order: self).delay.order_paid_client_email
   end
 
   def set_course_infos
@@ -77,5 +83,13 @@ class Order < ApplicationRecord
 
   def item
     order_has_items.last.item if order_has_items.present?
+  end
+
+  def item_type
+    return item.class.name == 'Pack' ? 'Pack' : 'Programme'
+  end
+
+  def item_title
+    return "#{item_type} : #{item.name}"
   end
 end

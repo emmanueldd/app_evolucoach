@@ -1,0 +1,14 @@
+%p
+  Félicitations #{@user.first_name},
+%p
+  Ton abonnement à l'application Evolucoach est activé.
+
+%table.btn.btn-primary{:border => "0", :cellpadding => "0", :cellspacing => "0", :role => "presentation"}
+  %tbody
+    %tr
+      %td{:align => "left"}
+        %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :role => "presentation"}
+          %tbody
+            %tr
+              %td
+                = link_to 'Tableau de bord', dashboard_root_url

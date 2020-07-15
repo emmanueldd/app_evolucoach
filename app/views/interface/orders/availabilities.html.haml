@@ -85,6 +85,8 @@
                                       - is_it = @order.courses.not_removed.find_by(start_time: date)
 
                                       = course.input :status, as: :boolean, input_html: { checked: is_it.present? }, checked_value: (@order.paid? ? 'confirmed' : 'pending'), unchecked_value: 'removed'
+                                      = course.input_field :set_changed_recently_at, as: :hidden, value: @order.paid?
+
 
                   - 0.times do
                     %tr

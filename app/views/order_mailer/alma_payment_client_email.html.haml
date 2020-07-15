@@ -1,0 +1,20 @@
+%p
+  Bonjour #{@client.first_name},
+%p
+  Tu viens d'effectuer un paiement de #{number_to_currency(@order.total_price.to_f / 100)} via Alma :
+  %br
+  %b #{@order.item_title}
+%p
+  Ton paiement est en attente de validation.
+  %br
+  Tu recevras un email dès qu'Alma l'aura validé.
+
+%table.btn.btn-primary{:border => "0", :cellpadding => "0", :cellspacing => "0", :role => "presentation"}
+  %tbody
+    %tr
+      %td{:align => "left"}
+        %table{:border => "0", :cellpadding => "0", :cellspacing => "0", :role => "presentation"}
+          %tbody
+            %tr
+              %td
+                = link_to "Accueil", user_url(@user)
