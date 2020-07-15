@@ -125,7 +125,7 @@ module Interface
         flash[:notice] = "Une erreur s\'est produite #{e}"
         puts "ALMA: Une erreur s\'est produite #{e}"
         pp payment
-        redirect_back(fallback_location: new_product_order_path(@order.product))
+        redirect_back(fallback_location: interface_order_payment_path(@order))
       end
     end
 
