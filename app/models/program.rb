@@ -2,6 +2,7 @@ class Program < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
   mount_uploader :cover, CoverUploader
+  mount_uploader :file, FileUploader
   belongs_to :user
   belongs_to :client, optional: true
   belongs_to :user_has_client, optional: true

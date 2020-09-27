@@ -26,18 +26,19 @@
                         %p.fontlight
                           = pack.nb_of_courses
                           séances
-                      .right
-                        = link_to edit_dashboard_pack_path(pack) do
-                          Modifier
-                        |
-                        = link_to dashboard_pack_path(pack), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Pack #{pack.name} ?" } do
-                          Supprimer
+
                       .right
                         %h3.fontlight
                           = number_to_currency(pack.unit_price)
                           = succeed "La séance" do
                             %br/
                         %a.rightarrow{href: edit_dashboard_pack_path(pack)}
+                    .full-width.text-right
+                      = link_to edit_dashboard_pack_path(pack) do
+                        Modifier
+                      |
+                      = link_to dashboard_pack_path(pack), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Pack #{pack.name} ?" } do
+                        Supprimer
 
                 #duo.tab-pane
                   - current_user.packs.duo.each_with_index do |pack, index|
@@ -63,6 +64,12 @@
                           = succeed "La séance" do
                             %br/
                         %a.rightarrow{href: edit_dashboard_pack_path(pack)}
+                    .full-width.text-right
+                      = link_to edit_dashboard_pack_path(pack) do
+                        Modifier
+                      |
+                      = link_to dashboard_pack_path(pack), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Pack #{pack.name} ?" } do
+                        Supprimer
 .fixed-element
   %p.fontlight Créer un nouveau pack
   %a.circle-btn{:href => new_dashboard_pack_path} +

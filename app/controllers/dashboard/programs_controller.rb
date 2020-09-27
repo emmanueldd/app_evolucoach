@@ -53,7 +53,7 @@ module Dashboard
 
     private
       def program_params
-        params.require(:program).permit(:name, :client, :description, :price, :frequency, :duration, :cover, :published, :info_note, :rest_note, :user_has_client_id)
+        params.require(:program).permit(:name, :client, :description, :price, :frequency, :duration, :cover, :published, :info_note, :rest_note, :user_has_client_id, :file)
       end
 
       def set_program

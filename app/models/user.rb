@@ -22,7 +22,13 @@ class User < ApplicationRecord
   has_many :stripe_payment_methods
   before_save :set_fields
   after_create :set_past_income_stats
+  after_create :info_anonymation, unless: -> { Rails.env.production? }
   validate :is_account_allowed?, on: :create
+
+  def info_anonymation
+    # After we pull production DB, we change the contacts (email and phone number).
+    update_columns(email: "contact+#{slug}@evolucorp.com", phone: "0000#{phone}")
+  end
 
   def find_or_create_stripe_customer_id
     if stripe_customer_id.blank?

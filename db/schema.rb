@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200715160654) do
+ActiveRecord::Schema.define(version: 20200912115137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -320,6 +320,7 @@ ActiveRecord::Schema.define(version: 20200715160654) do
     t.text "rest_note"
     t.text "info_note"
     t.bigint "user_has_client_id"
+    t.string "file"
     t.index ["client_id"], name: "index_programs_on_client_id"
     t.index ["slug"], name: "index_programs_on_slug", unique: true
     t.index ["user_has_client_id"], name: "index_programs_on_user_has_client_id"
