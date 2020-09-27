@@ -46,7 +46,6 @@
           .col-12
             .object-content
               = simple_form_for [:dashboard, @program] do |f|
-                = f.hidden_field :next_step, value: 'back'
                 = f.input_field :rest_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
     / Content Area
   - elsif params[:step] == 'info_note'
@@ -71,7 +70,6 @@
           .col-12
             .object-content
               = simple_form_for [:dashboard, @program] do |f|
-                = f.hidden_field :next_step, value: 'back'
                 = f.input_field :info_note, class: 'fontlight big-transparent-textarea', placeholder: 'Commence à écrire ta note'
     / Content Area
   - elsif params[:step] == 'price'
