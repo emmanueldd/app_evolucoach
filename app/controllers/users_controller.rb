@@ -15,7 +15,9 @@ class UsersController < ApplicationController
     request.env['PIXEL_ID'] = @user.fb_pixel_code
     store_user_location!
     cookies[:last_user_visited_id] = @user.id
-    current_lead.update(user: @user) # le lead ou le client prend automatiquement le dernier user visité
+
+    # Crée la stat de visite si ce n'est pas current_user ou un user (autre coach) : le lead ou le client prend automatiquement le dernier user visité
+    current_lead.update(user: @user) unless user_signed_in? && current_user == @user
   end
 
   def user_important

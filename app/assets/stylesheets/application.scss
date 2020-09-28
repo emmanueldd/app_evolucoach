@@ -4011,6 +4011,10 @@ a.popup-btn {
     height: 28px;
   }
 
+  .hour-check [type="checkbox"] + label.disabled::after {
+    background: #6e7489 !important;
+  }
+
   a.circle-btn img {
     width: 30px;
   }

@@ -68,8 +68,13 @@
                           %p
                             - @availability = @user.availabilities.find_or_initialize_by(start_time: date)
                             - if @availability.taken(@order)
-                              %br
-                              x
+                              = simple_form_for(@order, url: interface_order_path(@order.uuid), namespace: "#{d.day}_#{h}") do |f|
+                                = f.simple_fields_for :courses, @order.courses.find_or_initialize_by(start_time: date) do |course|
+                                  = f.error_notification
+                                  .form-inputs
+                                    #courses
+                                      = course.input :status, as: :boolean, input_html: { checked: false }, disabled: true
+
                             - else
                               = simple_form_for(@order, url: interface_order_path(@order.uuid), namespace: "#{d.day}_#{h}", html: { "data-autosave": "true", "data-object-id": "null", "data-update-url": "/interface/orders/#{@order.id}" }) do |f|
 
