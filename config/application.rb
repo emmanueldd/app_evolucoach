@@ -15,6 +15,7 @@ module Appevolucoach
     config.i18n.default_locale = :fr
     config.time_zone = 'Europe/Paris'
     config.active_record.default_timezone = :utc
+    # config.active_job.queue_adapter = :good_job
     config.active_job.queue_adapter = :sidekiq
 
 

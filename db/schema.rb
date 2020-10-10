@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200912115137) do
+ActiveRecord::Schema.define(version: 20201010164024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -178,6 +178,23 @@ ActiveRecord::Schema.define(version: 20200912115137) do
     t.string "uuid"
     t.index ["user_id"], name: "index_leads_on_user_id"
     t.index ["uuid"], name: "index_leads_on_uuid", unique: true
+  end
+
+  create_table "online_offers", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "client_id"
+    t.bigint "user_has_client_id"
+    t.string "name"
+    t.string "slug"
+    t.text "description"
+    t.integer "price"
+    t.boolean "published"
+    t.string "cover"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_online_offers_on_client_id"
+    t.index ["user_has_client_id"], name: "index_online_offers_on_user_has_client_id"
+    t.index ["user_id"], name: "index_online_offers_on_user_id"
   end
 
   create_table "order_has_courses", force: :cascade do |t|
@@ -469,6 +486,9 @@ ActiveRecord::Schema.define(version: 20200912115137) do
   add_foreign_key "crm_comments", "users"
   add_foreign_key "exercises", "exercise_categories"
   add_foreign_key "leads", "users"
+  add_foreign_key "online_offers", "clients"
+  add_foreign_key "online_offers", "user_has_clients"
+  add_foreign_key "online_offers", "users"
   add_foreign_key "order_has_courses", "courses"
   add_foreign_key "order_has_courses", "orders"
   add_foreign_key "order_has_items", "orders"

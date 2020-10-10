@@ -55,6 +55,8 @@ gem 'slack-notifier'
 gem 'groupdate'
 gem 'momentjs-rails'
 gem 'sidekiq'
+# gem 'good_job'
+
 gem "browser"
 gem 'acts_as_list'
 gem 'rack-tracker'

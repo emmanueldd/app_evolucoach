@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  client: one
+  useer_has_client: one
+  name: MyString
+  slug: MyString
+  description: MyText
+  price: 1
+  published: false
+  cover: MyString
+
+two:
+  user: two
+  client: two
+  useer_has_client: two
+  name: MyString
+  slug: MyString
+  description: MyText
+  price: 1
+  published: false
+  cover: MyString

@@ -4,33 +4,39 @@ App.dashboard_subscriptions = App.dashboard_subscriptions || {};
 App.dashboard_subscriptions.new_edit = {
 	init: function init() {
 		var self = this;
-		var elements = stripe.elements();
-		var style = {
-		  base: {
-		    color: "#32325d",
-		    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-		    fontSmoothing: "antialiased",
-		    fontSize: "16px",
-		    "::placeholder": {
-		      color: "#aab7c4"
-		    }
-		  },
-		  invalid: {
-		    color: "#fa755a",
-		    iconColor: "#fa755a"
-		  }
-		};
-		$('.carousel').carousel();
-		var cardElement = elements.create("card", { style: style });
-		cardElement.mount("#card-element");
-		cardElement.on('change', self.showCardError);
-		var customerId = $('#customer_id').val();
-		var priceId = $('#price_id').val();
-		$("#subscription-form").validate({
-			submitHandler: function(form) {
-				self.createPaymentMethod(cardElement, customerId, priceId, form);
-			}
-		});
+		if ($('.carousel').length > 0) {
+			$('.carousel').carousel();
+		}
+		if ($('#card-element').length > 0) {
+			var elements = stripe.elements();
+			var style = {
+			  base: {
+			    color: "#32325d",
+			    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+			    fontSmoothing: "antialiased",
+			    fontSize: "16px",
+			    "::placeholder": {
+			      color: "#aab7c4"
+			    }
+			  },
+			  invalid: {
+			    color: "#fa755a",
+			    iconColor: "#fa755a"
+			  }
+			};
+			var cardElement = elements.create("card", { style: style });
+			cardElement.mount("#card-element");
+			cardElement.on('change', self.showCardError);
+			var customerId = $('#customer_id').val();
+			var priceId = $('#price_id').val();
+			$("#subscription-form").validate({
+				submitHandler: function(form) {
+					self.createPaymentMethod(cardElement, customerId, priceId, form);
+				}
+			});
+		}
+
+
 	},
 	showCardError: function showCardError(event) {
 	  let displayError = document.getElementById('card-errors');
