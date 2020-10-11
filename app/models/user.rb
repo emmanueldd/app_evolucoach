@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :courses
   has_many :availabilities
   has_many :programs
+  has_many :online_offers
   has_many :program_steps
   has_many :user_has_clients
   has_many :subscriptions

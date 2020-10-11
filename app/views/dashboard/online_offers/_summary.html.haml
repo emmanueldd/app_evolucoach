@@ -1,0 +1,35 @@
+:css
+  .form-group ::placeholder {
+    color: #fff !important;
+  }
+
+/ Banner
+.banner-area{style: "background-image: url(#{@online_offer.cover_url})"}
+  .container
+    .row
+      %h1.fontlight
+        OFFRE
+        %br
+        = @online_offer.name
+/ Banner
+/ Content Area
+.content-area.bg-dark-blue.mvh-70.page12
+  .container
+    .row
+      .col-12
+        .content-inner
+          .pack-top.mb-30.fontlight
+            %p.text-right
+              %b #{number_to_currency(@online_offer.price)}
+          = simple_form_for [:dashboard, @online_offer] do |f|
+            .pack-profile-box.mb-30
+              .pack-profile-img
+                = image_tag current_user.avatar_url, alt:"Farid"
+              %p
+                = f.input :description, as: :text, label: false, input_html: { class: 'fontlight big-transparent-textarea full-width' } , required: true, placeholder: 'Décris ton offre ici', autofocus: true
+
+            = f.hidden_field :published, value: 'true'
+            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :type => "submit"}
+              Valider #{image_tag "tik.png", alt:""}
+          -# Prochaine étape = pouvoir lui ajouter des exercices
+/ Content Area

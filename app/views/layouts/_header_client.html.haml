@@ -26,29 +26,28 @@
                   = image_tag current_client.avatar_url, alt:"Farid"
                 %h2.name
                   Bonjour #{current_client.first_name} !
-
-          - elsif @profile_box
-            .profile-inner
-              .profile-box.mt-30
-                .profile-img
-                  = image_tag current_client.avatar_url, alt:"Farid"
-                %h3
-                  = current_client.coaching_count
-                  %span.fontlight Coachings
-                %h3
-                  ⭐️
-                  %span.fontlight= current_client.score.round
-                .profile-bag
-                  = image_tag "bag.png", alt:"Bag"
-              .profile-name.mt-10
-                %h2.name= current_client.first_name
-                %p.iblue
-                  = image_tag "bgtik.png", alt:""
-                  profil certifié
-              .profile-links.mt-30
-                %a{:class => "#{'active' if controller_name == 'users'} fontlight", :href => "#{interface_user_path(current_client)}"} packs
-                %a{:class => "#{'active' if controller_name == 'programs'} fontbold", :href => interface_programs_path} programmes
-                %a{:class => "#{'active' if controller_name == 'ratings'} fontlight", :href => interface_ratings_path} avis
+          -# - elsif @profile_box
+          -#   = exit
+          -#   .profile-inner
+          -#     .profile-box.mt-30
+          -#       .profile-img
+          -#         = image_tag current_client.avatar_url, alt:"Farid"
+          -#       %h3
+          -#         = current_client.coaching_count
+          -#         %span.fontlight Coachings
+          -#       %h3
+          -#         ⭐️
+          -#         %span.fontlight= current_client.score.round
+          -#       .profile-bag
+          -#         = image_tag "bag.png", alt:"Bag"
+          -#     .profile-name.mt-10
+          -#       %h2.name= current_client.first_name
+          -#       %p.iblue
+          -#         = image_tag "bgtik.png", alt:""
+          -#         profil certifié
+          -#     .profile-links.mt-30
+          -#       %a{:class => "#{'active' if controller_name == 'users'} fontlight", :href => "#{interface_user_path(current_client)}"} packs
+          -#       %a{:class => "#{'active' if controller_name == 'programs'} fontbold", :href => interface_programs_path} programmes
+          -#       %a{:class => "#{'active' if controller_name == 'ratings'} fontlight", :href => interface_ratings_path} avis
     .menu-area.profile.page23
       = render 'layouts/navigation'
-  / Header

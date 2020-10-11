@@ -35,10 +35,10 @@ module Interface
       @order_has_item = @order.order_has_items.new(order_has_item_params)
       @order_has_item.save!
 
-      if @order_has_item.item_type == 'Program'
-        redirect_to interface_order_payment_path(@order.uuid)
-      else # if @order_has_item.item_type == 'pack'
+      if @order_has_item.item_type == 'Pack'
         redirect_to order_availabilities_path(id: @order.uuid, user_id: @user.id)
+      else # if @order_has_item.item_type == 'pack'
+        redirect_to interface_order_payment_path(@order.uuid)
       end
     end
 

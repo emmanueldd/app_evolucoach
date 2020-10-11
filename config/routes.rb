@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   resources :programs, only: :show
   resources :packs, only: :show
+  resources :online_offers, path: 'suivi', only: :show
 
   devise_for :clients, controllers: {
     # confirmations: 'clients/confirmations',
@@ -68,6 +69,7 @@ Rails.application.routes.draw do
     resources :programs, shallow: true do
       resources :program_steps, path: :steps, as: :step
     end
+    resources :online_offers, path: 'suivi'
     resources :packs
     resources :ratings
     resources :availabilities

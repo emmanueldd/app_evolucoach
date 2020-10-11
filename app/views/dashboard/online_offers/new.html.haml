@@ -1,0 +1,21 @@
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-dark-blue2.full-vh
+  .container
+    .row
+      .col-12
+        .object-content
+          %p.fontlight Nom de l'offre
+          = simple_form_for [:dashboard, @online_offer] do |f|
+            = f.input_field :user_has_client_id, as: :hidden, value: params[:user_has_client_id]
+            %input.form-control{:name => "online_offer[name]", :placeholder => "Exemple : découverte", :type => "text"}/
+            -# - if params[:online_offer_type] == 'upload_pdf'
+            -#   %label.display-block.text-center
+            -#     %br
+            -#     = f.input_field :file, style: 'opacity: 1', onchange: "readURL(this);"
+            -#     %br
+            -#     %br
+            -#     .touch
+            -#       = image_tag "touch.png", alt:"", class: 'banner-upload'
+            -#       %p.fontlight Touche pour importer un PDF
+            %button.validate.g-blue-bg.fontbold.lg-btn{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →

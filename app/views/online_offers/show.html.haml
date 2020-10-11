@@ -1,0 +1,29 @@
+/ Banner
+.banner-area{style: "background-image: url(#{@online_offer.cover_url})"}
+  .container
+    .row
+      %h1.fontlight
+        Offre
+        %br
+        = @online_offer.name
+/ Banner
+/ Content Area
+.content-area.bg-dark-blue.mvh-70.page12
+  .container
+    .row
+      .col-12
+        .content-inner
+          .pack-top.mb-30.fontlight
+            %p.text-right
+              %b #{number_to_currency(@online_offer.price)}
+          .pack-profile-box.mb-30
+            .pack-profile-img
+              = image_tag @online_offer.user.avatar_url
+            %p=simple_format(@online_offer.description)
+          = simple_form_for [:interface, @order] do |f|
+            = simple_fields_for :order_has_item do |ff|
+              = ff.input_field :item_id, as: :hidden, value: @online_offer.id
+              = ff.input_field :item_type, as: :hidden, value: @online_offer.class.name
+            = f.input_field :user_id, as: :hidden, value: @online_offer.user_id
+            %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :style => "width: inherit;", :type => "submit"}
+              Commander #{image_tag "tik.png", alt:""}

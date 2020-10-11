@@ -63,7 +63,7 @@
                 %h3
                   = current_user.coaching_count
                   %span.fontlight Coachings
-                %h3
+                %a{href: dashboard_ratings_path}
                   ⭐️
                   %span.fontlight= current_user.score.round
                 .profile-bag
@@ -79,9 +79,9 @@
                   = image_tag "bgtik.png", alt:""
                   profil certifié
               .profile-links.mt-30
-                %a{:class => "#{'active' if controller_name == 'users'} fontlight", :href => "#{dashboard_user_path(current_user)}"} packs
+                %a{:class => "#{'active' if controller_name == 'users'} fontlight", :href => "#{dashboard_user_path(current_user)}"} coachings
                 %a{:class => "#{'active' if controller_name == 'programs'} fontbold", :href => dashboard_programs_path} programmes
-                %a{:class => "#{'active' if controller_name == 'ratings'} fontlight", :href => dashboard_ratings_path} avis
+                %a{:class => "#{'active' if controller_name == 'online_offers'} fontlight", :href => dashboard_online_offers_path} suivis
     .menu-area.profile.page23
       = render 'layouts/navigation'
   / Header

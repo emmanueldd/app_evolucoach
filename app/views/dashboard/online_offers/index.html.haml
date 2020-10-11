@@ -1,0 +1,27 @@
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-light-blue.page13.full-vh
+  .bg-top
+  .container
+    .row
+      .col-12
+        .content-inner
+          - @online_offers.each do |online_offer|
+            .profile-card.program-card.card1{:style => "background-image: url(#{online_offer.cover_url})"}
+              .left
+                %h3.fontlight= online_offer.name
+
+              .right
+                %h3.fontlight= number_to_currency(online_offer.price)
+                %a.rightarrow.white{:href => "#{edit_dashboard_online_offer_path(online_offer)}"}
+
+            .full-width.text-right
+              = link_to edit_dashboard_online_offer_path(online_offer) do
+                Modifier
+              |
+              = link_to dashboard_online_offer_path(online_offer), method: :delete, data: { confirm: "Es-tu sûr de vouloir supprimer le Programme #{online_offer.name} ?" } do
+                Supprimer
+.fixed-element
+  %p.fontlight Ajouter un suivi online
+  %a.circle-btn{:href => new_dashboard_online_offer_path} +
+/ Content Area

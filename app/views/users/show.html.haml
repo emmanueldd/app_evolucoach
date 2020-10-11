@@ -78,6 +78,20 @@
                 .right
                   %h3.fontlight= number_to_currency(program.price)
                   %span.rightarrow.white
+- elsif params[:section] == 'suivis'
+  .content-area.bg-light-blue.page13.full-vh
+    .bg-top
+    .container
+      .row
+        .col-12
+          .content-inner
+            - @user.online_offers.published.each do |online_offer|
+              %a.profile-card.online_offer-card.card1{:style => "background-image: url(#{online_offer.cover_url})", :href => "#{online_offer_path(online_offer)}"}
+                .left
+                  %h3.fontlight= online_offer.name
+                .right
+                  %h3.fontlight= number_to_currency(online_offer.price)
+                  %span.rightarrow.white
 - elsif params[:section] == 'ratings'
   .content-area.bg-light-blue.page13
     .bg-top

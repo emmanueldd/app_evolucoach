@@ -27,8 +27,9 @@
                 = @user.coaching_count
                 %span.fontlight Coachings
               %h3
-                ⭐️
-                %span.fontlight= @user.score.round
+                %a{href: "#{url_for(section: 'ratings')}"}
+                  ⭐️
+                  %span.fontlight= @user.score.round
               .profile-bag
                 = link_to user_availabilities_path(@user) do
                   = image_tag "bag.png", alt:"Bag"
@@ -38,6 +39,6 @@
                 = image_tag "bgtik.png", alt:""
                 profil certifié
             .profile-links.mt-30
-              %a{:class => "#{'active' if params[:section].blank?} fontlight", :href => url_for} packs
+              %a{:class => "#{'active' if params[:section].blank?} fontlight", :href => url_for} coachings
               %a{:class => "#{'active' if params[:section] == 'programs'} fontbold", :href => "#{url_for(section: 'programs')}"} programmes
-              %a{:class => "#{'active' if params[:section] == 'ratings'} fontlight", :href => "#{url_for(section: 'ratings')}"} avis
+              %a{:class => "#{'active' if params[:section] == 'suivis'} fontlight", :href => "#{url_for(section: 'suivis')}"} suivis

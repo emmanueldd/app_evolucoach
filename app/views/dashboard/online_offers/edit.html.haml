@@ -1,0 +1,43 @@
+%body
+  - if params[:step].blank?
+    = render 'layouts/header'
+    .content-area.bg-dark-blue2.full-vh
+      .container
+        .row
+          .col-12
+            .object-content
+              %p.fontlight Prix de l'offre
+              = simple_form_for [:dashboard, @online_offer] do |f|
+                = f.hidden_field :next_step, value: 'cover'
+                %h3.white.fontlight
+                  %span €
+                  = f.input_field :price,  class: 'fontlight big-transparent-input white', required: true, placeholder: '50'
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  - elsif params[:step] == 'cover'
+    = render 'layouts/header'
+    / Content Area
+    .content-area.bg-dark-blue2.full-vh.page10
+      = simple_form_for [:dashboard, @online_offer] do |f|
+        = f.hidden_field :next_step, value: 'summary'
+        .container
+          .row
+            .col-12
+              .object-content
+                %p.fontlight Choisis une bannière
+        .object-content
+          .prev-img
+            %label.display-block
+              = image_tag @online_offer.cover_url, id: 'preview', alt:"", class: 'banner-upload'
+              = f.input_field :cover, style: 'opacity: 0', onchange: "readURL(this);"
+        .container
+          .row
+            .col-12
+              .object-content
+                .touch
+                  = image_tag "touch.png", alt:""
+                  %p.fontlight Touche pour importer une image
+                %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+    / Content Area
+  - elsif params[:step] == 'summary'
+    = render 'layouts/header'
+    = render 'summary'
