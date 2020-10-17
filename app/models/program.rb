@@ -9,6 +9,7 @@ class Program < ApplicationRecord
   has_many :program_steps
   has_many :order_has_items, as: :item
   has_many :orders, through: :order_has_items
+  accepts_nested_attributes_for :user
 
   scope :published, -> { where(published: true, user_has_client: nil) }
 

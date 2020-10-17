@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201010164024) do
+ActiveRecord::Schema.define(version: 20201017151302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -192,6 +192,9 @@ ActiveRecord::Schema.define(version: 20201010164024) do
     t.string "cover"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "show_calendly_before_payment", default: false
+    t.boolean "show_calendly_after_payment", default: false
+    t.boolean "hide_payment_page", default: false
     t.index ["client_id"], name: "index_online_offers_on_client_id"
     t.index ["user_has_client_id"], name: "index_online_offers_on_user_has_client_id"
     t.index ["user_id"], name: "index_online_offers_on_user_id"
@@ -252,6 +255,9 @@ ActiveRecord::Schema.define(version: 20201010164024) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "published", default: false
+    t.boolean "show_calendly_before_payment", default: false
+    t.boolean "show_calendly_after_payment", default: false
+    t.boolean "hide_payment_page", default: false
     t.index ["user_id"], name: "index_packs_on_user_id"
   end
 
@@ -338,6 +344,9 @@ ActiveRecord::Schema.define(version: 20201010164024) do
     t.text "info_note"
     t.bigint "user_has_client_id"
     t.string "file"
+    t.boolean "show_calendly_before_payment", default: false
+    t.boolean "show_calendly_after_payment", default: false
+    t.boolean "hide_payment_page", default: false
     t.index ["client_id"], name: "index_programs_on_client_id"
     t.index ["slug"], name: "index_programs_on_slug", unique: true
     t.index ["user_has_client_id"], name: "index_programs_on_user_has_client_id"
@@ -468,6 +477,7 @@ ActiveRecord::Schema.define(version: 20201010164024) do
     t.boolean "male", default: false
     t.text "ga_code"
     t.text "fb_pixel_code"
+    t.string "calendly_url"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

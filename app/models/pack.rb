@@ -5,6 +5,7 @@ class Pack < ApplicationRecord
   # Pack type à passer en integer pour activer les enums
   scope :published, -> { where(published: true) }
   enum pack_type: { solo: 0, duo: 1 }
+  accepts_nested_attributes_for :user
 
 
 

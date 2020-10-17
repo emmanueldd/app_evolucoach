@@ -47,7 +47,7 @@ module Dashboard
 
     private
       def online_offer_params
-        params.require(:online_offer).permit(:name, :client, :description, :price,  :cover, :published, :user_has_client_id)
+        params.require(:online_offer).permit(:name, :client, :description, :price,  :cover, :published, :user_has_client_id, :show_calendly_before_payment, :show_calendly_after_payment, :hide_payment_page, user_attributes: [:id, :calendly_url])
       end
 
       def set_online_offer

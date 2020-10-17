@@ -53,7 +53,7 @@ module Dashboard
 
     private
       def program_params
-        params.require(:program).permit(:name, :client, :description, :price, :frequency, :duration, :cover, :published, :info_note, :rest_note, :user_has_client_id, :file)
+        params.require(:program).permit(:name, :client, :description, :price, :frequency, :duration, :cover, :published, :info_note, :rest_note, :user_has_client_id, :file, :show_calendly_before_payment, :show_calendly_after_payment, :hide_payment_page, user_attributes: [:id, :calendly_url])
       end
 
       def set_program

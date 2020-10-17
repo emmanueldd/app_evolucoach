@@ -8,6 +8,7 @@ class OnlineOffer < ApplicationRecord
   belongs_to :user_has_client, optional: true
   has_many :order_has_items, as: :item
   has_many :orders, through: :order_has_items
+  accepts_nested_attributes_for :user
 
   scope :published, -> { where(published: true, user_has_client: nil) }
 

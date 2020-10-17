@@ -37,7 +37,7 @@ module Dashboard
 
     private
       def pack_params
-        params.require(:pack).permit(:pack_type, :name, :unit_price, :nb_of_courses, :description, :published)
+        params.require(:pack).permit(:pack_type, :name, :unit_price, :nb_of_courses, :description, :published, :show_calendly_before_payment, :show_calendly_after_payment, :hide_payment_page, user_attributes: [:id, :calendly_url])
       end
 
       def set_pack
