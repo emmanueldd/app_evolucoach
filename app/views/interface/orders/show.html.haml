@@ -33,7 +33,17 @@
               %br
               Retrouve-la sur ton profil.
             %br
-
-
-          %a.margin-auto.blue-btn.fontbold.blue-bg{href: interface_root_path}
-            Aller à l'accueil →
+          - if @order.show_calendly_after_payment?
+            Pour te remercier et faire le bilan sur ta situation,
+            %br
+            = link_to user_calendly_path(@user) do
+              clique ici pour réserver ton appel de coaching
+              %b gratuit
+              \!
+            %br
+            %br
+            %a.margin-auto.blue-btn.fontbold.blue-bg{href: user_calendly_path(@user)}
+              Réserver mon appel →
+          - else
+            %a.margin-auto.blue-btn.fontbold.blue-bg{href: interface_root_path}
+              Aller à l'accueil →

@@ -62,8 +62,17 @@
                         %p.heading Ventes
                         %p.fontlight= @orders_paid.count
                       .col-4.table-body
-                        %p.heading Écart
-                        %p.site-btn.fontlight.btn-bg.grey-bg=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal * 100 )
+                        %p.heading{style: 'margin-top: 10px;'} Objectif
+                        %p.site-btn.fontlight.btn-bg.grey-bg.no-margin-top=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal * 100 )
+                    .col.text-right
+                      %br
+                      %a.border-btn{:href => dashboard_stats_goal_path}
+                        = image_tag "pen.png", alt:""
+                        - if current_user.financial_goal == 0
+                          Créer un
+                        - else
+                          Modifier mon
+                        objectif
                     .table-box.align-items-center.table2.text-center.row.mt-20
                       .col-4.table-body
                         %p.heading Produit

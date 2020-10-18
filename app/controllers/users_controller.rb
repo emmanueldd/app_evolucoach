@@ -5,6 +5,10 @@ class UsersController < ApplicationController
     render json: { available: @user.blank? }
   end
 
+  def calendly
+    @user = User.find_by(slug: params[:id])
+  end
+
   def show
     # return redirect_to dashboard_root_path, notice: 'Votre profil sera prochainement disponible'
     begin

@@ -19,6 +19,20 @@ class Order < ApplicationRecord
   }
   scope :paid_with_credits, -> { paid.where('credit_left > ?', 0) }
 
+  def show_calendly_after_payment?
+    order_has_items.find_each do |order_has_item|
+      return true if order_has_item.item.show_calendly_after_payment
+    end
+    false
+  end
+
+  def show_calendly_before_payment?
+    order_has_items.find_each do |order_has_item|
+      return true if order_has_item.item.show_calendly_before_payment
+    end
+    false
+  end
+
 
   def alma_state_actions
     # ['not_started', 'scored_no', 'scored_maybe', 'scored_yes', 'paid']

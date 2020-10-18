@@ -2174,6 +2174,12 @@ header.header-area.no-radius {
   flex-direction: row;
 }
 
+.xs-avatar {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+}
+
 .member-img {
   width: 40px;
   height: 40px;

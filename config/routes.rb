@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
   get 'users/check_slug_availability/:slug', to: 'users#check_slug_availability', as: 'check_slug_availability'
+  get ':id/creneaux', to: 'users#calendly', as: 'user_calendly'
   get 'inscription' , to: redirect('/users/sign_up')
   get 'app' , to: redirect('/dashboard')
   get ':user_id/orders/:id/availabilities' , to: 'interface/orders#availabilities', as: :order_availabilities

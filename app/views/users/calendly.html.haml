@@ -1,0 +1,5 @@
+-# = render 'header'
+-# =@user.calendly_url
+-# / Content Area
+%div{style: 'height: 100vh;'}
+  %iframe{:frameborder => "0", :height => "100%", :src => "#{@user.calendly_url}?full_name=#{current_client.try(:name)}&email=#{current_client.try(:email)}", :style => "overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px", :width => "100%"}

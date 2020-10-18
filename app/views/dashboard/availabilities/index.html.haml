@@ -9,7 +9,7 @@
             %span.left-angle
           %a.profile-box{:href => "#"}
             .profile-iline
-              = image_tag current_user.avatar_url
+              = image_tag current_user.avatar_url, class: 'xs-avatar'
               %h2.name
                 #{current_user.first_name} #{current_user.last_name}
                 = image_tag ("bgtik.png")

@@ -5,6 +5,7 @@ module Interface
     before_action :authenticate_client_to_add_to_cart, only: :create
 
     def show
+      @user = @order.user
       if params[:alma].present? && @order.alma_uncomplete?
         @order.update(alma_state: 'not_started')
       elsif !@order.paid?
@@ -34,10 +35,12 @@ module Interface
       @user = @order.user
       @order_has_item = @order.order_has_items.new(order_has_item_params)
       @order_has_item.save!
-
-      if @order_has_item.item_type == 'Pack'
+      # Show the calendly if needed
+      if @order.show_calendly_before_payment?
+        redirect_to @user.calendly_url
+      elsif @order_has_item.item_type == 'Pack'
         redirect_to order_availabilities_path(id: @order.uuid, user_id: @user.id)
-      else # if @order_has_item.item_type == 'pack'
+      else # Online offer / Program
         redirect_to interface_order_payment_path(@order.uuid)
       end
     end
