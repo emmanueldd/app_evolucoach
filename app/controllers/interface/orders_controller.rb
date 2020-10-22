@@ -36,8 +36,8 @@ module Interface
       @order_has_item = @order.order_has_items.new(order_has_item_params)
       @order_has_item.save!
       # Show the calendly if needed
-      if @order.show_calendly_before_payment?
-        redirect_to @user.calendly_url
+      if @order.show_calendly_before_payment? && @user.calendly_url.present?
+        redirect_to user_calendly_path
       elsif @order_has_item.item_type == 'Pack'
         redirect_to order_availabilities_path(id: @order.uuid, user_id: @user.id)
       else # Online offer / Program

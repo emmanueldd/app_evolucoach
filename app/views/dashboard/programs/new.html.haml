@@ -10,8 +10,8 @@
               -# Avant d'arriver ici, faire une page pdf ou faire le programme sur l'outil.
               -# Une fois choisie, si c'est pdf, on est redirigé vers cette page avec un uploader de pdf, puis on est directement redirigé vers la suite tout en modifiant la page show du programme qui sans pdf montre l'outil
               %h2.white Quel type de programme souhaitez-vous ajouter ?
-              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(program_type: 'upload_pdf')} Uploader un pdf
-              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(program_type: 'use_tool')} Utiliser l'outil
+              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(program_type: 'upload_pdf', user_has_client_id: params[:user_has_client_id])} Uploader un pdf
+              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(program_type: 'use_tool', user_has_client_id: params[:user_has_client_id])} Utiliser l'outil
           - else
             %p.fontlight Nom du programme
             = simple_form_for [:dashboard, @program] do |f|
