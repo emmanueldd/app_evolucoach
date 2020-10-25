@@ -5,7 +5,12 @@ class ApplicationController < ActionController::Base
   before_action :forbid_multiple_connexion, unless: :format_js?
   before_action :complete_signup, unless: :format_js?
   before_action :set_lead_and_history
+  before_action :set_coupon, if: -> { params[:coupon].present? }
   before_action :track_page_view, if: -> { request.get? && !request.xhr? }
+
+  def set_coupon
+    cookies[:coupon] = params[:coupon]
+  end
 
   def track_page_view
     if current_lead.user.present? && current_lead.user.fb_pixel_code.present?
@@ -70,7 +75,7 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     if resource_class == User
-      devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :first_name, :last_name, :nickname, :phone])
+      devise_parameter_sanitizer.permit(:sign_up, keys: [:slug, :coupon, :first_name, :last_name, :nickname, :phone])
       devise_parameter_sanitizer.permit(:account_update, keys: [:slug, :first_name, :last_name, :nickname, :avatar, :phone, :address, :instagram_url, :city, :address, :country, :zipcode])
     elsif resource_class == Client
       devise_parameter_sanitizer.permit(:sign_up, keys: [:lead_id, :user_id, :slug, :first_name, :last_name])

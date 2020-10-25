@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  attr_accessor :coupon
   extend FriendlyId
   friendly_id :first_name, use: :slugged
   # Include default devise modules. Others available are:
@@ -20,11 +21,19 @@ class User < ApplicationRecord
   has_many :orders
   has_many :order_has_items, through: :orders
   has_one :payment_info
+  has_many :affiliate_codes
   has_many :stripe_payment_methods
+  has_many :affiliate_code_usages, dependent: :destroy
+  belongs_to :affiliate_code
   before_save :set_fields
   after_create :set_past_income_stats
   after_create :info_anonymation, unless: -> { Rails.env.production? }
+  after_create :set_affiliate_code
   validate :is_account_allowed?, on: :create
+
+  def set_affiliate_code
+    affiliate_codes.create(name: "#{frist_name}#{id}".downcase)
+  end
 
   def info_anonymation
     # After we pull production DB, we change the contacts (email and phone number).
@@ -52,6 +61,9 @@ class User < ApplicationRecord
 
 
   def set_fields
+    if coupon.present? && affiliate_code.blank?
+      self.affiliate_code = AffiliateCode.find_by(name: coupon.downcase.delete(' '))
+    end
     if slug.present? && slug_changed?
       self.slug = slug.downcase.parameterize
     end

@@ -3,7 +3,7 @@ class Pack < ApplicationRecord
   before_save :set_price, if: -> { unit_price_changed? }
   default_scope { order(nb_of_courses: :desc) }
   # Pack type à passer en integer pour activer les enums
-  scope :published, -> { where(published: true) }
+  scope :published, -> { where(published: true).reorder(price: :asc) }
   enum pack_type: { solo: 0, duo: 1 }
   accepts_nested_attributes_for :user
 

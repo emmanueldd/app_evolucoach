@@ -22,6 +22,7 @@
             = f.input :slug, required: true, label: false, input_html: { style: 'visibility: hidden; height: 0px; margin-top: -30px;'}
             = f.input :email, required: true, input_html: { autocomplete: "email" }
             = f.input :phone, required: true, input_html: { autocomplete: "phone", placeholder: 'Au format : 0761892318' }
+            = f.input :coupon, disabled: cookies[:coupon].present?, input_html: { value: cookies[:coupon], placeholder: 'Facultatif' }
             .row
               .col-md-6
                 = f.input :password, required: true, hint: ("#{@minimum_password_length} caractères minimum" if @minimum_password_length), input_html: { autocomplete: "new-password" }

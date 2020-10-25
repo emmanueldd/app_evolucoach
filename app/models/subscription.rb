@@ -1,10 +1,17 @@
 class Subscription < ApplicationRecord
   belongs_to :user
+  belongs_to :affiliate_code, optional: true
+  has_many :affiliate_code_usages
   before_update :change_stripe_price_id, if: -> { stripe_price_id_changed? }
+  # before_save :set_affiliate_code, if: -> { user.affiliate_code.present? && affiliate_code.blank? }
   after_create :subscription_active_actions, if: -> { active? }
   # before_save :cancel, if: -> { status_changed? && canceled? }
   scope :still_active, -> { where('ends_on > ?', DateTime.now )}
   enum status: { incomplete: 0, incomplete_expired: 1, trialing: 2, active: 3, past_due: 4, canceled: 5, unpaid: 6 }
+
+  # def set_affiliate_code # coupon doit etre sur le user
+  #   self.affiliate_code = AffiliateCode.find_by(name: coupon.downcase.delete(' '))
+  # end
 
   def subscription_active_actions
     SubscriptionMailer.with(subscription: @subscription).subscription_paid_email.deliver_later
@@ -18,6 +25,11 @@ class Subscription < ApplicationRecord
       self.status = stripe_subscription.status
       self.save!
     end
+    set_affiliate_code_usage if user.affiliate_code.present? && trial_ends_on < 1.day.from_now # marge de manoeuvre
+  end
+
+  def set_affiliate_code_usage
+    affiliate_code_usages.create(date: Date.today, affiliate_code: user.affiliate_code)
   end
 
   def cancel

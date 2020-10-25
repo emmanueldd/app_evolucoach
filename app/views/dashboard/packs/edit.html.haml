@@ -101,7 +101,7 @@
                   #courses{style: 'margin-left: -1.25rem;'}
                     = f.input :show_calendly_before_payment, as: :boolean, label: 'Afficher un Calendly avant le paiement', hint: 'Ex: Pour rassurer le client avant un achat conséquent.'
                     #hide_payment_page_section{style: (f.object.show_calendly_before_payment || f.object.show_calendly_after_payment) ? '' : 'display: none'}
-                      = f.input :hide_payment_page, as: :boolean, label: 'Masquer la page de paiement', hint: 'Ex: Pour transmettre le lien de paiement après un appel via Calendly.'
+                      = f.input :hide_payment_page, as: :boolean, label: 'Masquer le prix et la page de paiement', hint: 'Ex: Pour transmettre le lien de paiement après un appel via Calendly.'
                     %br
                     = f.input :show_calendly_after_payment, as: :boolean, label: 'Afficher un Calendly après le paiement', hint: 'Ex: Faire un bilan avec le client, et lui proposer une ou plusieurs autres offres correspondant à son besoin.'
                 %br

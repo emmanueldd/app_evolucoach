@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201017151302) do
+ActiveRecord::Schema.define(version: 20201022210016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,29 @@ ActiveRecord::Schema.define(version: 20201017151302) do
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_admin_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+  end
+
+  create_table "affiliate_code_usages", force: :cascade do |t|
+    t.bigint "affiliate_code_id"
+    t.bigint "subscription_id"
+    t.bigint "user_id"
+    t.date "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["affiliate_code_id"], name: "index_affiliate_code_usages_on_affiliate_code_id"
+    t.index ["subscription_id"], name: "index_affiliate_code_usages_on_subscription_id"
+    t.index ["user_id"], name: "index_affiliate_code_usages_on_user_id"
+  end
+
+  create_table "affiliate_codes", force: :cascade do |t|
+    t.string "name"
+    t.decimal "value"
+    t.integer "usage_count", default: 0
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_affiliate_codes_on_name", unique: true
+    t.index ["user_id"], name: "index_affiliate_codes_on_user_id"
   end
 
   create_table "allowed_accounts", force: :cascade do |t|
@@ -250,7 +273,7 @@ ActiveRecord::Schema.define(version: 20201017151302) do
     t.string "color"
     t.string "pack_type"
     t.integer "unit_price"
-    t.integer "price"
+    t.integer "price", default: 0
     t.integer "nb_of_courses"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -478,12 +501,18 @@ ActiveRecord::Schema.define(version: 20201017151302) do
     t.text "ga_code"
     t.text "fb_pixel_code"
     t.string "calendly_url"
+    t.bigint "affiliate_code_id"
+    t.index ["affiliate_code_id"], name: "index_users_on_affiliate_code_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
+  add_foreign_key "affiliate_code_usages", "affiliate_codes"
+  add_foreign_key "affiliate_code_usages", "subscriptions"
+  add_foreign_key "affiliate_code_usages", "users"
+  add_foreign_key "affiliate_codes", "users"
   add_foreign_key "availabilities", "users"
   add_foreign_key "clients", "leads"
   add_foreign_key "clients", "users"
@@ -524,4 +553,5 @@ ActiveRecord::Schema.define(version: 20201017151302) do
   add_foreign_key "user_has_clients", "clients"
   add_foreign_key "user_has_clients", "leads"
   add_foreign_key "user_has_clients", "users"
+  add_foreign_key "users", "affiliate_codes"
 end

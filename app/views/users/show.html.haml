@@ -16,7 +16,7 @@
               .panel-body
                 .tab-content
                   #solo.tab-pane.active
-                    - @user.packs.solo.each_with_index do |pack, index|
+                    - @user.packs.solo.published.each_with_index do |pack, index|
                       - card_index = index == 0 ? '1' : '2'
                       %a{:class => "profile-card card#{card_index}", :href => "#{pack_path(pack)}"}
                         .left
@@ -31,13 +31,15 @@
                           %h3.fontlight
                             - if pack.unit_price.to_i == 0
                               %b Gratuit
+                            - elsif pack.hide_payment_page
+                              En savoir plus
                             - else
                               = number_to_currency(pack.unit_price)
                               = succeed "La séance" do
                                 %br/
                           %span.rightarrow
                   #duo.tab-pane
-                    - @user.packs.duo.each_with_index do |pack, index|
+                    - @user.packs.duo.published.each_with_index do |pack, index|
                       - card_index = index == 0 ? '2' : '1'
                       %a{:class => "profile-card card#{card_index}", :href => "#{pack_path(pack)}"}
                         .left
@@ -52,6 +54,8 @@
                           %h3.fontlight
                             - if pack.unit_price.to_i == 0
                               %b Gratuit
+                            - elsif pack.hide_payment_page
+                              En savoir plus
                             - else
                               = number_to_currency(pack.unit_price)
                               = succeed "La séance" do
@@ -76,8 +80,12 @@
                     = program.frequency
                     séances/semaine
                 .right
-                  %h3.fontlight= number_to_currency(program.price)
-                  %span.rightarrow.white
+                  - if program.hide_payment_page
+                    %h3 En savoir plus
+                    %span.rightarrow.white
+                  - else
+                    %h3.fontlight= number_to_currency(program.price)
+                    %span.rightarrow.white
 - elsif params[:section] == 'suivis'
   .content-area.bg-light-blue.page13.full-vh
     .bg-top
@@ -90,8 +98,12 @@
                 .left
                   %h3.fontlight= online_offer.name
                 .right
-                  %h3.fontlight= number_to_currency(online_offer.price)
-                  %span.rightarrow.white
+                  - if online_offer.hide_payment_page
+                    %h3 En savoir plus
+                    %span.rightarrow.white
+                  - else
+                    %h3.fontlight= number_to_currency(online_offer.price)
+                    %span.rightarrow.white
 - elsif params[:section] == 'ratings'
   .content-area.bg-light-blue.page13
     .bg-top

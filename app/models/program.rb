@@ -11,7 +11,7 @@ class Program < ApplicationRecord
   has_many :orders, through: :order_has_items
   accepts_nested_attributes_for :user
 
-  scope :published, -> { where(published: true, user_has_client: nil) }
+  scope :published, -> { where(published: true, user_has_client: nil).reorder(price: :asc) }
 
   before_save :set_client, if: -> { user_has_client.present? }
 
