@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :affiliate_codes
   has_many :stripe_payment_methods
   has_many :affiliate_code_usages, dependent: :destroy
-  belongs_to :affiliate_code
+  belongs_to :affiliate_code, optional: true
   before_save :set_fields
   after_create :set_past_income_stats
   after_create :info_anonymation, unless: -> { Rails.env.production? }
