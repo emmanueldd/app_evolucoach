@@ -48,7 +48,7 @@ module Dashboard
     end
 
     def destroy
-      redirect_back(fallback_location: dashboard_programs_path, notice: 'Programme supprimé') if @program.destroy
+      redirect_back(fallback_location: dashboard_programs_path, notice: 'Programme supprimé') if @program.destroy!
     end
 
     private

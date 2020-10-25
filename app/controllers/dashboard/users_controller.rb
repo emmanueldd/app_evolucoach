@@ -11,14 +11,14 @@ module Dashboard
     end
 
     def update
-      if current_user.update(user_params)
+      if current_user.update!(user_params)
         redirect_to dashboard_stats_path, notice: ''
       end
     end
 
     def update
       fb_pixel_code_was = current_user.fb_pixel_code.to_s
-      current_user.update(user_params)
+      current_user.update!(user_params)
       if params[:next_step] == 'completed'
         redirect_to dashboard_user_path(current_user), notice: 'Informations mises à jour'
       elsif params[:next_step].present?
