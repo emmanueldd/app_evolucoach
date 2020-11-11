@@ -22,7 +22,7 @@ module Dashboard
     end
 
     def update
-      if @program.update(program_params)
+      if @program.update!(program_params)
         if params[:program][:next_step].present?
           if params[:program][:next_step] == 'back'
             redirect_to dashboard_program_step_index_path(@program),

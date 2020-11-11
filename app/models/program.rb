@@ -15,6 +15,14 @@ class Program < ApplicationRecord
 
   before_save :set_client, if: -> { user_has_client.present? }
 
+  def self.show_name
+    'programme'
+  end
+
+  def display_name
+    "Programme - #{name}"
+  end
+
   def set_client
     self.client = user_has_client.client
   end

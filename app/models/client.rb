@@ -12,6 +12,7 @@ class Client < ApplicationRecord
   has_many :stripe_payment_methods
   has_many :stripe_customer_ids
 
+  before_save :set_user, if: -> { user.blank? && lead.present? }
   before_save :set_nickname, if: -> { first_name_changed? || last_name_changed? }
   before_save :set_age, if: -> { birth_date_changed? }
   before_save :set_address, if: -> { line1.present? || postal_code.present? || zipcode_changed? }
@@ -21,6 +22,10 @@ class Client < ApplicationRecord
   scope :women, -> { where(male: false) }
 
   attr_accessor :postal_code, :line1
+
+  def set_user
+    self.user = lead.user
+  end
 
   def set_address
     self.address = line1 if line1.present?

@@ -27,7 +27,7 @@ module Dashboard
     end
 
     def update
-      if @program_step.update(program_step_params)
+      if @program_step.update!(program_step_params)
         if params[:program_step][:next_step].present?
           redirect_to edit_dashboard_program_step_path(step: params[:program_step][:next_step])
         else

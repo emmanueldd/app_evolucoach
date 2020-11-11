@@ -38,7 +38,7 @@ module Dashboard
     end
 
     def update
-      if @user_has_client.update(user_has_client_params)
+      if @user_has_client.update!(user_has_client_params)
         if params[:user_has_client][:next_step].present?
           redirect_to edit_dashboard_crm_path(step: params[:user_has_client][:next_step])
         else

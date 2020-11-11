@@ -47,6 +47,10 @@
         .row
           .col-12
             .content-inner.page30
+              .text-right
+                %a.border-btn{:href => new_dashboard_order_path(client_id: @client.id)}
+                  = image_tag "pen.png", alt:""
+                  Créer un lien de paiement
               - if @coming_courses.blank?
                 %p #{@client.first_name} n'a pas de coaching à venir.
               - else

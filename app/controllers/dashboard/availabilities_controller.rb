@@ -17,7 +17,7 @@ module Dashboard
     end
 
     def update
-      if @availability.update(availability_params)
+      if @availability.update!(availability_params)
         respond_to do |format|
           format.json { render json: @availability, status: :ok }
         end

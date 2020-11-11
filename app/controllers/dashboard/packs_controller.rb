@@ -22,7 +22,7 @@ module Dashboard
     end
 
     def update
-      if @pack.update(pack_params)
+      if @pack.update!(pack_params)
         if params[:pack][:next_step].present?
           redirect_to edit_dashboard_pack_path(step: params[:pack][:next_step])
         else

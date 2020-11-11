@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-  belongs_to :client
+  belongs_to :client, optional: true
   belongs_to :user
   has_many :order_has_items
   has_many :programs, through: :order_has_items, source: :item, source_type: 'Program'
@@ -13,11 +13,13 @@ class Order < ApplicationRecord
   after_update :set_credit_left, if: -> { !saved_change_to_credit_left? && packs.present? }
   after_save :set_course_infos
   after_save :set_paid_actions, if: -> { saved_change_to_status? && paid? }
-  enum status: { waiting: 0, paid: 1, failed: 2, refunded: 3 }
+  # When a client initiates a payment, it starts at incoming, when a coach/user creates it, it starts at waiting (for the payment)
+  enum status: { incoming: 0, waiting: 1, paid: 2, failed: 3, refunded: 4 }
   scope :of_month, -> (date = DateTime.now) {
     where(paid_at: date.beginning_of_month.beginning_of_day..date.end_of_month.end_of_day)
   }
   scope :paid_with_credits, -> { paid.where('credit_left > ?', 0) }
+  scope :waiting_or_paid, -> { where('status > ?', 0) }
 
   def show_calendly_after_payment?
     order_has_items.find_each do |order_has_item|
@@ -61,14 +63,14 @@ class Order < ApplicationRecord
   end
 
   def name
-    return 'Nom du prog ou du pack'
+    item.display_name
   end
 
   def set_paid_actions
     # BUG
     courses.where(status: 'pending').update(status: 'confirmed')
     @crm = client.user_has_clients.find_by(user: user)
-    @crm.update(has_buy: true) if @crm.present?
+    @crm.update!(has_buy: true) if @crm.present?
     @stat = user.stats.find_or_initialize_by(period: Date.today.end_of_month, name: 'income')
     if @stat.present?
       @stat.stat_value = user.orders.paid.of_month.sum(:total_price) / 100
@@ -100,7 +102,7 @@ class Order < ApplicationRecord
   def set_credit_left
     credit_left = credit - courses.not_removed.count
     update_columns(credit_left: credit_left)
-    # Décrémenter  @crm.update(coachings_left: user.orders.paid.sum(:credit_left) )
+    # Décrémenter  @crm.update!(coachings_left: user.orders.paid.sum(:credit_left) )
     # Ah bah non, les coachings left c'est le nombre de coachings à venir + credits left
     # Et les count sont ceux qui ont déjà été faits.
   end

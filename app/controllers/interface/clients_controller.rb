@@ -7,7 +7,7 @@
     end
 
     def update
-      @client.update(client_params)
+      @client.update!(client_params)
       if params[:next_step] == 'completed' # always FIRST !
         if cookies[:last_important_object_visited].present?
             redirect_to_last_important_path_visited

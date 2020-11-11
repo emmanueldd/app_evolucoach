@@ -32,7 +32,7 @@ class Course < ApplicationRecord
   end
 
   def set_availability
-    availability.update(taken: (confirmed? || done?)) if availability.present?
+    availability.update!(taken: (confirmed? || done?)) if availability.present?
   end
 
   def confirmed_or_done?

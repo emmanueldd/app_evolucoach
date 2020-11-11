@@ -1,13 +1,13 @@
-module Interface
+ module Interface
   class OrdersController < InterfaceController
     before_action :set_order, only: [:show, :edit, :update, :availabilities, :pay, :payment]
-    skip_before_action :authenticate_client!, only: :create
+    skip_before_action :authenticate_client!, only: [:create, :payment]
     before_action :authenticate_client_to_add_to_cart, only: :create
 
     def show
       @user = @order.user
       if params[:alma].present? && @order.alma_uncomplete?
-        @order.update(alma_state: 'not_started')
+        @order.update!(alma_state: 'not_started')
       elsif !@order.paid?
         return redirect_to interface_order_payment_path(@order.uuid)
       end
@@ -52,12 +52,16 @@ module Interface
     end
 
     def payment # page de paiement
+      @order ||= Order.find_by(uuid: params[:id])
+      current_lead.update(user: @order.user)
+      cookies[:last_important_object_visited] = url_for
+      return authenticate_client!
       tracker do |t|
         t.facebook_pixel :track, { type: 'InitiateCheckout' }
       end
       @stripe = true
       @user = @order.user
-
+      @order.client = current_client
       @order.set_total_price
       @order.save!
       if @order.total_price > 0
@@ -78,7 +82,7 @@ module Interface
     end
 
     def update
-      @order.update(order_params)
+      @order.update!(order_params)
       head :no_content
     end
 
@@ -95,7 +99,7 @@ module Interface
       @order = Order.find_by(uuid: params[:id])
       @user = @order.user
       billing_address = params[:billing_address]
-      current_lead.update(billing_address_params)
+      current_lead.update!(billing_address_params)
       begin
         if @user.payment_info.alma_api_key.include?('test')
           uri = URI("https://api.sandbox.getalma.eu/v1/payments")
@@ -141,7 +145,7 @@ module Interface
         puts "response #{res.body}"
         payment = JSON.parse(res.body)
         url = payment["url"]
-        @order.update(alma_payment_id: payment['id'], alma_state: 'new')
+        @order.update!(alma_payment_id: payment['id'], alma_state: 'new')
         redirect_to url
       rescue => e
         flash[:notice] = "Une erreur s\'est produite #{e}"
@@ -176,7 +180,7 @@ module Interface
         res = http.request(req)
         payment = JSON.parse(res.body)
         if payment.present?
-          @order.update(alma_state: payment['state'])
+          @order.update!(alma_state: payment['state'])
         end
         render status: 200, json: { success: true } and return
       end
@@ -184,7 +188,7 @@ module Interface
 
     private
       def set_order
-        @order = current_client.orders.find_by(uuid: params[:id])
+        @order = current_client.orders.find_by(uuid: params[:id]) if current_client
       end
 
 

@@ -1,0 +1,38 @@
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-light-blue.page13
+  .bg-top
+  .container
+    .row
+      .col-12
+        .content-inner.page14
+
+          - if @item_type.blank?
+            .text-center
+              -# Avant d'arriver ici, faire une page pdf ou faire le programme sur l'outil.
+              -# Une fois choisie, si c'est pdf, on est redirigé vers cette page avec un uploader de pdf, puis on est directement redirigé vers la suite tout en modifiant la page show du programme qui sans pdf montre l'outil
+              %h2.white Que souhaitez-vous associer à ce paiement ?
+              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(client_id: params[:client_id], item_type: 'online_offer')} Un suivi en ligne
+              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(client_id: params[:client_id], item_type: 'program')} Un programme
+              %a.validate.g-blue-bg.fontbold.lg-btn{href: url_for(client_id: params[:client_id], item_type: 'pack')} Un pack de coachings
+
+          - else
+            = simple_form_for @order, url: dashboard_orders_path do |f|
+              -# = f.input :client, collection: current_user.clients
+              %h2.white.text-center
+                Créer un lien de paiement
+                - if @client.present?
+                  pour
+                  = @client.first_name
+                %br
+                %br
+              .col-md-4.col-12.offset-md-4
+                %span{style: 'position: absolute; color: #fff; z-index: 99; font-size: 20px; font-weight: bold; float: inherit; top: 38px; left: -5px;'} €
+                = f.input :total_price, required: true, input_html: { class: 'full-width' }
+                = f.input_field :client_id, as: :hidden, value: @client.id if @client.present?
+                = simple_fields_for :order_has_item do |ff|
+                  = ff.input_field :item_id, collection: @items, required: true, include_blank: "Séléctionnez un #{@item_name}"
+                  = ff.input_field :item_type, as: :hidden, value: @item_type, required: true
+                .text-center
+                  %button.validate.g-blue-bg.fontbold Créer
+  / Content Area

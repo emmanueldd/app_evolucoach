@@ -32,7 +32,7 @@ module Dashboard
     end
 
     def update
-      if @online_offer.update(online_offer_params)
+      if @online_offer.update!(online_offer_params)
         if params[:online_offer][:next_step].present?
           redirect_to edit_dashboard_online_offer_path(step: params[:online_offer][:next_step])
         else

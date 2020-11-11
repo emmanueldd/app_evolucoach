@@ -31,6 +31,10 @@ class User < ApplicationRecord
   after_create :set_affiliate_code
   validate :is_account_allowed?, on: :create
 
+  def clients
+    user_has_clients.clients
+  end
+
   def set_affiliate_code
     affiliate_codes.create(name: "#{frist_name}#{id}".downcase)
   end

@@ -39,7 +39,7 @@ module Dashboard
       # => https://stripe.com/docs/billing/subscriptions/fixed-price#change-price
       @subscription = current_user.subscriptions.find_by(id: params[:id])
       if @subscription.present?
-        if @subscription.update(subscription_params) && @subscription.errors.blank?
+        if @subscription.update!(subscription_params) && @subscription.errors.blank?
           render json: { subscription: @subscription }
         else
           # Errors come from the subscription model begin/rescue : # => cancel # => change_pricing

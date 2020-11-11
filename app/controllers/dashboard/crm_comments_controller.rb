@@ -31,7 +31,7 @@ module Dashboard
 
     def destroy
       @user_has_client = @crm_comment.user_has_client
-      if @crm_comment.update(archived: true)
+      if @crm_comment.update!(archived: true)
         redirect_to dashboard_crm_path(@user_has_client, section: 'followup'), notice: 'Note supprimée.'
       end
     end

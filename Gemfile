@@ -63,6 +63,8 @@ gem 'rack-tracker'
 gem 'carrierwave-aws'
 gem 'aws-sdk-rails'
 gem 'sidekiq'
+gem 'will_paginate'
+
 
 
 

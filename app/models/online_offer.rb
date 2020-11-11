@@ -14,6 +14,14 @@ class OnlineOffer < ApplicationRecord
 
   before_save :set_client, if: -> { user_has_client.present? }
 
+  def self.show_name
+    'suivi en ligne'
+  end
+
+  def display_name
+    "Suivi - #{name}"
+  end
+
   def set_client
     self.client = user_has_client.client
   end

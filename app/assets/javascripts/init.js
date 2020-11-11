@@ -9,6 +9,24 @@ function readURL(input) {
   }
 }
 $(document).ready(function () {
+  if ($('#copy').length) {
+    $('#copy').click(function() {
+      /* Get the text field */
+      const el = document.createElement('textarea');
+      var str = document.getElementById("to_copy").value;
+      el.value = str;
+      document.body.appendChild(el);
+      el.select();
+      el.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      $('body').append('<div class="flash-container blue-bg" id="flash-message"><i class="fa fa-check white"></i  > &nbsp;<p>Copié</p></div>');
+      setTimeout(function() {
+        $('#flash-message').hide('slow')
+      }, 5000);
+    })
+  }
+
   if ($('#city').length) {
     var placesAutocomplete = places({
       container: document.getElementById('city'),

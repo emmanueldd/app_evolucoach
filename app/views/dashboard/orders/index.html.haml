@@ -1,0 +1,42 @@
+= render 'layouts/header'
+/ Content Area
+.content-area.bg-light-blue.page13
+  .bg-top
+  .container
+    .row
+      .col-12
+        .content-inner.page14
+          .text-right
+            %a.border-btn{:href => new_dashboard_order_path}
+              = image_tag "pen.png", alt:""
+              Créer un lien de paiement
+          - if @orders.blank?
+            %p Vous n'avez pas encore eu de paiements.
+          - else
+            - @orders.each do |order|
+              .about-box
+                .about-img.text-center
+                  - if order.client.present?
+                    = image_tag order.client.avatar_url, alt: "about"
+                  - else
+                    = image_tag "avatar-placeholder.png", alt: "about"
+                  %br
+                  
+                  = order.client.try(:first_name)
+                .about-content
+                  %h3.about-title
+                    = order.name
+                  %small Crée le #{I18n.l(order.created_at)}
+                  %p
+                    = number_to_currency(order.total_price)
+                    💸
+                    #{status_to_str(order.status, order.created_at)}
+                    %br
+                      %a#copy.iblue{:href => "#"}
+                        %b Copier le lien de paiement :
+                        %input#to_copy{:name => "", :type => "hidden", :value => "#{interface_order_payment_url(order.uuid)}"}/
+                        %br
+                        %u.white= interface_order_payment_url(order.uuid)
+            .row
+              .col-12
+                = will_paginate @orders

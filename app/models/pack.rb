@@ -7,7 +7,13 @@ class Pack < ApplicationRecord
   enum pack_type: { solo: 0, duo: 1 }
   accepts_nested_attributes_for :user
 
+  def self.show_name
+    'pack'
+  end
 
+  def display_name
+    "Pack - #{name}"
+  end
 
   def set_price
     if unit_price.present? && nb_of_courses.present?

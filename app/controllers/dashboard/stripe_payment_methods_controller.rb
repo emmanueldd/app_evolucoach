@@ -13,7 +13,7 @@ module Dashboard
     def update
       @stripe_payment_method = current_user.stripe_payment_methods.find_by(id: params[:id])
       if @stripe_payment_method.present?
-        if @stripe_payment_method.update(stripe_payment_method_params)
+        if @stripe_payment_method.update!(stripe_payment_method_params)
           render json: { stripe_payment_method: @stripe_payment_method }
         else
           render json: { errors: @stripe_payment_method.errors }

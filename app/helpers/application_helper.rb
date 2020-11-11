@@ -9,6 +9,21 @@ module ApplicationHelper
     # end
   end
 
+  def status_to_str(status, date = nil)
+    case status
+    when 'paid'
+      date_str = nil
+      date_str = " le #{I18n.l(date)}" if date.present?
+      "payé #{date_str} ✅"
+    when 'failed'
+      'échoué'
+    when 'refunded'
+      'remboursé'
+    else
+      'en attente'
+    end
+  end
+
   def price_to_currency(number)
     number ||= 0
     "#{number / 100}€"

@@ -40,8 +40,9 @@ class ApplicationController < ActionController::Base
   helper_method :mobile_device?
 
   def redirect_to_last_important_path_visited
-    redirect_to cookies[:last_important_object_visited].constantize.find(cookies[:last_important_id_visited])
+    redirect_to cookies[:last_important_object_visited].include?('http') ? cookies[:last_important_object_visited] : cookies[:last_important_object_visited].constantize.find(cookies[:last_important_id_visited])
   end
+
 
   def current_lead
     return current_client if current_client

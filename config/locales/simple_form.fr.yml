@@ -55,6 +55,7 @@ fr:
         content: 'Ta réponse'
         name: 'Ta question'
       defaults:
+        total_price: 'Prix total'
         birth_date: 'Date de naissance'
         instagram_url: 'Ton instagram'
         gift: 'Ton cadeau'
