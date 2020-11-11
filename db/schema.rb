@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201022210016) do
+ActiveRecord::Schema.define(version: 20201111201210) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(version: 20201022210016) do
     t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "video_url"
     t.index ["exercise_category_id"], name: "index_exercises_on_exercise_category_id"
   end
 
@@ -344,6 +345,7 @@ ActiveRecord::Schema.define(version: 20201022210016) do
     t.datetime "updated_at", null: false
     t.bigint "exercise_category_id"
     t.integer "exercise_count", default: 1
+    t.string "video_url"
     t.index ["exercise_category_id"], name: "index_program_steps_on_exercise_category_id"
     t.index ["exercise_id"], name: "index_program_steps_on_exercise_id"
     t.index ["program_id"], name: "index_program_steps_on_program_id"
