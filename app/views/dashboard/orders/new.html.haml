@@ -31,7 +31,10 @@
                 = f.input :total_price, required: true, input_html: { class: 'full-width' }
                 = f.input_field :client_id, as: :hidden, value: @client.id if @client.present?
                 = simple_fields_for :order_has_item do |ff|
-                  = ff.input_field :item_id, collection: @items, required: true, include_blank: "Séléctionnez un #{@item_name}"
+                  = ff.label :item do
+                    Sélectionnez un #{@item_name}
+                    %abbr{title: "requis"} *
+                  = ff.input_field :item_id, collection: @items, required: true, include_blank: "Sélectionnez un #{@item_name}", selected: @item.present? ? @item.id : nil
                   = ff.input_field :item_type, as: :hidden, value: @item_type, required: true
                 .text-center
                   %button.validate.g-blue-bg.fontbold Créer

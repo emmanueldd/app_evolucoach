@@ -16,6 +16,7 @@ module Dashboard
       if params[:item_type].present? && ['Pack', 'OnlineOffer', 'Program'].include?(params[:item_type].camelize)
         @item_type = params[:item_type].camelize
         @item_name = @item_type.constantize.show_name
+        @item = @item_type.constantize.find_by(user: current_user, id: params[:item_id]) if params[:item_id].present?
         @items = @item_type.constantize.where(user: current_user).published
       end
     end

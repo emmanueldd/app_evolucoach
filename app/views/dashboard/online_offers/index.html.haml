@@ -16,6 +16,9 @@
                 %a.rightarrow.white{:href => "#{edit_dashboard_online_offer_path(online_offer)}"}
 
             .full-width.text-right
+              = link_to new_dashboard_order_path(item_id: online_offer.id, item_type: 'online_offer') do
+                Créer un lien de paiement
+              |
               = link_to edit_dashboard_online_offer_path(online_offer) do
                 Modifier
               |

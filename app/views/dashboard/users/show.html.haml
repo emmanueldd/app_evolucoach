@@ -34,6 +34,9 @@
                             %br/
                         %a.rightarrow{href: edit_dashboard_pack_path(pack)}
                     .full-width.text-right
+                      = link_to new_dashboard_order_path(item_id: pack.id, item_type: 'pack') do
+                        Créer un lien de paiement
+                      |
                       = link_to edit_dashboard_pack_path(pack) do
                         Modifier
                       |
@@ -53,6 +56,9 @@
                           = pack.nb_of_courses
                           séances
                       .right
+                        = link_to new_dashboard_order_path(item_id: pack.id, item_type: 'pack') do
+                          Créer un lien de paiement
+                        |
                         = link_to edit_dashboard_pack_path(pack) do
                           Modifier
                         |
@@ -65,6 +71,9 @@
                             %br/
                         %a.rightarrow{href: edit_dashboard_pack_path(pack)}
                     .full-width.text-right
+                      = link_to new_dashboard_order_path(item_id: pack.id, item_type: 'pack') do
+                        Créer un lien de paiement
+                      |
                       = link_to edit_dashboard_pack_path(pack) do
                         Modifier
                       |

@@ -22,6 +22,9 @@
                 %a.rightarrow.white{:href => "#{edit_dashboard_program_path(program)}"}
 
             .full-width.text-right
+              = link_to new_dashboard_order_path(item_id: program.id, item_type: 'program') do
+                Créer un lien de paiement
+              |
               = link_to edit_dashboard_program_path(program) do
                 Modifier
               |
