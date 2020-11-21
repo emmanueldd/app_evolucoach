@@ -17,7 +17,7 @@ class ProgramStep < ApplicationRecord
   end
 
   def set_video_url
-    self.video_url ||= exercise.video_url
+    self.video_url ||= exercise.video_url if exercise.present?
   end
 
 end

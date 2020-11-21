@@ -6,8 +6,8 @@
       .col-12
         .content-inner
           .bet-text.flexbox
-            %a.active{:href => "#"} Pectoraux
-            %a{:href => "#"} Exercice #{@program_step.exercise_count + 1}
+            %a.active{:href => "#"}= @program_step.exercise.name
+            -# %a{:href => "#"} Exercice #{@program_step.exercise_count + 1}
           = simple_form_for @program_step, url: dashboard_step_path do |f|
             .input-box.grey-bg.white
               .form-group
@@ -19,6 +19,8 @@
                 %span.input-absolute Kg
               .form-group
                 = f.input :cadence, placeholder: '2-4-6-8', required: true, label: 'Cadence'
+              .form-group
+                = f.input :video_url, placeholder: 'Lien de la vidéo youtube de l\'exercice', label: 'Lien Youtube', hint: @program_step.exercise.present? ? 'Afin d\'aider ton client à éxécuter le mouvement, la vidéo Evolucoach apparaîtra par défaut.' : 'Afin d\'aider ton client à éxécuter le mouvement'
             %br/
             %button.margin-auto.validate.site-btn.fontbold.blue-bg{:ref => "#", :type => "submit"}
               Valider #{image_tag "tik.png", alt:""}

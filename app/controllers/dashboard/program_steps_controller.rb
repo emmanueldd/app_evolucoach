@@ -45,7 +45,7 @@ module Dashboard
 
     private
       def program_step_params
-        params.require(:program_step).permit(:name, :published, :exercise_id, :round, :repetition, :cadence, :charge, :exercise_category_id)
+        params.require(:program_step).permit(:name, :published, :exercise_id, :round, :repetition, :cadence, :charge, :exercise_category_id, :video_url)
       end
 
       def set_program

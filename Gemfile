@@ -64,6 +64,8 @@ gem 'carrierwave-aws'
 gem 'aws-sdk-rails'
 gem 'sidekiq'
 gem 'will_paginate'
+gem 'youtube_id'
+
 
 
 
