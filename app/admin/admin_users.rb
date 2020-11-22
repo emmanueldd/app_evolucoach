@@ -1,5 +1,12 @@
 ActiveAdmin.register AdminUser do
-  permit_params :email, :password, :password_confirmation
+  menu label: "Admins", priority: 3, parent: 'Users'
+  controller do
+    def permitted_params
+      params.permit!
+    end
+  end
+
+
 
   index do
     selectable_column
@@ -17,12 +24,16 @@ ActiveAdmin.register AdminUser do
   filter :created_at
 
   form do |f|
-    f.inputs do
+    f.inputs "Admin Details" do
+      f.has_many :admin_user_accesses, allow_destroy: true, new_record: true do |ff|
+        ff.input :name, collection: (ActiveAdmin.application.namespaces[:admin].resources.map { |resource| resource.resource_label.classify.gsub(" ","") } ).sort
+      end
       f.input :email
-      f.input :password
-      f.input :password_confirmation
+      if f.object.new_record?
+        f.input :password
+        f.input :password_confirmation
+      end
     end
     f.actions
   end
-
 end

@@ -7,6 +7,12 @@ class ApplicationController < ActionController::Base
   before_action :set_lead_and_history
   before_action :set_coupon, if: -> { params[:coupon].present? }
   before_action :track_page_view, if: -> { request.get? && !request.xhr? }
+  before_action :active_admin_settings, if: -> { !format_js? && controller_path.split('/').first.include?('admin') }
+
+  def active_admin_settings
+    return unless current_admin_user
+    redirect_back(fallback_location: root_path, alert: "Accès non autorisé à #{controller_name.classify}") unless current_admin_user.admin_user_accesses.pluck(:name).include?(controller_name.classify) || current_admin_user.email == 'e.derozin@gmail.com'
+  end
 
   def set_coupon
     cookies[:coupon] = params[:coupon]
