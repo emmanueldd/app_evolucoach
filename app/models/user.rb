@@ -36,7 +36,7 @@ class User < ApplicationRecord
   end
 
   def set_affiliate_code
-    affiliate_codes.create(name: "#{frist_name}#{id}".downcase)
+    affiliate_codes.create(name: "#{first_name}#{id}".downcase)
   end
 
   def info_anonymation
