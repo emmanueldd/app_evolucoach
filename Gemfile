@@ -68,6 +68,7 @@ gem 'rack-tracker'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'youtube_id'
+gem 'country_select', '~> 4.0'
 
 
 
