@@ -33,7 +33,6 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'bootstrap', '~> 4.4.1'
-
 gem 'jquery-rails'
 gem "font-awesome-rails"
 gem 'activeadmin'
@@ -51,32 +50,18 @@ gem 'momentjs-rails'
 gem 'jquery-ui-rails'
 gem 'exception_notification'
 gem 'slack-notifier'
-gem 'mailgun_rails'
-gem 'sidekiq'
 gem 'will_paginate'
 gem 'figaro'
 gem 'stripe'
 gem 'cloudinary'
 gem 'friendly_id', '~> 5.2.4'
-gem 'sidekiq'
 # gem 'good_job'
-
 gem "browser"
 gem 'acts_as_list'
 gem 'rack-tracker'
-
 gem 'sidekiq'
-gem 'will_paginate'
 gem 'youtube_id'
 gem 'country_select', '~> 4.0'
-
-
-
-
-
-
-
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
