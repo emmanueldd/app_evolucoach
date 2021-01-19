@@ -8,8 +8,8 @@ class AdminUser < ApplicationRecord
   after_create :set_default_admin_user_accesses
 
   def set_default_admin_user_accesses
-    ['Exercise', 'Comment', 'Dashboard'].each do |access|
-      AdminUser.last.admin_user_accesses.find_or_create_by(name: access)
+    ['Exercise', 'Comment', 'Dashboard', 'Session'].each do |access|
+      admin_user_accesses.find_or_create_by(name: access)
     end
   end
 end
