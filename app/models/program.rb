@@ -1,6 +1,6 @@
 class Program < ApplicationRecord
   extend FriendlyId
-  include PriceSetting
+  # include PriceSetting
   friendly_id :name, use: :slugged
   mount_uploader :cover, CoverUploader
   mount_uploader :file, FileUploader
