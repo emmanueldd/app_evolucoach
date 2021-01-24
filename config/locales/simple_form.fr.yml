@@ -11,7 +11,7 @@ fr:
     error_notification:
       default_message: "Veuillez remplir les champs correctement"
       defaults:
-        man: 'Veuillez indiquer votre sex'
+        man: 'Ce champ est requis'
     values:
       defaults:
         meet_at: 'Cliquez ici pour afficher le calendrier'
@@ -25,15 +25,15 @@ fr:
         supplement_half_long_hair: '5,0'
         title: 'ex: Nattes collées tête entière'
       client:
-        email: 'Votre email'
-        zipcode: 'Votre code postal'
-        phone: 'Votre n° de téléphone'
+        email: 'Ton email'
+        zipcode: 'Ton code postal'
+        phone: 'Ton n° de téléphone'
         password: 'Mot de passe'
         current_password: 'Mot de passe actuel'
         password_confirmation: 'Confirmer le mot de passe'
         username: 'Pseudo'
-        first_name: 'Votre prénom'
-        last_name: 'Votre nom'
+        first_name: 'Ton prénom'
+        last_name: 'Ton nom'
         birthday: 'Date de naissance'
       defaults:
         instagram_url: '@bineta_doucoure'
