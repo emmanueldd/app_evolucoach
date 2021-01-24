@@ -79,7 +79,7 @@
                     Confirmer →
                     -# = @product.price_4x
           - else
-            - if @user.payment_info.alma_api_key && @order.total_price.to_i > 100
+            - if @user.payment_info&.alma_api_key && @order.total_price.to_i > 100
               %u= link_to 'Je souhaite payer en 3 fois sans frais →', url_for(alma: true), class: 'iblue'
             %br
             %br
