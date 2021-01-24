@@ -16,13 +16,15 @@ class OrderMailer < ApplicationMailer
   # app/views/order_mailer/alma_payment_client_email.html.haml
   # OrderMailer.with(order: @order).alma_payment_client_email.deliver_later
   def alma_payment_client_email
-    mail(from: "#{@user.first_name} Evolucoach", to: @client.email, subject: 'Ton paiement est en attente de validation')
+    mail(to: @client.email, subject: 'Ton paiement est en attente de validation')
+    # mail(from: "#{@user.first_name} Evolucoach", to: @client.email, subject: 'Ton paiement est en attente de validation')
   end
 
   # app/views/order_mailer/order_paid_client_email.html.haml
   # OrderMailer.with(order: @order).order_paid_client_email.deliver_later
   def order_paid_client_email
-    mail(from: "#{@user.first_name} Evolucoach", to: @client.email, subject: 'Confirmation de paiement')
+    mail(to: @client.email, subject: 'Confirmation de paiement')
+    # mail(from: "#{@user.first_name} Evolucoach", to: @client.email, subject: 'Confirmation de paiement')
   end
 
   # app/views/order_mailer/client_changed_coachings_user_email.html.haml

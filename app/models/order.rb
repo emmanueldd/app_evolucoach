@@ -21,6 +21,10 @@ class Order < ApplicationRecord
   scope :paid_with_credits, -> { paid.where('credit_left > ?', 0) }
   scope :waiting_or_paid, -> { where('status > ?', 0) }
 
+  def program_url
+    programs&.first&.file_url
+  end
+
   def show_calendly_after_payment?
     order_has_items.find_each do |order_has_item|
       return true if order_has_item.item.show_calendly_after_payment

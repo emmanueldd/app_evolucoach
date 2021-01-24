@@ -31,6 +31,9 @@
               %br
               Ta commande est confirmée.
               %br
+              - if @order.program_url.present?
+                = link_to 'Télécharge ton programme en cliquant ici ou ', @order.program_url
+                %br
               Retrouve-la sur ton profil.
             %br
           - if @order.show_calendly_after_payment?
