@@ -67,7 +67,7 @@ class Client < ApplicationRecord
   end
 
   def find_stripe_customer_id(user)
-    connected_stripe_account_id = user.payment_info.stripe_account_id
+    connected_stripe_account_id = user&.payment_info&.stripe_account_id
     my_stripe_customer_id = stripe_customer_ids.find_by(user: user).try(:customer_id)
     if my_stripe_customer_id.blank?
       my_stripe_customer_id = create_stripe_customer_id(connected_stripe_account_id)
@@ -75,9 +75,7 @@ class Client < ApplicationRecord
     begin
       stripe_customer = Stripe::Customer.retrieve(
         stripe_customer_id,
-        {
-          stripe_account: connected_stripe_account_id,
-        }
+        connected_stripe_account_id.present? ? {stripe_account: connected_stripe_account_id} : {}
       )
     rescue => e
       my_stripe_customer_id = create_stripe_customer_id(connected_stripe_account_id)
@@ -88,9 +86,8 @@ class Client < ApplicationRecord
   def create_stripe_customer_id(connected_stripe_account_id = nil)
     customer = Stripe::Customer.create({
       email: email
-    }, {
-      stripe_account: connected_stripe_account_id,
-    })
+    }, connected_stripe_account_id.present? ? {stripe_account: connected_stripe_account_id} : {}
+    )
     stripe_customer_ids.create(user: user, customer_id: customer.id)
     return customer.id
   end
