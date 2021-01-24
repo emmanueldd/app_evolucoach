@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get 'orders/alma_confirm' , to: 'interface/orders#alma_confirm', as: :alma_confirm
   get 'orders/alma_cancel' , to: 'interface/orders#alma_cancel', as: :alma_cancel
   get 'client/authenticate' , to: 'clients#authenticate_client', as: :authenticate_client
+  get 'program/download' , to: 'programs#download', as: :download_program
 
   resources :users, only: :index do
     resources :availabilities, only: :index, shallow: true

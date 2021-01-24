@@ -21,6 +21,10 @@ class Order < ApplicationRecord
   scope :paid_with_credits, -> { paid.where('credit_left > ?', 0) }
   scope :waiting_or_paid, -> { where('status > ?', 0) }
 
+  def secret_key
+    SecureRandom.hex(20)
+  end
+
   def program_url
     programs&.first&.file_url
   end

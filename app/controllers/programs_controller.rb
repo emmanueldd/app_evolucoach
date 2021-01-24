@@ -12,4 +12,11 @@ class ProgramsController < ApplicationController
     cookies[:last_important_id_visited] = @program.id
   end
 
+  def download
+    if params[:secret_key].present? && params[:program_id].present?
+      @program = Program.friendly.find(params[:id])
+      redirect_to @program.file_url
+    end
+  end
+
 end
