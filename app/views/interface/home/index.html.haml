@@ -89,7 +89,7 @@
                     .right
                       %h3.fontlight= number_to_currency(program.price)
                       - if program.file_url.present?
-                        %a.rightarrow.white{:href => "#{file_url}", target: '_blank'}
+                        %a.rightarrow.white{:href => "#{program.file_url}", target: '_blank'}
                       - else
                         %a.rightarrow.white{:href => "#{interface_program_path(program)}"}
                   %br
