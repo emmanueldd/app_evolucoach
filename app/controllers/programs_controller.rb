@@ -10,6 +10,8 @@ class ProgramsController < ApplicationController
     @order = Order.new
     cookies[:last_important_object_visited] = @program.class.name
     cookies[:last_important_id_visited] = @program.id
+    @user = @program.user
+    current_lead.update!(user: @user) unless user_signed_in? && current_user == @user
   end
 
   def download
