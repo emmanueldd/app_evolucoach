@@ -14,8 +14,10 @@ class ProgramsController < ApplicationController
 
   def download
     if params[:secret_key].present? && params[:program_id].present?
-      @program = Program.friendly.find(params[:id])
+      @program = Program.friendly.find(params[:program_id])
       redirect_to @program.file_url
+    else
+      redirect_to root_url
     end
   end
 
