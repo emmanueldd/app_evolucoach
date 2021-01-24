@@ -23,8 +23,8 @@
               %p.text-right
                 %b #{number_to_currency(@program.price)}
           .pack-profile-box.mb-30
-            .pack-profile-img
-              = image_tag @program.user.avatar_url
+            -# .pack-profile-img
+            -#   = image_tag @program.user.avatar_url
             %p=simple_format(@program.description)
           = simple_form_for [:interface, @order] do |f|
             = simple_fields_for :order_has_item do |ff|
