@@ -87,7 +87,10 @@
                         séances/semaine
                     .right
                       %h3.fontlight= number_to_currency(program.price)
-                      %a.rightarrow.white{:href => "#{interface_program_path(program)}"}
+                      - if program.file_url.present?
+                        %a.rightarrow.white{:href => "#{file_url}", target: '_blank'}
+                      - else
+                        %a.rightarrow.white{:href => "#{interface_program_path(program)}"}
                   %br
               - else
                 Vous n'avez pas encore acheté de programmes.
