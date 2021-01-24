@@ -14,8 +14,9 @@
       .col-12
         .content-inner
           .pack-top.mb-30.fontlight
-            %p.text-right
-              %b #{number_to_currency(@online_offer.price)}
+            - unless @online_offer.hide_payment_page
+              %p.text-right
+                %b #{number_to_currency(@online_offer.price)}
           .pack-profile-box.mb-30
             .pack-profile-img
               = image_tag @online_offer.user.avatar_url

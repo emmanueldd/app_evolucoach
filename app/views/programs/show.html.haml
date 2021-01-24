@@ -19,8 +19,9 @@
               %span.white
                 %br>/
                 #{@program.frequency} séances/semaine
-            %p.text-right
-              %b #{number_to_currency(@program.price)}
+            - unless @program.hide_payment_page
+              %p.text-right
+                %b #{number_to_currency(@program.price)}
           .pack-profile-box.mb-30
             .pack-profile-img
               = image_tag @program.user.avatar_url
