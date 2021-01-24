@@ -32,7 +32,7 @@
               Ta commande est confirmée.
               %br
               - if @order.program_url.present?
-                = link_to 'Télécharge ton programme en cliquant ici ou ', @order.program_url
+                = link_to 'Télécharge ton programme en cliquant ici ou ', @order.program_url, target: '_blank'
                 %br
               Retrouve-la sur ton profil.
             %br
