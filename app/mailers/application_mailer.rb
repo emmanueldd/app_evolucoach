@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: '"Evolucoach" <contact@evolucoach.com>'
+  default from: '"Evolucoach" <contact@evolucorp.com>'
   layout 'mailer'
 end
