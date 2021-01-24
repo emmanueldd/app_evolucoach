@@ -35,8 +35,8 @@ class User < ApplicationRecord
     user_has_clients.clients
   end
 
-  def stripe_account_present?
-    payment_info&.stripe_account_id.present?
+  def stripe_account_id
+    payment_info&.stripe_account_id
   end
 
   def set_affiliate_code

@@ -74,7 +74,7 @@
           capture_method: 'automatic',
           description: "https://evolucoach.com/admin/orders/#{@order.id}",
           setup_future_usage: 'off_session'
-        }, @user.stripe_account_present? ? { stripe_account: @user.payment_info.stripe_account_id } : {} )
+        }, @user.stripe_account_id.present? ? { stripe_account: @user.payment_info.stripe_account_id } : {} )
         @client_secret = stripe_intent.client_secret
       end
     end

@@ -16,6 +16,7 @@
             %p.fontlight Nom du programme
             = simple_form_for [:dashboard, @program] do |f|
               = f.input_field :user_has_client_id, as: :hidden, value: params[:user_has_client_id]
+              = f.hidden_field :next_step, value: 'duration'
               %input.form-control{:name => "program[name]", :placeholder => "Exemple : découverte", :type => "text"}/
               - if params[:program_type] == 'upload_pdf'
                 %label.display-block.text-center

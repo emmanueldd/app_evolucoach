@@ -17,7 +17,13 @@ module Dashboard
         @user_has_client = current_user.user_has_clients.find(program_params[:user_has_client_id])
         @program.user_has_client = @user_has_client if @user_has_client.present?
       end
-      redirect_to edit_dashboard_program_path(@program) if @program.save!
+      if @program.save!
+        if params[:program][:next_step].present?
+          redirect_to edit_dashboard_program_path(@program, step: params[:program][:next_step])
+        else
+          redirect_to edit_dashboard_program_path(@program)
+        end
+      end
     end
 
     def show

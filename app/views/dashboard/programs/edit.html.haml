@@ -1,5 +1,5 @@
 %body
-  - if params[:step].blank?
+  - if params[:step] == 'duration'
     = render 'layouts/header'
     .content-area.bg-dark-blue2.page27
       .container
@@ -24,6 +24,33 @@
                   programme pendant sa durée en fonction
                   de l’évolution de ton athlète.
                 %button.validate.g-blue-bg.fontbold{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
+  - elsif params[:step].blank?
+    = render 'layouts/header'
+    .content-area.bg-dark-blue2.page27
+      .container
+        .row
+          .col-12
+            .object-content
+              %p.fontlight Nom du programme
+              = simple_form_for [:dashboard, @program] do |f|
+                = f.input_field :user_has_client_id, as: :hidden, value: params[:user_has_client_id]
+                %input.form-control{:name => "program[name]", :placeholder => "Exemple : découverte", :type => "text", value: @program.name}/
+                - if @program.file.present?
+                  %label.display-block.text-center
+                    %br
+                    %u
+                      %b= link_to 'Clique ici pour afficher le PDF actuel', @program.file_url, target: '_blank', style: 'color: #03B3BB;'
+                    %br
+                    %br
+                    %br
+                    = f.input_field :file, style: 'opacity: 1', onchange: "readURL(this);"
+                    = f.hidden_field :next_step, value: 'duration'
+                    %br
+                    %br
+                    .touch
+                      = image_tag "touch.png", alt:"", class: 'banner-upload'
+                      %p.fontlight Clique ici pour uploader et remplacer ton programme
+                %button.validate.g-blue-bg.fontbold.lg-btn{:ref => "#", :type => "submit", :value => "Suivant →"} Suivant →
   - elsif params[:step] == 'rest_note'
     / Header
     %header.header-area.blue-light-bg.page21
