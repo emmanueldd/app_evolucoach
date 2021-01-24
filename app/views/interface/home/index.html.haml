@@ -33,12 +33,13 @@
     .row
       .col-8.offset-2
         .profile-links.mt-30.nav
-          %a.active{"data-toggle" => "tab", :href => "#coachings"} coachings
-          %a{"data-toggle" => "tab", :href => "#programmes"} programmes
+
+          %a.active{"data-toggle" => "tab", :href => "#programmes"} programmes
+          %a{"data-toggle" => "tab", :href => "#coachings"} coachings
         %br
   .panel-body.drak-grey-bg
     .tab-content
-      #coachings.tab-pane.active.coaching-area
+      #coachings.tab-pane.coaching-area
         .container
           .row
             .col-12
@@ -70,7 +71,7 @@
                     = link_to order_availabilities_path(id: order.uuid, user_id: order.user.id), class: 'iblue' do
                       Il vous reste #{order.credit_left} à placer sur votre Pack "#{order.packs.last.name}" du #{I18n.l(order.paid_at)} auprès de #{order.user.first_name}
                   %hr
-      #programmes.tab-pane.coaching-area
+      #programmes.tab-pane.active.coaching-area
         .container
           .row
             .col-12
