@@ -12,7 +12,10 @@
                 %h3.fontlight= online_offer.name
 
               .right
-                %h3.fontlight= number_to_currency(online_offer.price)
+                - if online_offer.hide_payment_page
+                  %h3 En savoir plus
+                - else
+                  %h3.fontlight= number_to_currency(online_offer.price)
                 %a.rightarrow.white{:href => "#{edit_dashboard_online_offer_path(online_offer)}"}
 
             .full-width.text-right
