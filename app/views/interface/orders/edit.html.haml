@@ -68,4 +68,4 @@
             %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
               Payer
               %small
-                %b #{price_to_currency(@order.total_price)}
+                %b #{number_to_currency(@order.total_price)}

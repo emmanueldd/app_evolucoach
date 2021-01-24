@@ -24,11 +24,6 @@ module ApplicationHelper
     end
   end
 
-  def price_to_currency(number)
-    number ||= 0
-    "#{number}€"
-  end
-
   def get_age_from_date(birth_date)
     ((DateTime.now - birth_date).to_i / 365.25).to_i
   end

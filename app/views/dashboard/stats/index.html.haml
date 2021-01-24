@@ -57,13 +57,13 @@
                     .table-box.align-items-center.row.text-center
                       .col-4.table-body
                         %p.heading Total
-                        %p.fontbold= price_to_currency(@orders_paid.sum(:total_price))
+                        %p.fontbold= number_to_currency(@orders_paid.sum(:total_price))
                       .col-4.table-body
                         %p.heading Ventes
                         %p.fontlight= @orders_paid.count
                       .col-4.table-body
                         %p.heading{style: 'margin-top: 10px;'} Objectif
-                        %p.site-btn.fontlight.btn-bg.grey-bg.no-margin-top=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal)
+                        %p.site-btn.fontlight.btn-bg.grey-bg.no-margin-top=number_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal)
                     .col.text-right
                       %br
                       %a.border-btn{:href => dashboard_stats_goal_path}
@@ -85,7 +85,7 @@
                       .col-4.table-body
                         %p.heading Total
                         - @orders_paid.each do |order|
-                          %p.fontlight= price_to_currency(order.total_price)
+                          %p.fontlight= number_to_currency(order.total_price)
                     .conversion-bars
                       .single-bar.mt-30
                         .svg-chart
@@ -137,7 +137,7 @@
                 .content-inner
                   .pricing-box
                     %p Mes revenus mensuels moyens
-                    %h3 #{price_to_currency(current_user.avg_monthly_income)}/mois
+                    %h3 #{number_to_currency(current_user.avg_monthly_income)}/mois
                   -# .table-box.align-items-center.table2.text-center.row.mt-20
                   -#   .col-4.table-body
                   -#     %p.heading Produit

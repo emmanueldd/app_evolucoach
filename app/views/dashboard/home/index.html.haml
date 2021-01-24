@@ -38,13 +38,13 @@
               .table-box.align-items-center.row.text-center
                 .col-4.table-body
                   %p.heading Total
-                  %p.fontbold= price_to_currency(@orders_paid.sum(:total_price))
+                  %p.fontbold= number_to_currency(@orders_paid.sum(:total_price))
                 .col-4.table-body
                   %p.heading Ventes
                   %p.fontlight= @orders_paid.count
                 .col-4.table-body
                   %p.heading Écart
-                  %p.site-btn.fontlight.btn-bg.grey-bg=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal)
+                  %p.site-btn.fontlight.btn-bg.grey-bg=number_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal)
               .table-box.align-items-center.table2.text-center.row.mt-20
                 .col-4.table-body
                   %p.heading Produit
@@ -57,7 +57,7 @@
                 .col-4.table-body
                   %p.heading Total
                   - @orders_paid.each do |order|
-                    %p.fontlight= price_to_currency(order.total_price)
+                    %p.fontlight= number_to_currency(order.total_price)
             %a.border-btn{:href => dashboard_stats_goal_path}
               = image_tag "pen.png", alt:""
               - if current_user.financial_goal == 0

@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def track_page_view
+    return if current_admin_user || current_user
     if current_lead.user.present? && current_lead.user.fb_pixel_code.present?
       request.env['PIXEL_ID'] = current_lead.user.fb_pixel_code
       tracker do |t|

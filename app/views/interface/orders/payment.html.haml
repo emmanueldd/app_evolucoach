@@ -30,11 +30,14 @@
               %p
                 %h5{style: 'margin-bottom:10px; margin-top: 10px;'}
                   Paiement sécurisé
-                Payez en toute tranquilité grâceà notre sytème
-                %br
-                de sécurité certifié.
-                %br
-                %br
+                - if @order.show_calendly_after_payment?
+                  %b Tu pourras réserver ton appel à l'étape suivante
+                - else
+                  Payez en toute tranquilité grâceà notre sytème
+                  %br
+                  de sécurité certifié.
+                  %br
+                  %br
 
 
           - else
@@ -75,7 +78,7 @@
                     Confirmer →
                     -# = @product.price_4x
           - else
-            - if @user.payment_info.alma_api_key
+            - if @user.payment_info.alma_api_key && @order.total_price.to_i > 100
               %u= link_to 'Je souhaite payer en 3 fois sans frais →', url_for(alma: true), class: 'iblue'
             %br
             %br
@@ -122,7 +125,7 @@
                 %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
                   Payer
                   %small
-                    %b #{price_to_currency(@order.total_price)}
+                    %b #{number_to_currency(@order.total_price)}
               - else
                 %button.margin-auto.validate.site-btn.fontbold.blue-bg{:type => "submit", style: 'background: #0499A4;'}
                   Accéder
