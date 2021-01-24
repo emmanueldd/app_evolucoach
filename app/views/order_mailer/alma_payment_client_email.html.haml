@@ -1,7 +1,7 @@
 %p
   Bonjour #{@client.first_name},
 %p
-  Tu viens d'effectuer un paiement de #{number_to_currency(@order.total_price.to_f / 100)} via Alma :
+  Tu viens d'effectuer un paiement de #{number_to_currency(@order.total_price)} via Alma :
   %br
   %b #{@order.item_title}
 %p

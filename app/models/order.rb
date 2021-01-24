@@ -73,7 +73,7 @@ class Order < ApplicationRecord
     @crm.update!(has_buy: true) if @crm.present?
     @stat = user.stats.find_or_initialize_by(period: Date.today.end_of_month, name: 'income')
     if @stat.present?
-      @stat.stat_value = user.orders.paid.of_month.sum(:total_price) / 100
+      @stat.stat_value = user.orders.paid.of_month.sum(:total_price)
       @stat.save!
     end
 

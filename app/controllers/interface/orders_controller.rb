@@ -17,7 +17,7 @@
         tracker do |t|
           t.facebook_pixel :track, {
             type: 'Purchase',
-            options: { value: ( @order.total_price.to_f / 100), currency: 'EUR' }
+            options: { value: ( @order.total_price ), currency: 'EUR' }
           }
         end
       end
@@ -37,7 +37,7 @@
       @order_has_item.save!
       # Show the calendly if needed
       if @order.show_calendly_before_payment? && @user.calendly_url.present?
-        redirect_to user_calendly_path
+        redirect_to user_calendly_path(@user)
       elsif @order_has_item.item_type == 'Pack'
         redirect_to order_availabilities_path(id: @order.uuid, user_id: @user.id)
       else # Online offer / Program
@@ -55,7 +55,7 @@
       @order ||= Order.find_by(uuid: params[:id])
       current_lead.update(user: @order.user)
       cookies[:last_important_object_visited] = url_for
-      return authenticate_client!
+      return authenticate_client! unless client_signed_in?
       tracker do |t|
         t.facebook_pixel :track, { type: 'InitiateCheckout' }
       end
@@ -66,7 +66,7 @@
       @order.save!
       if @order.total_price > 0
         stripe_intent = Stripe::PaymentIntent.create({
-          amount: @order.total_price,
+          amount: (@order.total_price * 100).to_i,
           customer: current_client.find_stripe_customer_id(@user),
           receipt_email: current_client.email,
           currency: 'eur',
@@ -74,9 +74,7 @@
           capture_method: 'automatic',
           description: "https://evolucoach.com/admin/orders/#{@order.id}",
           setup_future_usage: 'off_session'
-        }, {
-          stripe_account: @user.payment_info.stripe_account_id,
-        })
+        }, @user.stripe_account_present? ? { stripe_account: @user.payment_info.stripe_account_id } : {} )
         @client_secret = stripe_intent.client_secret
       end
     end
@@ -114,7 +112,7 @@
         req.body = {
           payment: {
             installments_count: 3,
-            purchase_amount: @order.total_price,
+            purchase_amount: (@order.total_price * 100).to_i,
             return_url: "#{interface_payment_completed_url(@order, alma: true)}",
             customer_cancel_url: "#{alma_cancel_url}",
             customer: {

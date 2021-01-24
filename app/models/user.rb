@@ -35,6 +35,10 @@ class User < ApplicationRecord
     user_has_clients.clients
   end
 
+  def stripe_account_present?
+    payment_info&.stripe_account_id.present?
+  end
+
   def set_affiliate_code
     affiliate_codes.create(name: "#{first_name}#{id}".downcase)
   end

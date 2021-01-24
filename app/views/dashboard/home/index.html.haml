@@ -44,7 +44,7 @@
                   %p.fontlight= @orders_paid.count
                 .col-4.table-body
                   %p.heading Écart
-                  %p.site-btn.fontlight.btn-bg.grey-bg=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal * 100 )
+                  %p.site-btn.fontlight.btn-bg.grey-bg=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal)
               .table-box.align-items-center.table2.text-center.row.mt-20
                 .col-4.table-body
                   %p.heading Produit

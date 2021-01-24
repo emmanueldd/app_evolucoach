@@ -1,7 +1,7 @@
 %p
   Salut #{@user.first_name},
 %p
-  #{@client.first_name} #{@client.last_name} vient de faire un achat de #{number_to_currency(@order.total_price.to_f / 100)} via Alma :
+  #{@client.first_name} #{@client.last_name} vient de faire un achat de #{number_to_currency(@order.total_price)} via Alma :
   %br
   %b #{@order.item_title}
 %p

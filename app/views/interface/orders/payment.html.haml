@@ -1,6 +1,9 @@
 - if @order.total_price > 0
   :javascript
-    stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}', { stripeAccount: "#{@user.payment_info.stripe_account_id}" } );
+    - if @user.stripe_account_present?
+      stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}', { stripeAccount: "#{@user.payment_info.stripe_account_id}" } );
+    - else
+      stripe = Stripe('#{Rails.configuration.stripe[:publishable_key]}');
 
 %header.header-area.border-btm.page15
 

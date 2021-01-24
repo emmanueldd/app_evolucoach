@@ -10,7 +10,7 @@ class OrderHasItem < ApplicationRecord
     # user and clients has many order_has_item through orders
     # self.user = item.user
     # self.client = order.client if order.present?
-    self.price = item.price * 100
+    self.price = item.price
 
   end
 

@@ -26,7 +26,7 @@ module ApplicationHelper
 
   def price_to_currency(number)
     number ||= 0
-    "#{number / 100}€"
+    "#{number}€"
   end
 
   def get_age_from_date(birth_date)

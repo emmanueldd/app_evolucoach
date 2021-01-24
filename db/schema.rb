@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201111201210) do
+ActiveRecord::Schema.define(version: 20210124090641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,14 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.index ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id"
     t.index ["namespace"], name: "index_active_admin_comments_on_namespace"
     t.index ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id"
+  end
+
+  create_table "admin_user_accesses", force: :cascade do |t|
+    t.string "name"
+    t.bigint "admin_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["admin_user_id"], name: "index_admin_user_accesses_on_admin_user_id"
   end
 
   create_table "admin_users", force: :cascade do |t|
@@ -211,7 +219,7 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.string "name"
     t.string "slug"
     t.text "description"
-    t.integer "price"
+    t.decimal "price", precision: 8, scale: 2
     t.boolean "published"
     t.string "cover"
     t.datetime "created_at", null: false
@@ -238,7 +246,7 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.string "item_type"
     t.bigint "item_id"
     t.integer "quantity", default: 1
-    t.integer "price"
+    t.decimal "price", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["item_type", "item_id"], name: "index_order_has_items_on_item_type_and_item_id"
@@ -249,7 +257,7 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.bigint "client_id"
     t.bigint "user_id"
     t.integer "status", default: 0
-    t.integer "total_price"
+    t.decimal "total_price", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "credit", default: 0
@@ -273,8 +281,8 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.integer "position", default: 0
     t.string "color"
     t.string "pack_type"
-    t.integer "unit_price"
-    t.integer "price", default: 0
+    t.decimal "unit_price", precision: 8, scale: 2
+    t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.integer "nb_of_courses"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -358,7 +366,7 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.string "name"
     t.string "slug"
     t.text "description"
-    t.integer "price"
+    t.decimal "price", precision: 8, scale: 2
     t.boolean "published", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -476,7 +484,7 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.string "first_name", default: ""
     t.string "last_name", default: ""
     t.text "description", default: ""
-    t.integer "financial_goal", default: 0
+    t.decimal "financial_goal", precision: 8, scale: 2, default: "0.0"
     t.string "slug"
     t.string "phone"
     t.string "avatar"
@@ -511,6 +519,7 @@ ActiveRecord::Schema.define(version: 20201111201210) do
     t.index ["slug"], name: "index_users_on_slug", unique: true
   end
 
+  add_foreign_key "admin_user_accesses", "admin_users"
   add_foreign_key "affiliate_code_usages", "affiliate_codes"
   add_foreign_key "affiliate_code_usages", "subscriptions"
   add_foreign_key "affiliate_code_usages", "users"

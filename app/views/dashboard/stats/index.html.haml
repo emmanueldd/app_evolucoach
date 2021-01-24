@@ -63,7 +63,7 @@
                         %p.fontlight= @orders_paid.count
                       .col-4.table-body
                         %p.heading{style: 'margin-top: 10px;'} Objectif
-                        %p.site-btn.fontlight.btn-bg.grey-bg.no-margin-top=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal * 100 )
+                        %p.site-btn.fontlight.btn-bg.grey-bg.no-margin-top=price_to_currency( @orders_paid.sum(:total_price) - current_user.financial_goal)
                     .col.text-right
                       %br
                       %a.border-btn{:href => dashboard_stats_goal_path}

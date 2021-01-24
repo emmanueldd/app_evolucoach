@@ -13,7 +13,7 @@ module Dashboard
         })
         @payment_info.update!(stripe_account_id: response.stripe_user_id, stripe_oauth_token: nil)
       end
-      
+
       # Verifier si le stripe account est valide, erronné ou en attente de validation
       # Afficher le statut dans la vue
       if @payment_info.stripe_account_id.present?

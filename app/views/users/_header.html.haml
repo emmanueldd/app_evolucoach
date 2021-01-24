@@ -23,9 +23,9 @@
             .profile-box.mt-30
               .profile-img
                 = image_tag @user.avatar_url, alt:"Farid"
-              %h3
-                = @user.coaching_count
-                %span.fontlight Coachings
+              -# %h3
+              -#   = @user.coaching_count
+              -#   %span.fontlight Coachings
               %h3
                 %a{href: "#{url_for(section: 'ratings')}"}
                   ⭐️
